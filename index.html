@@ -6,6 +6,7 @@
     <link rel="icon" type="image/svg+xml" href="ico.svg">
 
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="gallery.css">
     <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
 
@@ -44,24 +45,35 @@
     </section>
 
     <!--CONTEÚDO PRINCIPAL-->
-    <main>
+<main>
 
         <section id="noticias">
-            <h2 class="content_title">Notícias</h2>
-            <p>noticias...</p>
+            <h2 class="content_title">Notícias ></h2>
+            <div class="carousel-container" id="container-noticias"></div>
         </section>
 
         <section id="missionarios">
-            <h2 class="content_title">Missionários da IECCP</h2>
-            <p>conteudo sobre os missionarios</p>
+            <h2 class="content_title">Missionários da IECCP ></h2>
+            <div class="carousel-container" id="container-missionarios"></div>
         </section>
 
         <section id="doutrina">
             <h2 class="content_title">Doutrina da igreja</h2>
-            <p>conteudo sobre a doutrina</p>
+            <p>...</p>
         </section>
 
+        <template id="template-padrao">
+            <div class="gallery-item">
+                <a target="_blank" href="">
+                    <img src="" alt="Imagem" width="600" height="600">
+                </a>
+                <div class="desc"></div>
+            </div>
+        </template>
+
     </main>
+
+    <script src="gallery.js"></script>
 
     <!--RODAPÉ-->
     <footer>

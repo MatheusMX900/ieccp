@@ -3,10 +3,19 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+
+  /* DEBUG */
+  /* outline: 1px solid red !important; */
 }
 
 body {
   background-color: black;
+}
+
+main {
+  display: block;
+  height: auto;
+  min-height: 100vh;
 }
 
 header {
@@ -22,6 +31,12 @@ header {
   /* Mantém o header fixo no topo mantendo ele na frente*/
   z-index: 1000;
   width: 100%;
+}
+
+section {
+  height: auto;
+  padding: 10px 0;
+  min-height: auto;
 }
 
 .content_title {
