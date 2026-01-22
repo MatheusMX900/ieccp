@@ -17,6 +17,11 @@ header {
   top: 0;
 }
 
+.content_title {
+  font-family: 'Poppins';
+  font-size: xx-large;
+}
+
 .branding {
   display: flex;
   align-items: center;
@@ -30,7 +35,7 @@ header {
 h1 {
   color: #fff;
   font-size: 25px;
-  font-family: 'Times New Roman', Times, serif;
+  font-family: 'Poppins';
 }
 
 nav ul {
@@ -39,7 +44,7 @@ nav ul {
   gap: 25px;
   margin: 0;
   padding: 0;
-  font-family: 'Times New Roman', Times, serif;
+  font-family: 'Poppins';
 }
 
 nav a {
@@ -47,7 +52,7 @@ nav a {
   color: #fff;
   font-weight: 300;
   font-size: 16px;
-  font-family: 'Times New Roman', Times, serif;
+  font-family: 'Poppins';
 }
 
 .hero {
@@ -58,11 +63,32 @@ nav a {
   display: flex;
   align-items: center;
   padding: 0 60px;
+  justify-content: space-between;
+  padding: 50px 10%;
+  gap: 2rem;
 }
 
 .hero-content {
+  flex: 1;
   max-width: 600px;
   color: #fff;
+}
+
+.hero-content h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.hero-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.hero-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
 }
 
 .hero-title {
@@ -85,4 +111,26 @@ ieccp-history img {
   max-width: 800px;
   display: block;
   margin: 0 auto 40px auto;  
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column;
+    text-align: center;
+    gap: 0;
+
+    padding: 2rem 5%;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+
+  .hero-image {
+    /* order: -1; */
+    height: auto;
+    display: block;
+    margin-bottom: 1rem;
+  }
 }
