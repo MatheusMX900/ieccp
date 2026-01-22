@@ -18,7 +18,7 @@ div.gallery-item {
     aspect-ratio: 1 / 1;
 
     margin: 2px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--card-border);
     border-radius: 8px;
 
     display: flex;
@@ -27,7 +27,7 @@ div.gallery-item {
 }
 
 div.gallery-item:hover {
-    border: 1px solid #777;
+    border: 1px solid var(--text-color);
 }
 
 div.gallery-item img {

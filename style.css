@@ -3,13 +3,32 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  transition: background-color 0.3s, color 0.3s;
 
   /* DEBUG */
   /* outline: 1px solid red !important; */
 }
 
+:root {
+  /* Cores do Tema Escuro (Padrão) */
+  --bg-body: #1c1c1c;
+  --text-color: #ffffff;
+  --header-bg: #293e5c;
+  --card-border: #ccc;
+  --card-text: #fff;
+}
+
+.light-mode {
+  --bg-body: #f4f4f4;
+  --text-color: #1a1a1a; /* Cinza bem escuro para leitura */
+  --header-bg: #0056b3; /* Um azul mais vivo para o tema claro */
+  --card-border: #333;
+  --card-text: #000;
+}
+
 body {
-  background-color: black;
+  background-color: var(--bg-body);
+  color: var(--text-color);
 }
 
 main {
@@ -23,7 +42,7 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 20px 40px;
-  background: #293e5c;
+  background: var(--header-bg);
   /* background: #ffcc00; */
   position: sticky;
   top: 0;
@@ -31,6 +50,30 @@ header {
   /* Mantém o header fixo no topo mantendo ele na frente*/
   z-index: 1000;
   width: 100%;
+}
+
+header h1 {
+  color:white
+}
+
+#btn-tema {
+  background: transparent;
+  border: none;
+  color: var(--text-color);
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.5rem;
+  margin-left: 20px;
+
+  transition: transform 0.2s, color 0.2s;
+  
+}
+
+#btn-tema hover {
+  transform: scale(1.1);
+  opacity: 0.8;
 }
 
 section {
@@ -55,9 +98,34 @@ section {
 }
 
 h1 {
-  color: #fff;
+  color: var(--text-color);
   font-size: 25px;
   font-family: 'Poppins';
+}
+
+h1:hover {
+  cursor: pointer;
+}
+
+
+main section {
+  padding: 80px 60px;
+  color: var(--text-color);
+}
+
+main h2:hover {
+  cursor: pointer;
+  font-size: 40px;
+}
+
+main a {
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+main a:hover {
+  cursor: pointer;
+  font-size: 40px;
 }
 
 nav ul {
@@ -71,7 +139,7 @@ nav ul {
 
 nav a {
   text-decoration: none;
-  color: #fff;
+  color: white;
   font-weight: 300;
   font-size: 16px;
   font-family: 'Poppins';
@@ -93,7 +161,7 @@ nav a {
 .hero-content {
   flex: 1;
   max-width: 600px;
-  color: #fff;
+  color: white;
 }
 
 .hero-content h1 {
@@ -121,11 +189,6 @@ nav a {
 .hero-subtitle {
   font-size: 1.3rem;
   opacity: 0.9;
-}
-
-main section {
-  padding: 80px 60px;
-  color: #fff;
 }
 
 ieccp-history img {

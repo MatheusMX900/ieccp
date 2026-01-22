@@ -9,18 +9,19 @@
     <link rel="stylesheet" href="gallery.css">
     <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    
     <title>IECCP</title>
 </head>
 <body>
-
+    
     <!--HEADER-->
     <header>
         <div class="branding">
-        <img src="/img/logo.png" alt="LOGO_IECCP">
-        <h1>IECCP</h1>
+            <img src="/img/logo.png" alt="LOGO_IECCP">
+            <h1>IECCP</h1>
         </div>
-
+        
         <nav>
             <ul>
                 <li><a href="home.html">Home</a></li>
@@ -28,6 +29,13 @@
                 <li><a href="#noticias">Notícias</a></li>
                 <li><a href="#missionarios">Missionários</a></li>
                 <li><a href="#doutrina">Doutrina da Igreja</a></li>
+                <li><a href="#sobre">Sobre</a></li>
+                <li>
+                    <button id="btn-tema" title="Mudar Tema">
+                        <i class="fa-solid fa-sun"></i>
+                    </button>
+                </li>
+                <script src="tema.js"></script>
             </ul>
         </nav>
     </header>
@@ -48,12 +56,16 @@
 <main>
 
         <section id="noticias">
-            <h2 class="content_title">Notícias ></h2>
+            <h2 class="content_title">
+                <a href="https://www.google.com">Notícias ></a>
+            </h2>
             <div class="carousel-container" id="container-noticias"></div>
         </section>
 
         <section id="missionarios">
-            <h2 class="content_title">Missionários da IECCP ></h2>
+            <h2 class="content_title">
+                <a href="">Misssionários da IECCP ></a>
+            </h2>
             <div class="carousel-container" id="container-missionarios"></div>
         </section>
 
