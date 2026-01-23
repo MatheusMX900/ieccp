@@ -76,3 +76,15 @@ div.gallery-item div.desc {
   width: 280px;
   margin-bottom: 20px;
 }
+
+@media (max-width: 768px) {
+  .carousel-container {
+    flex-direction: row;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+  }
+
+  .news-grid {
+    justify-content: center;
+  }
+}

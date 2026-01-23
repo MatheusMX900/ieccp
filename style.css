@@ -261,6 +261,21 @@ main section {
   width: 100%;
 }
 
+.news-page .content_title {
+  font-size: 2.5rem;
+  padding: 0;
+}
+
+.news-page .content_title::after {
+  display: none;
+}
+
+.news-page .content_title:hover {
+  transform: none;
+  color: inherit;
+  cursor: default;
+}
+
 main a:hover {
   cursor: pointer;
 }
