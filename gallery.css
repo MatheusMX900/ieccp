@@ -1,49 +1,49 @@
 .carousel-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    padding-bottom: 0;
-    padding: 10px;
-    margin-bottom: 20px;
-    height: auto;
-    scroll-snap-type: x mandatory;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 10px;
+  margin-bottom: 20px;
+  height: auto;
 
-    /* permite a rolagem */
-    overflow-x: auto;
+  /* Scroll Snap para rolagem horizontal suave */
+  scroll-snap-type: x mandatory;
+  overflow-x: auto;
 }
 
 div.gallery-item {
-    flex: 0 0 auto;
-    width: 180px;
-    aspect-ratio: 1 / 1;
+  flex: 0 0 auto;
+  width: 180px;
+  aspect-ratio: 1 / 1;
+  margin: 2px;
 
-    margin: 2px;
-    border: 1px solid var(--card-border);
-    border-radius: 8px;
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
 
-    display: flex;
-    flex-direction: column;
-    scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  scroll-snap-align: start;
 }
 
 div.gallery-item:hover {
-    border: 1px solid var(--text-color);
+  border: 1px solid var(--text-color);
 }
 
 div.gallery-item img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    border-radius: 8px 8px 0 0;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 8px 8px 0 0;
 }
 
 div.gallery-item div.desc {
-    height: 20%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Poppins', sans-serif;
-    font-weight: bold;
-    padding: 15px;
-    text-align: left;
+  height: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family: "Poppins", sans-serif;
+  font-weight: bold;
+  padding: 15px;
+  text-align: left;
 }

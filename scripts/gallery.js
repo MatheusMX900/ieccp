@@ -1,9 +1,18 @@
-// --- DADOS (Seu "Banco de Dados" simulado) ---
-
 const dadosNoticias = [
     { titulo: "Culto de Domingo", img: "https://picsum.photos/600/600?random=1", link: "#" },
     { titulo: "Evento Jovem", img: "https://picsum.photos/600/600?random=2", link: "#" },
-    { titulo: "Ação Social", img: "https://picsum.photos/600/600?random=3", link: "#" }
+    { titulo: "Ação Social", img: "https://picsum.photos/600/600?random=3", link: "#" },
+    { titulo: "Ação Social", img: "https://picsum.photos/600/600?random=4", link: "#" },
+    { titulo: "Ação Social", img: "https://picsum.photos/600/600?random=5", link: "#" },
+    { titulo: "Ação Social", img: "https://picsum.photos/600/600?random=6", link: "#" },
+    { titulo: "Ação Social", img: "https://picsum.photos/600/600?random=7", link: "#" },
+    { titulo: "Ação Social", img: "https://picsum.photos/600/600?random=8", link: "#" },
+    { titulo: "Ação Social", img: "https://picsum.photos/600/600?random=9", link: "#" },
+    { titulo: "Ação Social", img: "https://picsum.photos/600/600?random=10", link: "#" },
+    { titulo: "Ação Social", img: "https://picsum.photos/600/600?random=11", link: "#" },
+    { titulo: "Ação Social", img: "https://picsum.photos/600/600?random=12", link: "#" },
+    { titulo: "Ação Social", img: "https://picsum.photos/600/600?random=13", link: "#" },
+    { titulo: "Ação Social", img: "https://picsum.photos/600/600?random=14", link: "#" }
 ];
 
 const dadosMissionarios = [
@@ -12,9 +21,6 @@ const dadosMissionarios = [
     { titulo: "Projeto África", img: "https://picsum.photos/600/600?random=6", link: "#" }
 ];
 
-
-// --- A FUNÇÃO MÁGICA (O Motor) ---
-// Ela recebe: A lista de dados e o ID de onde deve desenhar
 function criarCarrossel(listaDeDados, idContainer) {
     
     const container = document.getElementById(idContainer);
@@ -23,10 +29,9 @@ function criarCarrossel(listaDeDados, idContainer) {
     // Verificação de segurança
     if (!container || !template) {
         console.error(`Erro: Não achei o container '${idContainer}' ou o template.`);
-        return; // Para a função aqui se der erro
+        return;
     }
 
-    // O Loop
     listaDeDados.forEach(dado => {
         const clone = template.content.cloneNode(true);
 
@@ -42,10 +47,6 @@ function criarCarrossel(listaDeDados, idContainer) {
         container.appendChild(clone);
     });
 }
-
-
-// --- EXECUTANDO A MÁGICA ---
-// Aqui nós chamamos a função 3 vezes, uma para cada seção
 
 criarCarrossel(dadosNoticias, 'container-noticias');
 criarCarrossel(dadosMissionarios, 'container-missionarios');

@@ -1,12 +1,14 @@
-*{
-  /* Faz com que o Padding não aumente o tamanho do elemento */
+/* =========================================
+   1. RESET E VARIÁVEIS
+   ========================================= */
+* {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  transition: background-color 0.3s, color 0.3s;
-
-  /* DEBUG */
-  /* outline: 1px solid red !important; */
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+  /* outline: 1px solid red !important; */ /* DEBUG */
 }
 
 :root {
@@ -19,11 +21,13 @@
 }
 
 .light-mode {
+  /* Cores do Tema Claro */
   --bg-body: #f4f4f4;
-  --text-color: #1a1a1a; /* Cinza bem escuro para leitura */
-  --header-bg: #0056b3; /* Um azul mais vivo para o tema claro */
+  --text-color: #1a1a1a;
+  --header-bg: #293e5c;
   --card-border: #333;
   --card-text: #000;
+  --secondary: #ffcc00;
 }
 
 body {
@@ -31,60 +35,30 @@ body {
   color: var(--text-color);
 }
 
-main {
-  display: block;
-  height: auto;
-  min-height: 100vh;
-}
-
+/* =========================================
+   2. HEADER E NAVEGAÇÃO
+   ========================================= */
 header {
+  height: 70px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 20px 40px;
   background: var(--header-bg);
-  /* background: #ffcc00; */
   position: sticky;
   top: 0;
-
-  /* Mantém o header fixo no topo mantendo ele na frente*/
   z-index: 1000;
   width: 100%;
 }
 
 header h1 {
-  color:white
+  color: white;
+  font-size: 25px;
+  font-family: "Poppins";
 }
 
-#btn-tema {
-  background: transparent;
-  border: none;
-  color: var(--text-color);
+header h1:hover {
   cursor: pointer;
-  padding: 5px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 1.5rem;
-  margin-left: 20px;
-
-  transition: transform 0.2s, color 0.2s;
-  
-}
-
-#btn-tema hover {
-  transform: scale(1.1);
-  opacity: 0.8;
-}
-
-section {
-  height: auto;
-  padding: 10px 0;
-  min-height: auto;
-}
-
-.content_title {
-  font-family: 'Poppins';
-  font-size: xx-large;
 }
 
 .branding {
@@ -97,44 +71,13 @@ section {
   width: 60px;
 }
 
-h1 {
-  color: var(--text-color);
-  font-size: 25px;
-  font-family: 'Poppins';
-}
-
-h1:hover {
-  cursor: pointer;
-}
-
-
-main section {
-  padding: 80px 60px;
-  color: var(--text-color);
-}
-
-main h2:hover {
-  cursor: pointer;
-  font-size: 40px;
-}
-
-main a {
-  text-decoration: none;
-  color: var(--text-color);
-}
-
-main a:hover {
-  cursor: pointer;
-  font-size: 40px;
-}
-
 nav ul {
   display: flex;
   list-style: none;
   gap: 25px;
   margin: 0;
   padding: 0;
-  font-family: 'Poppins';
+  font-family: "Poppins";
 }
 
 nav a {
@@ -142,26 +85,69 @@ nav a {
   color: white;
   font-weight: 300;
   font-size: 16px;
-  font-family: 'Poppins';
+  font-family: "Poppins";
 }
 
+/* Botão de Tema */
+#btn-tema {
+  background: transparent;
+  border: none;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.5rem;
+  margin-left: 20px;
+  transition:
+    transform 0.2s,
+    color 0.2s;
+}
+
+#btn-tema:hover {
+  transform: scale(1.1);
+  opacity: 0.8;
+}
+
+/* =========================================
+   3. HERO SECTION
+   ========================================= */
 .hero {
-  height: 80vh;
-  background-image: url("/img/background.png");
+  height: 90vh;
+  background-image: url("/img/templo_hero.png");
   background-size: cover;
-  background-position: center;
   display: flex;
-  align-items: center;
-  padding: 0 60px;
+  align-items: flex-end;
+  padding: 0 60px 80px 60px;
   justify-content: space-between;
-  padding: 50px 10%;
   gap: 2rem;
 }
 
-.hero-content {
-  flex: 1;
+.hero-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
   max-width: 600px;
-  color: white;
+  flex: 1;
+}
+
+.hero-content {
+  width: 100%;
+  color: #fff;
+  background-color: rgba(41, 62, 92, 0.85);
+  border-radius: 15px;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.hero-title {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
+
+.hero h2 {
+  padding: 20px;
+  margin: auto;
+  border-radius: 20px;
 }
 
 .hero-content h1 {
@@ -169,10 +155,40 @@ nav a {
   margin-bottom: 1rem;
 }
 
+.hero-subtitle {
+  font-size: 1.3rem;
+  opacity: 0.9;
+  padding: 20px;
+  padding-top: 0;
+}
+
+/* Botões do Hero */
+.hero button {
+  backdrop-filter: blur(5px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  background-color: rgba(41, 62, 92, 0.85);
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 30px;
+  padding: 5px;
+  width: 50px;
+  height: 50px;
+}
+
+.hero button:hover {
+  transform: scale(1.2);
+  transition:
+    transform 0.1s,
+    color 0.2s;
+}
+
 .hero-image {
   flex: 1;
   display: flex;
-  justify-content: center;
+  justify-content: top;
 }
 
 .hero-image img {
@@ -181,39 +197,67 @@ nav a {
   border-radius: 10px;
 }
 
-.hero-title {
-  font-size: 2.5rem;
-  margin-bottom: 15px;
+/* =========================================
+   4. CONTEÚDO PRINCIPAL (MAIN)
+   ========================================= */
+main {
+  display: block;
+  height: auto;
+  min-height: 100vh;
 }
 
-.hero-subtitle {
-  font-size: 1.3rem;
-  opacity: 0.9;
+section {
+  height: auto;
+  padding: 10px 0;
+  min-height: auto;
+}
+
+main section {
+  padding: 80px 60px;
+  color: var(--text-color);
+}
+
+.content_title {
+  font-family: "Poppins";
+  font-size: xx-large;
+}
+
+main h2:hover,
+main a:hover {
+  cursor: pointer;
+  /* font-size: 40px; */ /* Atenção: Aumentar fonte no hover pode quebrar o layout */
+}
+
+main a {
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+.divider {
+  width: 5px;
+  height: auto;
+  display: inline-block;
 }
 
 ieccp-history img {
   width: 100%;
   max-width: 800px;
   display: block;
-  margin: 0 auto 40px auto;  
+  margin: 0 auto 40px auto;
 }
 
-/* Mobile */
+/* =========================================
+   5. RESPONSIVIDADE (MOBILE)
+   ========================================= */
 @media (max-width: 768px) {
   .hero {
     flex-direction: column;
     text-align: center;
     gap: 0;
-
     padding: 2rem 5%;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-    padding-left: 5%;
-    padding-right: 5%;
   }
 
   .hero-image {
-    /* order: -1; */
     height: auto;
     display: block;
     margin-bottom: 1rem;

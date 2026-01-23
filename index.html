@@ -1,97 +1,122 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/svg+xml" href="ico.svg">
-
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="gallery.css">
-    <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
-    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-    
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>IECCP</title>
-</head>
-<body>
-    
-    <!--HEADER-->
+
+    <link rel="icon" type="image/svg+xml" href="img/ico.svg" />
+
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="gallery.css" />
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Oswald"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
     <header>
-        <div class="branding">
-            <img src="/img/logo.png" alt="LOGO_IECCP">
-            <h1>IECCP</h1>
-        </div>
-        
-        <nav>
-            <ul>
-                <li><a href="home.html">Home</a></li>
-                <li><a href="historia.html">História</a></li>
-                <li><a href="#noticias">Notícias</a></li>
-                <li><a href="#missionarios">Missionários</a></li>
-                <li><a href="#doutrina">Doutrina da Igreja</a></li>
-                <li><a href="#sobre">Sobre</a></li>
-                <li>
-                    <button id="btn-tema" title="Mudar Tema">
-                        <i class="fa-solid fa-sun"></i>
-                    </button>
-                </li>
-                <script src="scripts/tema.js"></script>
-            </ul>
-        </nav>
+      <div class="branding">
+        <img src="/img/logo.png" alt="LOGO_IECCP" />
+        <h1>IECCP</h1>
+      </div>
+
+      <nav>
+        <ul>
+          <li><a href="home.html">Home</a></li>
+          <li><a href="historia.html">História</a></li>
+          <li><a href="#noticias">Notícias</a></li>
+          <li><a href="#missionarios">Missionários</a></li>
+          <li><a href="#doutrina">Doutrina da Igreja</a></li>
+          <li><a href="#sobre">Sobre</a></li>
+          <li>
+            <button id="btn-tema" title="Mudar Tema">
+              <i class="fa-solid fa-sun"></i>
+            </button>
+          </li>
+        </ul>
+      </nav>
     </header>
 
-    <!--HERO / DESTAQUES-->
     <section class="hero">
+      <div class="hero-wrapper">
         <div class="hero-content">
-            <h2 style="font-family: Oswald;" class="hero-title">Igreja Evangélica Congregacional de Cachoeira Paulista</h2>
-            <p style="font-family: Poppins;" class="hero-subtitle">Uma Igreja para adorar a Deus, Proclamar o evangelho e edificar a igreja.</p>
-        </div>  
-
-        <div class="hero-image">
-            <img src="img/templo_hero.jpeg" alt="Imagem Hero (parcialmente IA)">
+          <h2 style="font-family: Oswald" class="hero-title">
+            Igreja Evangélica Congregacional de Cachoeira Paulista
+          </h2>
+          <p style="font-family: Poppins" class="hero-subtitle">
+            Uma Igreja para adorar a Deus, Proclamar o evangelho e edificar a
+            igreja.
+          </p>
         </div>
+
+        <div class="botoes-hero">
+          <a href="#" target="_blank">
+            <button title="Ver Localização">
+              <i class="fa-solid fa-location-arrow"></i>
+            </button>
+          </a>
+
+          <a href="#" target="_blank">
+            <button title="Instagram">
+              <i class="fa-brands fa-instagram"></i>
+            </button>
+          </a>
+
+          <a href="#" target="_blank">
+            <button title="Youtube">
+              <i class="fa-brands fa-youtube"></i>
+            </button>
+          </a>
+        </div>
+      </div>
     </section>
 
-    <!--CONTEÚDO PRINCIPAL-->
-<main>
+    <main>
+      <section id="noticias">
+        <h2 class="content_title">
+          <a href="https://www.google.com">Notícias ></a>
+        </h2>
+        <div class="carousel-container" id="container-noticias"></div>
+      </section>
 
-        <section id="noticias">
-            <h2 class="content_title">
-                <a href="https://www.google.com">Notícias ></a>
-            </h2>
-            <div class="carousel-container" id="container-noticias"></div>
-        </section>
+      <section id="missionarios">
+        <h2 class="content_title">
+          <a href="">Missionários da IECCP ></a>
+        </h2>
+        <div class="carousel-container" id="container-missionarios"></div>
+      </section>
 
-        <section id="missionarios">
-            <h2 class="content_title">
-                <a href="">Misssionários da IECCP ></a>
-            </h2>
-            <div class="carousel-container" id="container-missionarios"></div>
-        </section>
+      <section id="doutrina">
+        <h2 class="content_title">Doutrina da igreja</h2>
+        <p>...</p>
+      </section>
 
-        <section id="doutrina">
-            <h2 class="content_title">Doutrina da igreja</h2>
-            <p>...</p>
-        </section>
-
-        <template id="template-padrao">
-            <div class="gallery-item">
-                <a target="_blank" href="">
-                    <img src="" alt="Imagem" width="600" height="600">
-                </a>
-                <div class="desc"></div>
-            </div>
-        </template>
-
+      <template id="template-padrao">
+        <div class="gallery-item">
+          <a target="_blank" href="">
+            <img src="" alt="Imagem" width="600" height="600" />
+          </a>
+          <div class="desc"></div>
+        </div>
+      </template>
     </main>
 
-    <script src="scripts/gallery.js"></script>
-
-    <!--RODAPÉ-->
     <footer>
-        <p>Criado por Matheus Andrade e Luiz Charleaux © 2026 – IECCP</p>
+      <p>Criado por Matheus Andrade e Luiz Charleaux © 2026 – IECCP</p>
     </footer>
 
-    
-</body>
+    <script src="scripts/tema.js"></script>
+    <script src="scripts/gallery.js"></script>
+  </body>
 </html>
