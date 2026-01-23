@@ -108,6 +108,10 @@ nav a {
   opacity: 0.8;
 }
 
+#btn-mobile {
+  display: none;
+}
+
 /* =========================================
    3. HERO SECTION
    ========================================= */
@@ -250,11 +254,67 @@ ieccp-history img {
    5. RESPONSIVIDADE (MOBILE)
    ========================================= */
 @media (max-width: 768px) {
+  header {
+    height: auto;
+    flex-direction: column;
+    align-content: center;
+  }
+
+  nav ul {
+    justify-content: center;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+
+  #menu {
+    display: flex;
+    position: absolute;
+    width: 100%;
+    top: 70px;
+    right: 0;
+    background: var(--header-bg);
+
+    height: 0;
+    visibility: hidden;
+    overflow-y: hidden;
+    transition: 0.6s;
+    z-index: 1000;
+
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+  }
+
+  #menu.active {
+    height: calc(100vh - 70px);
+    visibility: visible;
+    overflow-y: auto;
+  }
+
+  #btn-mobile {
+    display: block;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+
   .hero {
     flex-direction: column;
     text-align: center;
+    align-items: center;
     gap: 0;
-    padding: 2rem 5%;
+    height: auto;
+    padding: 40px 20px;
+    background-position: center center;
+  }
+
+  .hero-wrapper {
+    width: 100%;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .hero-image {
