@@ -1,3 +1,13 @@
+async function fetchNoticias() {
+  try {
+    const resposta = await fetch("/dados/noticias.json");
+    const dados = await resposta.json();
+    criarCarrossel(dados, "container-noticias", 5);
+  } catch (erro) {
+    console.error("Erro ao buscar dados de notícias:", erro);
+  }
+}
+
 function criarCarrossel(listaDeDados, idContainer, quantidadeMaxima) {
   const container = document.getElementById(idContainer);
   const template = document.getElementById("template-padrao");
@@ -22,5 +32,4 @@ function criarCarrossel(listaDeDados, idContainer, quantidadeMaxima) {
   });
 }
 
-criarCarrossel(dadosNoticias, "container-noticias", 5);
-criarCarrossel(dadosMissionarios, "container-missionarios");
+fetchNoticias();
