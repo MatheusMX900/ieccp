@@ -88,6 +88,10 @@ nav a {
   font-family: "Poppins";
 }
 
+nav li {
+  align-content: center;
+}
+
 /* Botão de Tema */
 #btn-tema {
   background: transparent;
@@ -222,14 +226,33 @@ main section {
 }
 
 .content_title {
+  display: inline-block;
+  position: relative;
+  color: inherit;
+  text-decoration: none;
   font-family: "Poppins";
-  font-size: xx-large;
+  font-size: 2rem;
 }
 
-main h2:hover,
+.content_title::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 3px;
+  bottom: -5px;
+  left: 0;
+  top: 40px;
+  background-color: var(--header-bg);
+
+  transition: width 0.3s ease;
+}
+
+.content_title:hover::after {
+  width: 100%;
+}
+
 main a:hover {
   cursor: pointer;
-  /* font-size: 40px; */ /* Atenção: Aumentar fonte no hover pode quebrar o layout */
 }
 
 main a {
@@ -278,7 +301,7 @@ ieccp-history img {
 /* =========================================
    5. RESPONSIVIDADE (MOBILE)
    ========================================= */
-@media (max-width: 768px) {
+@media (max-width: 810px) {
   header {
     height: auto;
     flex-direction: row;
