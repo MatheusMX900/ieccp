@@ -3,6 +3,7 @@ async function fetchNoticias() {
     const resposta = await fetch("/dados/noticias.json");
     const dados = await resposta.json();
     criarCarrossel(dados, "container-noticias", 5);
+    criarCarrossel(dados, "container-todas-noticias");
   } catch (erro) {
     console.error("Erro ao buscar dados de notícias:", erro);
   }

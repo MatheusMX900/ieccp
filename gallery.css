@@ -63,3 +63,16 @@ div.gallery-item div.desc {
   font-size: 1rem;
   text-align: center;
 }
+
+.news-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: start;
+  padding: 40px 20px;
+}
+
+.news-grid .gallery-item {
+  width: 280px;
+  margin-bottom: 20px;
+}

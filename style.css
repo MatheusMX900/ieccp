@@ -234,6 +234,16 @@ main section {
   font-size: 2rem;
 }
 
+.news-page .content_title {
+  text-align: center;
+  font-family: "Oswald", sans-serif;
+  font-weight: bolder;
+  margin-top: 50px;
+  margin-bottom: 30px;
+  display: block;
+  width: 100%;
+}
+
 .content_title::after {
   content: "";
   position: absolute;
