@@ -31,9 +31,8 @@ body.light-mode {
 body {
   background-color: var(--bg-body);
   color: var(--text-color);
-  font-family: "Poppins", sans-serif; /* Fonte padrão */
+  font-family: "Poppins", sans-serif;
 
-  /* Lógica do Rodapé Fixo (Sticky Footer) */
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -45,11 +44,11 @@ body {
 
 main {
   display: block;
-  flex: 1; /* Ocupa o espaço vazio empurrando o footer */
+  flex: 1;
   width: 100%;
 }
 
-/* Reset de Links Global */
+/* Links Globais */
 a {
   text-decoration: none;
   color: inherit;
@@ -69,7 +68,7 @@ footer {
   background: var(--header-bg);
   color: white;
   font-size: 0.9rem;
-  margin-top: auto; /* Garante segurança extra para o footer ficar embaixo */
+  margin-top: auto;
 }
 
 /* Títulos das Seções (H2 com linha embaixo) */
@@ -104,13 +103,13 @@ footer {
   background-color: var(--header-bg);
   color: white;
   padding-top: 40px;
-  margin-top: auto; /* Empurra o rodapé para o fundo da página */
+  margin-top: auto;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .footer-content {
   display: flex;
-  flex-wrap: wrap; /* Permite quebrar linha no mobile */
+  flex-wrap: wrap;
   justify-content: space-around;
   max-width: 1200px;
   margin: 0 auto;
@@ -120,14 +119,14 @@ footer {
 
 .footer-section {
   flex: 1;
-  min-width: 250px; /* Evita que a coluna fique muito estreita */
+  min-width: 250px;
   padding: 0 20px;
 }
 
 .footer-section h3 {
   font-family: "Oswald", sans-serif;
   margin-bottom: 15px;
-  color: var(--secondary); /* Amarelo destaque */
+  color: var(--secondary);
   font-size: 1.2rem;
 }
 
@@ -155,7 +154,7 @@ footer {
 
 .footer-section ul li a:hover {
   opacity: 1;
-  padding-left: 5px; /* Efeito de "andar" para o lado */
+  padding-left: 5px;
   color: var(--secondary);
 }
 
@@ -167,7 +166,6 @@ footer {
   margin-top: 20px;
 }
 
-/* Ajuste Mobile */
 @media (max-width: 768px) {
   .footer-content {
     flex-direction: column;
@@ -212,6 +210,6 @@ footer {
 }
 
 #back-to-top:hover {
-  transform: scale(1.1); /* Cresce ao passar o mouse */
+  transform: scale(1.1);
   background-color: #ffd633;
 }
