@@ -29,3 +29,30 @@ linksDoMenu.forEach((link) => {
     menu.classList.remove("active");
   });
 });
+
+// Botão voltar ao topo
+
+document.addEventListener("DOMContentLoaded", () => {
+  const btnTop = document.getElementById("back-to-top");
+
+  // Só roda o código se o botão existir na página
+  if (btnTop) {
+    window.addEventListener("scroll", () => {
+      // Se rolou mais de 300px, mostra o botão
+      if (window.scrollY > 300) {
+        btnTop.classList.add("show");
+      } else {
+        btnTop.classList.remove("show");
+      }
+    });
+
+    // Clique suave para subir
+    btnTop.addEventListener("click", (e) => {
+      e.preventDefault(); // Evita o pulo seco do link
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth", // Rolagem suave
+      });
+    });
+  }
+});
