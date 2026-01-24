@@ -73,11 +73,11 @@ div.gallery-item a.card-link-wrapper {
    ========================================= */
 .card-content {
   padding: 15px 20px;
-  flex: 1; /* Ocupa o resto do espaço */
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-color: var(--bg-card); /* Garante fundo sólido */
+  background-color: var(--bg-card);
 }
 
 .card-content h3.desc {
@@ -105,7 +105,7 @@ div.gallery-item a.card-link-wrapper {
 }
 
 /* =========================================
-   GRID DE NOTÍCIAS (Página Específica)
+   GRID DE NOTÍCIAS/MISSIONÁRIOS (Página Específica)
    ========================================= */
 .news-grid {
   display: flex;
@@ -116,7 +116,7 @@ div.gallery-item a.card-link-wrapper {
 }
 
 .news-grid .gallery-item {
-  width: 280px; /* Um pouco maior na página dedicada */
+  width: 280px;
 }
 
 /* Ajuste Mobile */
@@ -128,5 +128,9 @@ div.gallery-item a.card-link-wrapper {
 
   div.gallery-item {
     width: 240px;
+  }
+
+  .news-grid {
+    justify-content: center;
   }
 }

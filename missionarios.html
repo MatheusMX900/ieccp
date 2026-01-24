@@ -4,12 +4,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Missionários da IECCP</title>
+    <title>Doutrinas da IECCP</title>
 
     <link rel="icon" type="image/svg+xml" href="img/ico.svg" />
     <link rel="stylesheet" href="styles/global.css" />
     <link rel="stylesheet" href="styles/header.css" />
     <link rel="stylesheet" href="styles/pages.css" />
+    <link rel="stylesheet" href="styles/gallery.css" />
 
     <link
       href="https://fonts.googleapis.com/css?family=Oswald"
@@ -53,9 +54,42 @@
           </li>
         </ul>
       </nav>
-
       <script src="scripts/tema.js"></script>
       <script src="scripts/menu.js"></script>
     </header>
+
+    <main>
+      <section
+        class="page-title"
+        style="text-align: center; padding: 40px 20px"
+      >
+        <h1 class="content_title">Nossos Missionários</h1>
+        <p>Conheça e ore pelos projetos que apoiamos ao redor do mundo.</p>
+      </section>
+
+      <div id="container-missionarios" class="news-grid"></div>
+
+      <footer></footer>
+
+      <template id="template-padrao">
+        <div class="gallery-item">
+          <a href="" target="_blank" class="card-link-wrapper">
+            <div class="card-image-box">
+              <img src="" alt="Missionário" loading="lazy" />
+            </div>
+            <div class="card-content">
+              <h3 class="desc">Nome do Missionário</h3>
+              <span class="read-more">
+                Saiba mais <i class="fa-solid fa-arrow-right"></i>
+              </span>
+            </div>
+          </a>
+        </div>
+      </template>
+
+      <script src="scripts/conteudo.js"></script>
+      <script src="scripts/menu.js"></script>
+      <script src="scripts/tema.js"></script>
+    </main>
   </body>
 </html>

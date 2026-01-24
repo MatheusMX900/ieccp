@@ -1,18 +1,25 @@
-/* scripts/conteudo.js */
-
 async function fetchNoticias() {
   try {
     const resposta = await fetch("data/noticias.json");
     if (!resposta.ok) throw new Error("Erro ao carregar JSON");
     const dados = await resposta.json();
 
-    // Configura os carrosséis
-    // Tenta preencher a Home
     criarCarrossel(dados, "container-noticias", 4);
-    // Tenta preencher a página de Todas as Notícias
     criarCarrossel(dados, "container-todas-noticias");
   } catch (erro) {
-    console.error("Erro no carregamento:", erro);
+    console.error("Erro no carregamento das notícias:", erro);
+  }
+}
+
+async function fetchMissionarios() {
+  try {
+    const resposta = await fetch("data/missionarios.json");
+    if (!resposta.ok) throw new Error("Erro ao carregar JSON");
+    const dados = await resposta.json();
+
+    criarCarrossel(dados, "container-missionarios");
+  } catch (erro) {
+    console.error("Erro no carregamento dos missionários:", erro);
   }
 }
 
@@ -20,7 +27,6 @@ function criarCarrossel(listaDeDados, idContainer, quantidadeMaxima) {
   const container = document.getElementById(idContainer);
   const template = document.getElementById("template-padrao");
 
-  // Se não achar o container ou o template, sai da função sem erro
   if (!container || !template) return;
 
   container.innerHTML = "";
@@ -30,10 +36,9 @@ function criarCarrossel(listaDeDados, idContainer, quantidadeMaxima) {
     : listaDeDados;
 
   listaFinal.forEach((dado) => {
-    // Clona o modelo HTML
     const clone = template.content.cloneNode(true);
 
-    // 1. Acha a imagem dentro da caixinha .card-image-box
+    // 1. Acha a imagem
     const img = clone.querySelector("img");
     if (img) {
       img.src = dado.img;
@@ -58,3 +63,4 @@ function criarCarrossel(listaDeDados, idContainer, quantidadeMaxima) {
 
 // Inicia
 fetchNoticias();
+fetchMissionarios();
