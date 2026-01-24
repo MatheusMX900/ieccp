@@ -2,7 +2,6 @@
 
 > Portal institucional moderno, responsivo e com carregamento dinâmico, desenvolvido com foco na experiência do usuário.
 
-![Status do Projeto](https://img.shields.io/badge/Status-MVP_Finalizado-green)
 ![License](https://img.shields.io/badge/License-MIT-blue)
 
 ## 📖 Sobre o Projeto
