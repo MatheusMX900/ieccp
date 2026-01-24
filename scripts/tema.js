@@ -1,31 +1,36 @@
-const btnTema = document.getElementById('btn-tema');
+// scripts/tema.js
+
+const toggleBtn = document.getElementById("btn-tema"); // Usei o ID correto que está no seu HTML
 const body = document.body;
 
-// Códigos dos ícones (para facilitar a troca)
-const iconSol = '<i class="fa-solid fa-sun"></i>';
-const iconLua = '<i class="fa-solid fa-moon"></i>';
+// 1. CARREGAR PREFERÊNCIA
+// Como o padrão (CSS) já é escuro, só precisamos agir se o usuário salvou 'light'
+const temaSalvo = localStorage.getItem("temaPreferido");
 
-if (btnTema) {
-    // 1. Checar preferência salva
-    const temaSalvo = localStorage.getItem('tema');
-    
-    if (temaSalvo === 'claro') {
-        body.classList.add('light-mode');
-        btnTema.innerHTML = iconLua; // Se tá claro, mostra a lua
+if (temaSalvo === "light") {
+  body.classList.add("light-mode");
+}
+
+// 2. FUNÇÃO DE ALTERNAR
+if (toggleBtn) {
+  toggleBtn.addEventListener("click", () => {
+    // Alterna a classe 'light-mode'
+    body.classList.toggle("light-mode");
+
+    // Salva a decisão na memória
+    if (body.classList.contains("light-mode")) {
+      localStorage.setItem("temaPreferido", "light");
+      // Opcional: Mudar ícone para Lua
+      toggleBtn.innerHTML = '<i class="fa-solid fa-moon"></i>';
     } else {
-        btnTema.innerHTML = iconSol; // Padrão (escuro) mostra o sol
+      localStorage.setItem("temaPreferido", "dark");
+      // Opcional: Mudar ícone para Sol
+      toggleBtn.innerHTML = '<i class="fa-solid fa-sun"></i>';
     }
+  });
 
-    // 2. Evento de clique
-    btnTema.addEventListener('click', () => {
-        body.classList.toggle('light-mode');
-
-        if (body.classList.contains('light-mode')) {
-            localStorage.setItem('tema', 'claro');
-            btnTema.innerHTML = iconLua; // Troca para Lua
-        } else {
-            localStorage.setItem('tema', 'escuro');
-            btnTema.innerHTML = iconSol; // Troca para Sol
-        }
-    });
+  // Ajustar ícone inicial se carregar light
+  if (temaSalvo === "light") {
+    toggleBtn.innerHTML = '<i class="fa-solid fa-moon"></i>';
+  }
 }

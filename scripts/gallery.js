@@ -1,8 +1,17 @@
 async function fetchNoticias() {
   try {
-    const resposta = await fetch("/dados/noticias.json");
+    // Caminho relativo para a pasta de dados.
+    // Se estiver rodando localmente, garanta que a pasta 'data' existe na raiz.
+    const resposta = await fetch("dados/noticias.json");
+
+    if (!resposta.ok) throw new Error("Não foi possível carregar o JSON");
+
     const dados = await resposta.json();
+
+    // Tenta preencher a Home (limite 5)
     criarCarrossel(dados, "container-noticias", 5);
+
+    // Tenta preencher a página de Todas as Notícias (sem limite)
     criarCarrossel(dados, "container-todas-noticias");
   } catch (erro) {
     console.error("Erro ao buscar dados de notícias:", erro);
@@ -13,12 +22,12 @@ function criarCarrossel(listaDeDados, idContainer, quantidadeMaxima) {
   const container = document.getElementById(idContainer);
   const template = document.getElementById("template-padrao");
 
-  // Verificação de segurança
-  if (!container || !template) return;
+  if (!container || !template) return; // Sai silenciosamente se não achar o container (normal)
 
   const listaFinal = quantidadeMaxima
     ? listaDeDados.slice(0, quantidadeMaxima)
     : listaDeDados;
+
   listaFinal.forEach((dado) => {
     const clone = template.content.cloneNode(true);
 

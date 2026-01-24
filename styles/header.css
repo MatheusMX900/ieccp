@@ -1,0 +1,112 @@
+/* =========================================
+   HEADER E NAVEGAÇÃO
+   ========================================= */
+header {
+  height: 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background-color: var(--header-bg);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+
+  /* Força texto branco no header independente do tema */
+  color: white !important;
+}
+
+/* Links dentro do Header */
+header a {
+  color: white !important;
+  font-size: 25px;
+  font-family: "Poppins", sans-serif;
+  font-weight: bolder;
+  text-decoration: none;
+}
+
+.branding {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.branding img {
+  width: 60px;
+  height: auto;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  gap: 25px;
+  margin: 0;
+  padding: 0;
+}
+
+nav a {
+  font-weight: 300;
+  font-size: 16px;
+}
+
+/* Botão de Tema */
+#btn-tema {
+  background: transparent;
+  border: none;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.5rem;
+  margin-left: 20px;
+  transition: transform 0.2s;
+}
+
+#btn-tema:hover {
+  transform: scale(1.1);
+  opacity: 0.8;
+}
+
+#btn-mobile {
+  display: none;
+}
+
+/* RESPONSIVO DO HEADER */
+@media (max-width: 810px) {
+  header {
+    padding: 0 20px;
+  }
+
+  #menu {
+    display: flex;
+    position: fixed;
+    width: 100%;
+    top: 70px;
+    right: 0;
+    background: var(--header-bg);
+    height: 0;
+    visibility: hidden;
+    overflow-y: hidden;
+    transition: 0.6s;
+    z-index: 999;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    padding-top: 20px;
+  }
+
+  #menu.active {
+    height: calc(100vh - 70px);
+    visibility: visible;
+  }
+
+  #btn-mobile {
+    display: block;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+}

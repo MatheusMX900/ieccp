@@ -1,0 +1,68 @@
+/* =========================================
+   PÁGINAS INTERNAS (Texto)
+   ========================================= */
+
+/* Estilos de Texto (História, Sobre, Doutrinas) */
+.historia-ieccp,
+.texto-padrao {
+  max-width: 900px;
+  margin: 0 auto; /* Centraliza o bloco de texto */
+  padding: 40px 20px;
+}
+
+.historia-ieccp img {
+  width: 100%;
+  max-width: 800px;
+  display: block;
+  margin: 0 auto 40px auto;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.historia-ieccp h1 {
+  font-family: "Oswald", sans-serif;
+  font-size: 3rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.historia-ieccp h2 {
+  font-family: "Oswald", sans-serif;
+  font-size: 2rem;
+  margin-top: 30px;
+  margin-bottom: 15px;
+  border-left: 5px solid var(--secondary); /* Detalhe visual bonito */
+  padding-left: 15px;
+}
+
+.historia-ieccp p {
+  font-family: "Poppins", sans-serif;
+  line-height: 1.8; /* Melhor leitura */
+  margin-bottom: 15px;
+  text-align: justify;
+}
+
+/* Título Específico da Página de Notícias */
+.news-page .content_title {
+  text-align: center;
+  font-family: "Oswald", sans-serif;
+  font-weight: bolder;
+  font-size: 2.5rem;
+  margin-top: 30px;
+  margin-bottom: 40px;
+  display: block;
+  width: 100%;
+}
+
+.news-page .content_title::after {
+  display: none; /* Remove a linha nesta página */
+}
+
+@media (max-width: 810px) {
+  .historia-ieccp h1 {
+    font-size: 2rem;
+  }
+  .historia-ieccp p {
+    text-align: left;
+  }
+}

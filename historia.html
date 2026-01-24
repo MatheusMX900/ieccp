@@ -6,9 +6,9 @@
     <title>História da IECCP</title>
 
     <link rel="icon" type="image/svg+xml" href="img/ico.svg" />
-
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="gallery.css" />
+    <link rel="stylesheet" href="styles/global.css" />
+    <link rel="stylesheet" href="styles/header.css" />
+    <link rel="stylesheet" href="styles/pages.css" />
 
     <link
       href="https://fonts.googleapis.com/css?family=Oswald"
@@ -26,10 +26,10 @@
 
   <body>
     <header>
-      <div class="branding">
-        <img src="/img/logo.png" alt="LOGO_IECCP" />
-        <h1>IECCP</h1>
-      </div>
+      <a href="index.html" class="branding">
+        <img src="img/logo.png" alt="LOGO_IECCP" />
+        IECCP
+      </a>
 
       <nav>
         <button id="btn-mobile">
@@ -39,9 +39,9 @@
           <li><a href="index.html">Home</a></li>
           <li><a href="#">História</a></li>
           <li><a href="noticias.html">Notícias</a></li>
-          <li><a href="#">Missionários</a></li>
-          <li><a href="#">Doutrina da Igreja</a></li>
-          <li><a href="#">Sobre</a></li>
+          <li><a href="missionarios.html">Missionários</a></li>
+          <li><a href="doutrinas.html">Doutrina da Igreja</a></li>
+          <li><a href="sobre.html">Sobre</a></li>
           <li>
             <button id="btn-tema" title="Mudar Tema">
               <i class="fa-solid fa-sun"></i>
@@ -80,6 +80,6 @@
       </p>
     </section>
   </body>
-
+  <script src="scripts/tema.js"></script>
   <script src="scripts/menu.js"></script>
 </html>

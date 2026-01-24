@@ -3,12 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>IECCP</title>
+    <title>IECCP - Home</title>
 
     <link rel="icon" type="image/svg+xml" href="img/ico.svg" />
-
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="gallery.css" />
+    <link rel="stylesheet" href="styles/global.css" />
+    <link rel="stylesheet" href="styles/header.css" />
+    <link rel="stylesheet" href="styles/home.css" />
+    <link rel="stylesheet" href="styles/gallery.css" />
 
     <link
       href="https://fonts.googleapis.com/css?family=Oswald"
@@ -26,22 +27,20 @@
 
   <body>
     <header>
-      <div class="branding">
-        <img src="/img/logo.png" alt="LOGO_IECCP" />
-        <h1>IECCP</h1>
-      </div>
+      <a href="index.html" class="branding">
+        <img src="img/logo.png" alt="LOGO_IECCP" />
+        IECCP
+      </a>
 
       <nav>
-        <button id="btn-mobile">
-          <i class="fa-solid fa-bars"></i>
-        </button>
+        <button id="btn-mobile"><i class="fa-solid fa-bars"></i></button>
         <ul id="menu">
           <li><a href="#">Home</a></li>
           <li><a href="historia.html">História</a></li>
           <li><a href="noticias.html">Notícias</a></li>
-          <li><a href="#">Missionários</a></li>
-          <li><a href="#">Doutrina da Igreja</a></li>
-          <li><a href="#">Sobre</a></li>
+          <li><a href="missionarios.html">Missionários</a></li>
+          <li><a href="doutrinas.html">Doutrina da Igreja</a></li>
+          <li><a href="sobre.html">Sobre</a></li>
           <li>
             <button id="btn-tema" title="Mudar Tema">
               <i class="fa-solid fa-sun"></i>
@@ -54,54 +53,41 @@
     <section class="hero">
       <div class="hero-wrapper">
         <div class="hero-content">
-          <h2 style="font-family: Oswald" class="hero-title">
+          <h2 class="hero-title">
             Igreja Evangélica Congregacional de Cachoeira Paulista
           </h2>
-          <p style="font-family: Poppins" class="hero-subtitle">
+          <p class="hero-subtitle">
             Uma Igreja para adorar a Deus, Proclamar o evangelho e edificar a
             igreja.
           </p>
         </div>
 
         <div class="botoes-hero">
-          <a href="#" target="_blank">
-            <button title="Ver Localização">
-              <i class="fa-solid fa-location-arrow"></i>
-            </button>
-          </a>
-
-          <a href="#" target="_blank">
-            <button title="Instagram">
-              <i class="fa-brands fa-instagram"></i>
-            </button>
-          </a>
-
-          <a href="#" target="_blank">
-            <button title="Youtube">
-              <i class="fa-brands fa-youtube"></i>
-            </button>
-          </a>
-
-          <a href="https://wa.me/31012589" target="_blank">
-            <button title="Whatsapp">
-              <i class="fab fa-whatsapp"></i>
-            </button>
-          </a>
+          <a href="https://maps.app.goo.gl/pz23waNTkSb8d4Ru7" target="_blank"
+            ><button><i class="fa-solid fa-location-arrow"></i></button
+          ></a>
+          <a href="https://instagram.com/ieccp" target="_blank"
+            ><button><i class="fa-brands fa-instagram"></i></button
+          ></a>
+          <a href="https://youtube.com/@ieccp" target="_blank"
+            ><button><i class="fa-brands fa-youtube"></i></button
+          ></a>
+          <a href="https://wa.me/+551231012589" target="_blank"
+            ><button><i class="fab fa-whatsapp"></i></button
+          ></a>
         </div>
       </div>
     </section>
 
     <main>
       <section id="noticias">
-        <h2 class="content_title">
-          <a href="https://www.google.com">Notícias ></a>
-        </h2>
+        <h2 class="content_title"><a href="noticias.html">Notícias ></a></h2>
         <div class="carousel-container" id="container-noticias"></div>
       </section>
 
       <section id="missionarios">
         <h2 class="content_title">
-          <a href="">Missionários da IECCP ></a>
+          <a href="missionarios.html">Missionários da IECCP ></a>
         </h2>
         <div class="carousel-container" id="container-missionarios"></div>
       </section>
@@ -113,9 +99,9 @@
 
       <template id="template-padrao">
         <div class="gallery-item">
-          <a target="_blank" href="">
-            <img src="" alt="Imagem" width="600" height="600" />
-          </a>
+          <a target="_blank" href=""
+            ><img src="" alt="Imagem" width="600" height="600"
+          /></a>
           <div class="desc"></div>
         </div>
       </template>
@@ -125,8 +111,8 @@
       <p>Criado por Matheus Andrade e Luiz Charleaux © 2026 – IECCP</p>
     </footer>
 
-    <script src="scripts/tema.js"></script>
-    <script src="scripts/gallery.js"></script>
-    <script src="scripts/menu.js"></script>
+    <script src="scripts/tema.js" defer></script>
+    <script src="scripts/menu.js" defer></script>
+    <script src="scripts/gallery.js" defer></script>
   </body>
 </html>
