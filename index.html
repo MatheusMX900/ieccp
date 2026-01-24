@@ -33,13 +33,18 @@
       </a>
 
       <nav>
-        <button id="btn-mobile"><i class="fa-solid fa-bars"></i></button>
-        <ul id="menu">
-          <li><a href="#">Home</a></li>
+        <button id="btn-mobile" onclick="toggleMenu()">
+          <div class="line1"></div>
+          <div class="line2"></div>
+          <div class="line3"></div>
+        </button>
+
+        <ul id="menu" role="menu">
+          <li><a href="index.html">Home</a></li>
           <li><a href="historia.html">História</a></li>
           <li><a href="noticias.html">Notícias</a></li>
           <li><a href="missionarios.html">Missionários</a></li>
-          <li><a href="doutrinas.html">Doutrina da Igreja</a></li>
+          <li><a href="doutrinas.html">Doutrinas</a></li>
           <li><a href="sobre.html">Sobre</a></li>
           <li>
             <button id="btn-tema" title="Mudar Tema">
@@ -99,10 +104,19 @@
 
       <template id="template-padrao">
         <div class="gallery-item">
-          <a target="_blank" href=""
-            ><img src="" alt="Imagem" width="600" height="600"
-          /></a>
-          <div class="desc"></div>
+          <a href="" class="card-link-wrapper">
+            <div class="card-image-box">
+              <img src="" alt="Notícia" loading="lazy" />
+            </div>
+
+            <div class="card-content">
+              <h3 class="desc">Título da Notícia</h3>
+
+              <span class="read-more">
+                Ler mais <i class="fa-solid fa-arrow-right"></i>
+              </span>
+            </div>
+          </a>
         </div>
       </template>
     </main>
@@ -150,6 +164,6 @@
 
     <script src="scripts/tema.js" defer></script>
     <script src="scripts/menu.js" defer></script>
-    <script src="scripts/gallery.js" defer></script>
+    <script src="scripts/conteudo.js" defer></script>
   </body>
 </html>

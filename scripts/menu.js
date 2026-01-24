@@ -1,44 +1,44 @@
-// Seleciona os elementos na tela pelo ID
-const btnMobile = document.getElementById("btn-mobile");
-const tema = document.getElementById("btn-tema");
-const menu = document.getElementById("menu");
+function toggleMenu() {
+  const nav = document.getElementById("menu");
+  const btn = document.getElementById("btn-mobile");
 
-function toggleMenu(event) {
-  if (event.type === "touchstart") event.preventDefault();
+  // Se não encontrar os elementos, para o código para não dar erro
+  if (!nav || !btn) return;
 
-  // Adiciona ou Remove a classe 'active' da lista UL
-  // Se tem a classe, tira. Se não tem, coloca.
-  menu.classList.toggle("active");
+  // Alterna a classe 'active' no menu (para ele deslizar na tela)
+  nav.classList.toggle("active");
+
+  // Alterna a classe 'active' no botão (para as linhas virarem X)
+  btn.classList.toggle("active");
 }
 
-if (tema) {
-  tema.addEventListener("click", () => {
-    const menu = document.getElementById("menu");
-    menu.classList.remove("active");
-  });
-}
-
-// Ouve o clique do mouse e o toque do dedo
-btnMobile.addEventListener("click", toggleMenu);
-btnMobile.addEventListener("touchstart", toggleMenu);
-
-// Fechar ao clicar em qualquer botão
-const linksDoMenu = document.querySelectorAll("#menu a");
-linksDoMenu.forEach((link) => {
-  link.addEventListener("click", () => {
-    menu.classList.remove("active");
-  });
-});
-
-// Botão voltar ao topo
-
+/**
+ * 2. EVENTOS QUE CARREGAM JUNTO COM A PÁGINA
+ */
 document.addEventListener("DOMContentLoaded", () => {
+  /* --- FECHAR MENU AO CLICAR EM UM LINK --- */
+  // Seleciona todos os links dentro do menu
+  const links = document.querySelectorAll("#menu li a");
+
+  links.forEach((link) => {
+    link.addEventListener("click", () => {
+      const nav = document.getElementById("menu");
+      const btn = document.getElementById("btn-mobile");
+
+      // Remove a classe 'active' para fechar tudo suavemente
+      if (nav) nav.classList.remove("active");
+      if (btn) btn.classList.remove("active");
+    });
+  });
+
+  /* --- LÓGICA DO BOTÃO VOLTAR AO TOPO --- */
   const btnTop = document.getElementById("back-to-top");
 
-  // Só roda o código se o botão existir na página
+  // Só executa se o botão existir na página (para não dar erro)
   if (btnTop) {
+    // Evento de Rolagem (Scroll)
     window.addEventListener("scroll", () => {
-      // Se rolou mais de 300px, mostra o botão
+      // Se rolou mais de 300 pixels para baixo, mostra o botão
       if (window.scrollY > 300) {
         btnTop.classList.add("show");
       } else {
@@ -46,12 +46,12 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    // Clique suave para subir
+    // Evento de Clique (Subir)
     btnTop.addEventListener("click", (e) => {
-      e.preventDefault(); // Evita o pulo seco do link
+      e.preventDefault(); // Evita que o # apareça na URL
       window.scrollTo({
         top: 0,
-        behavior: "smooth", // Rolagem suave
+        behavior: "smooth", // Faz a subida ser suave e elegante
       });
     });
   }
