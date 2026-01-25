@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IECCP - Home</title>
+
+    <link rel="icon" type="image/svg+xml" href="img/ico.svg" />
+    <link rel="stylesheet" href="styles/global.css" />
+    <link rel="stylesheet" href="styles/header.css" />
+    <link rel="stylesheet" href="styles/home.css" />
+    <link rel="stylesheet" href="styles/gallery.css" />
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Oswald"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <header>
+      <a href="index.html" class="branding">
+        <img src="img/logo.png" alt="LOGO_IECCP" />
+        IECCP
+      </a>
+
+      <nav>
+        <button id="btn-mobile" onclick="toggleMenu()">
+          <div class="line1"></div>
+          <div class="line2"></div>
+          <div class="line3"></div>
+        </button>
+
+        <ul id="menu" role="menu">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="historia.html">História</a></li>
+          <li><a href="noticias.html">Notícias</a></li>
+          <li><a href="missionarios.html">Missionários</a></li>
+          <li><a href="doutrinas.html">Doutrinas</a></li>
+          <li><a href="sobre.html">Sobre</a></li>
+          <li>
+            <button id="btn-tema" title="Mudar Tema">
+              <i class="fa-solid fa-sun"></i>
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="hero-wrapper">
+        <div class="hero-content">
+          <h2 class="hero-title">
+            Igreja Evangélica Congregacional de Cachoeira Paulista
+          </h2>
+          <p class="hero-subtitle">
+            Uma Igreja para adorar a Deus, Proclamar o evangelho e edificar a
+            igreja.
+          </p>
+        </div>
+
+        <div class="botoes-hero">
+          <a href="https://maps.app.goo.gl/pz23waNTkSb8d4Ru7" target="_blank"
+            ><button><i class="fa-solid fa-location-arrow"></i></button
+          ></a>
+          <a href="https://instagram.com/ieccp" target="_blank"
+            ><button><i class="fa-brands fa-instagram"></i></button
+          ></a>
+          <a href="https://youtube.com/@ieccp" target="_blank"
+            ><button><i class="fa-brands fa-youtube"></i></button
+          ></a>
+          <a href="https://wa.me/+551231012589" target="_blank"
+            ><button><i class="fab fa-whatsapp"></i></button
+          ></a>
+        </div>
+      </div>
+    </section>
+
+    <main>
+      <section id="noticias">
+        <h2 class="content_title"><a href="noticias.html">Notícias ></a></h2>
+        <div class="carousel-container" id="container-noticias"></div>
+      </section>
+
+      <section id="missionarios">
+        <h2 class="content_title">
+          <a href="missionarios.html">Missionários da IECCP ></a>
+        </h2>
+        <div class="carousel-container" id="container-missionarios"></div>
+      </section>
+
+      <section id="doutrina">
+        <h2 class="content_title">Doutrina da igreja</h2>
+        <p>...</p>
+      </section>
+
+      <template id="template-padrao">
+        <div class="gallery-item">
+          <a href="" class="card-link-wrapper">
+            <div class="card-image-box">
+              <img src="" alt="Notícia" loading="lazy" />
+            </div>
+
+            <div class="card-content">
+              <h3 class="desc">Título da Notícia</h3>
+
+              <span class="read-more">
+                Ler mais <i class="fa-solid fa-arrow-right"></i>
+              </span>
+            </div>
+          </a>
+        </div>
+      </template>
+    </main>
+    <a href="#" id="back-to-top" title="Voltar ao topo">
+      <i class="fa-solid fa-arrow-up"></i>
+    </a>
+
+    <footer>
+      <div class="footer-content">
+        <div class="footer-section brand">
+          <h3>IECCP</h3>
+          <p>
+            Uma Igreja para adorar a Deus, proclamar o evangelho e edificar a
+            igreja.
+          </p>
+        </div>
+
+        <div class="footer-section links">
+          <h3>Navegação</h3>
+          <ul>
+            <li><a href="historia.html">Nossa História</a></li>
+            <li><a href="missionarios.html">Missionários</a></li>
+            <li><a href="doutrinas.html">Doutrinas</a></li>
+            <li>
+              <a href="https://wa.me/+551231012589" target="_blank"
+                >Fale Conosco</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <div class="footer-section contact">
+          <h3>Encontre-nos</h3>
+          <p>
+            <i class="fa-solid fa-location-dot"></i> R. Conselheiro Rodrigues
+            Alves, 358, Cachoeira Paulista - SP, 12630-000
+          </p>
+          <p><i class="fa-solid fa-envelope"></i> congregacp@gmail.com</p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>Criado por Matheus Andrade e Luiz Charleaux © 2026 – IECCP</p>
+      </div>
+    </footer>
+
+    <script src="scripts/tema.js" defer></script>
+    <script src="scripts/menu.js" defer></script>
+    <script src="scripts/conteudo.js" defer></script>
+  </body>
+</html>

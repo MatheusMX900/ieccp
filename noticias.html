@@ -1,13 +1,14 @@
 <!doctype html>
 <html lang="pt-br">
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <head>
-    <title>História da IECCP</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IECCP - Notícias</title>
 
     <link rel="icon" type="image/svg+xml" href="img/ico.svg" />
     <link rel="stylesheet" href="styles/global.css" />
     <link rel="stylesheet" href="styles/header.css" />
+    <link rel="stylesheet" href="styles/gallery.css" />
     <link rel="stylesheet" href="styles/pages.css" />
 
     <link
@@ -54,35 +55,36 @@
       </nav>
     </header>
 
-    <section class="historia-ieccp">
-      <h1>História da IECCP</h1>
-      <p>
-        A
-        <strong>Igreja Evangélica Congregacional de Cachoeira Paulista</strong>,
-        registrada oficialmente em 1970, é uma das diversas igrejas evangélicas
-        na cidade, conhecida por sua presença na comunidade e por celebrar datas
-        históricas, como seus 75 anos em 2009, mas a história específica de sua
-        fundação local precisa ser mais detalhada, sendo parte do movimento
-        Congregacional no Brasil, que remonta aos puritanos ingleses e sua
-        expansão a partir de meados do século XIX.
-      </p>
+    <section class="news-page">
+      <h2 class="content_title">Todas as Notícias</h2>
 
-      <h2>Contexto Congregacional no Brasil:</h2>
+      <div class="news-grid" id="container-todas-noticias"></div>
 
-      <p>
-        <strong>Origem:</strong> O Congregacionalismo chegou ao Brasil com os
-        puritanos ingleses e se estabeleceu com a fundação da Igreja
-        Congregacional Fluminense em 1855, tornando-se a primeira instituição
-        evangélica do país.
-      </p>
+      <template id="template-padrao">
+        <div class="gallery-item">
+          <a href="" class="card-link-wrapper">
+            <div class="card-image-box">
+              <img src="" alt="Notícia" loading="lazy" />
+            </div>
 
-      <p>
-        <strong>Expansão:</strong> O movimento cresceu com o trabalho de
-        missionários como Robert Kalley e, mais tarde, com líderes brasileiros,
-        estabelecendo igrejas por todo o Brasil.
-      </p>
+            <div class="card-content">
+              <h3 class="desc">Título da Notícia</h3>
+
+              <span class="read-more">
+                Ler mais <i class="fa-solid fa-arrow-right"></i>
+              </span>
+            </div>
+          </a>
+        </div>
+      </template>
     </section>
+
+    <footer>
+      <p>Criado por Matheus Andrade e Luiz Charleaux © 2026 – IECCP</p>
+    </footer>
+
+    <script src="scripts/tema.js"></script>
+    <script src="scripts/menu.js"></script>
+    <script src="scripts/conteudo.js" defer></script>
   </body>
-  <script src="scripts/tema.js"></script>
-  <script src="scripts/menu.js"></script>
 </html>
