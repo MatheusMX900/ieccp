@@ -45,10 +45,13 @@ function criarCarrossel(listaDeDados, idContainer, quantidadeMaxima) {
       img.alt = dado.titulo;
     }
 
-    // 2. Acha o link que abraça tudo
     const linkWrapper = clone.querySelector(".card-link-wrapper");
     if (linkWrapper) {
-      linkWrapper.href = dado.link;
+      if (dado.id) {
+        linkWrapper.href = `leitura.html?id=${dado.id}`;
+      } else {
+        linkWrapper.href = dado.link || "#";
+      }
     }
 
     // 3. Acha o título

@@ -31,10 +31,14 @@
                 $arrayNoticias = json_decode($conteudoAtual, true);
                 if (!is_array($arrayNoticias)) $arrayNoticias = []; // Garante que será um array
 
+                $idUnico = time(); // Gera um ID único baseado no timestamp atual
+
                 $novaNoticia = [
+                    "id" => $idUnico,
                     "img" => $caminhoJson,
                     "titulo" => $_POST['titulo'],
-                    "link" => "noticias.html" // placeholder
+                    "texto" => $_POST['texto'],
+                    "data" => date('d/m/Y'),
                 ];
 
                 // Adiciona a nova notícia no início da Array
@@ -87,6 +91,11 @@
         .erro { background: #f8d7da; color: #721c24; padding: 10px; border-radius: 5px; margin-bottom: 20px; }
         
         .logout { float: right; color: #ff6b6b; font-size: 0.9rem; text-decoration: underline; }
+
+        textarea { width: 100%; height: 150px; padding: 10px; margin-bottom: 20px; border-radius: 5px; border: 1px solid #ccc; font-family: sans-serif; }
+        .container { max-width: 600px; margin: 50px auto; background: white; padding: 30px; border-radius: 10px; }
+        body { background-color: var(--bg-body); }
+        input, button { width: 100%; margin-bottom: 15px; padding: 10px; }
     </style>
 </head>
 <body>
@@ -99,6 +108,9 @@
         <form method="POST" enctype="multipart/form-data">
             <label>Título da Notícia:</label>
             <input type="text" name="titulo" placeholder="Insira o Título" required>
+
+            <label>Texto da Notícia:</label>
+            <textarea name="texto" required placeholder="Escreva aqui..."></textarea>
 
             <label>Imagem da Capa:</label>
             <input type="file" name="imagem" accept="image/*" required>
