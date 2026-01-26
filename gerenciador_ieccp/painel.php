@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['imagem'])) {
     $nomeImagem = time() . "." . $extensao; 
     
     $caminhoFinalServidor = $pastaImagens . $nomeImagem;
-    $caminhoParaOJson = "img/" . $nomeImagem;
+    $caminhoParaOJson = "img/noticias" . $nomeImagem;
     
     $arquivoTemporario = $_FILES['imagem']['tmp_name'];
 
@@ -59,12 +59,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['imagem'])) {
         array_unshift($arrayNoticias, $novaNoticia);
         
         if (file_put_contents($arquivoJson, json_encode($arrayNoticias, JSON_PRETTY_PRINT))) {
-            $mensagem = "<p style='color: green; font-weight:bold;'>✅ Sucesso! Imagem otimizada pelo TinyPNG.</p>";
+            $mensagem = "<p style='color: green; font-weight:bold;'>✅ Sucesso!</p>";
         } else {
             $mensagem = "<p style='color: red;'>❌ Erro ao salvar JSON.</p>";
         }
     } else {
-        $mensagem = "<p style='color: red; font-weight:bold;'>⛔ Erro na compressão (Verifique a API ou o arquivo).</p>";
+        $mensagem = "<p style='color: red; font-weight:bold;'>⛔ Erro!</p>";
     }
 }
 
