@@ -4,8 +4,8 @@ async function fetchNoticias() {
     if (!resposta.ok) throw new Error("Erro ao carregar JSON");
     const dados = await resposta.json();
 
-    criarCarrossel(dados, "container-noticias", 4);
-    criarCarrossel(dados, "container-todas-noticias");
+    criarCarrossel(dados, "container-noticias", "template-padrao", 4);
+    criarCarrossel(dados, "container-todas-noticias", "template-padrao");
   } catch (erro) {
     console.error("Erro no carregamento das notícias:", erro);
   }
@@ -17,17 +17,28 @@ async function fetchMissionarios() {
     if (!resposta.ok) throw new Error("Erro ao carregar JSON");
     const dados = await resposta.json();
 
-    criarCarrossel(dados, "container-missionarios");
+    criarCarrossel(dados, "container-missionarios", "template-missionarios");
   } catch (erro) {
     console.error("Erro no carregamento dos missionários:", erro);
   }
 }
 
-function criarCarrossel(listaDeDados, idContainer, quantidadeMaxima) {
+function criarCarrossel(
+  listaDeDados,
+  idContainer,
+  idTemplate,
+  quantidadeMaxima,
+) {
   const container = document.getElementById(idContainer);
-  const template = document.getElementById("template-padrao");
+  if (!container) {
+    return;
+  }
 
-  if (!container || !template) return;
+  const template = document.getElementById(idTemplate);
+  if (!template) {
+    console.error(`Template com id "${idTemplate}" não encontrado.`);
+    return;
+  }
 
   container.innerHTML = "";
 
@@ -58,6 +69,11 @@ function criarCarrossel(listaDeDados, idContainer, quantidadeMaxima) {
     const titulo = clone.querySelector(".desc");
     if (titulo) {
       titulo.textContent = dado.titulo;
+    }
+
+    const descricao = clone.querySelector(".short-desc");
+    if (descricao) {
+      descricao.textContent = dado.descricao || "";
     }
 
     container.appendChild(clone);

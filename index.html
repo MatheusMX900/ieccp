@@ -40,12 +40,10 @@
         </button>
 
         <ul id="menu" role="menu">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="historia.html">História</a></li>
           <li><a href="noticias.html">Notícias</a></li>
-          <li><a href="missionarios.html">Missionários</a></li>
-          <li><a href="doutrinas.html">Doutrinas</a></li>
-          <li><a href="sobre.html">Sobre</a></li>
+          <li><a href="agenda.html">Agenda</a></li>
+          <li><a href="missoes.html">Missões</a></li>
+          <li><a href="sobre.html">Sobre a IECCP</a></li>
           <li>
             <button id="btn-tema" title="Mudar Tema">
               <i class="fa-solid fa-sun"></i>
@@ -90,6 +88,11 @@
         <div class="carousel-container" id="container-noticias"></div>
       </section>
 
+      <section id="agenda">
+        <h2 class="content_title"><a href="agenda.html">Agenda IECCP ></a></h2>
+        <div class="carousel-container" id="container-agenda"></div>
+      </section>
+
       <section id="missionarios">
         <h2 class="content_title">
           <a href="missionarios.html">Missionários da IECCP ></a>
@@ -97,11 +100,7 @@
         <div class="carousel-container" id="container-missionarios"></div>
       </section>
 
-      <section id="doutrina">
-        <h2 class="content_title">Doutrina da igreja</h2>
-        <p>...</p>
-      </section>
-
+      <!-- Template notícia -->
       <template id="template-padrao">
         <div class="gallery-item">
           <a href="" class="card-link-wrapper">
@@ -111,6 +110,27 @@
 
             <div class="card-content">
               <h3 class="desc">Título da Notícia</h3>
+
+              <span class="read-more">
+                Ler mais <i class="fa-solid fa-arrow-right"></i>
+              </span>
+            </div>
+          </a>
+        </div>
+      </template>
+
+      <!-- Template missionários -->
+      <template id="template-missionarios">
+        <div class="gallery-item">
+          <a href="" class="card-link-wrapper">
+            <div class="card-image-box">
+              <img src="" alt="Notícia" loading="lazy" />
+            </div>
+
+            <div class="card-content">
+              <h3 class="desc">Nome do Missionário</h3>
+
+              <p class="short-desc">Descrição do projeto...</p>
 
               <span class="read-more">
                 Ler mais <i class="fa-solid fa-arrow-right"></i>
@@ -151,10 +171,18 @@
         <div class="footer-section contact">
           <h3>Encontre-nos</h3>
           <p>
-            <i class="fa-solid fa-location-dot"></i> R. Conselheiro Rodrigues
-            Alves, 358, Cachoeira Paulista - SP, 12630-000
+            <i class="fa-solid fa-location-dot"></i>
+            <a href="https://maps.app.goo.gl/pz23waNTkSb8d4Ru7">
+              R. Conselheiro Rodrigues Alves, 358, Cachoeira Paulista - SP,
+              12630-000</a
+            >
           </p>
-          <p><i class="fa-solid fa-envelope"></i> congregacp@gmail.com</p>
+          <p>
+            <i class="fa-solid fa-envelope"></i>
+            <a href="mailto:congregacp.secretaria@gmail.com"
+              >congregacp.secretaria@gmail.com</a
+            >
+          </p>
         </div>
       </div>
 

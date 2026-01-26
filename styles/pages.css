@@ -43,15 +43,23 @@
 }
 
 /* Título Específico da Página de Notícias */
-.news-page .content_title {
+.news-page .content_title,
+.page-title .content_title {
   text-align: center;
-  font-family: "Oswald", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: bolder;
   font-size: 2.5rem;
   margin-top: 30px;
   margin-bottom: 40px;
   display: block;
   width: 100%;
+}
+
+@media (max-width: 810px) {
+  .news-page .content_title,
+  .page-title .content_title {
+    font-size: 2rem;
+  }
 }
 
 .news-page .content_title::after {
