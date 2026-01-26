@@ -1,8 +1,13 @@
 <?php
+// depuração
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 session_start();
 
-$usuario_hash = "admin";
-$senha_hash = '$2y$12$lYqicsZjdVJPCA50GW4Ea.3CIjaurNXBNNOC7p/JC6IRAfBASb5kq'; 
+$usuario = "admin";
+$senha_hash = '$2y$12$lYqicsZjdVJPCA50GW4Ea.3CIjaurNXBNNOC7p/JC6IRAfBASb5kq'; // Hash gerado para "adminieccp2026"
 
 if (isset($_SESSION['logado']) && $_SESSION['logado'] === true) {
     header('Location: painel.php');
@@ -16,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $usuario_post = $_POST['usuario'] ?? '';
     $senha_post = $_POST['senha'] ?? '';
 
-    if ($usuario_hash == $usuario_post && password_verify($senha_post, $senha_hash)) {
+    if ($usuario == $usuario_post && password_verify($senha_post, $senha_hash)) {
         $_SESSION['logado'] = true;
         $_SESSION['ultimo_acesso'] = time(); 
         header('Location: painel.php');
