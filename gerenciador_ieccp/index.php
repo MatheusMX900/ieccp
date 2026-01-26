@@ -1,11 +1,9 @@
 <?php
 session_start();
 
-// Configuração Rápida de Senha
-$usuario_correto = "admin";
-$senha_correta = "ieccp2026"; 
+$usuario_hash = "admin";
+$senha_hash = '$2y$12$lYqicsZjdVJPCA50GW4Ea.3CIjaurNXBNNOC7p/JC6IRAfBASb5kq'; 
 
-// Se já estiver logado, joga direto pro painel
 if (isset($_SESSION['logado']) && $_SESSION['logado'] === true) {
     header('Location: painel.php');
     exit;
@@ -18,12 +16,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $usuario_post = $_POST['usuario'] ?? '';
     $senha_post = $_POST['senha'] ?? '';
 
-    if ($usuario_post === $usuario_correto && $senha_post === $senha_correta) {
+    if ($usuario_hash == $usuario_post && password_verify($senha_post, $senha_hash)) {
         $_SESSION['logado'] = true;
-        header('Location: painel.php'); // <--- Manda para o outro arquivo
+        $_SESSION['ultimo_acesso'] = time(); 
+        header('Location: painel.php');
         exit;
     } else {
-        $erro = "Senha incorreta!";
+        sleep(5);
+        $erro = "Senha incorreta! Aguarde alguns segundos e tente novamente.";
     }
 }
 ?>
@@ -39,13 +39,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         form { background: white; padding: 40px; border-radius: 10px; display: flex; flex-direction: column; gap: 15px; width: 300px; }
         input { padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
         button { padding: 10px; background: var(--secondary); border: none; font-weight: bold; cursor: pointer; }
-        .erro { color: red; text-align: center; }
+        .erro { color: red; text-align: center; font-size: 0.9rem; }
+        .aviso { color: #e67e22; text-align: center; font-size: 0.9rem; font-weight: bold; }
     </style>
 </head>
 <body>
     <form method="POST">
         <h2 style="color: black; text-align: center;">Área Restrita</h2>
-        <?php if($erro): ?><span class="erro"><?= $erro ?></span><?php endif; ?>
+        
+        <?php if (isset($_GET['erro']) && $_GET['erro'] == 'expirado'): ?> 
+            <span class="aviso">Sessão expirada. Logue novamente.</span>
+        <?php endif; ?>
+
+        <?php if($erro): ?>
+            <span class="erro"><?= $erro ?></span>
+        <?php endif; ?>
+
         <input type="text" name="usuario" placeholder="Usuário">
         <input type="password" name="senha" placeholder="Senha">
         <button type="submit">ENTRAR</button>

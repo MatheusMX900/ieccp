@@ -1,10 +1,20 @@
 <?php
     session_start();
+    $tempo_expiracao = 43200;
+
+    if (isset($_SESSION['ultimo_acesso']) && (time() - $_SESSION['ultimo_acesso'] > $tempo_expiracao)) {
+        session_unset();
+        session_destroy();
+        header('Location: index.php?erro=expirado');
+        exit;
+    }
 
     if (!isset($_SESSION['logado']) || $_SESSION['logado'] !== true) {
         header('Location: index.php');
         exit;
     }
+
+    $_SESSION['ultimo_acesso'] = time();
 
     $mensagem = "";
 
