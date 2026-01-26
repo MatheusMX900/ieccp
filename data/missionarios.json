@@ -1,32 +1,38 @@
 [
   {
     "titulo": "Aurino",
-    "img": "../img/missionarios/missoes.jpg",
+    "img": "../img/missionarios/aurino_familia.png",
     "link": "#",
-    "descricao": "Missionários em Moçambique"
+    "descricao": "Missionários em Moçambique, ministério Palavra da Vida"
   },
   {
-    "titulo": "Alex e Claudeci",
+    "titulo": "Alex e Bete",
     "img": "../img/missionarios/missoes.jpg",
     "link": "#",
-    "descricao": "Projeto Ribeirinhos na Amazônia"
+    "descricao": "Ribeirinhos na Amazônia, missão SEARA"
   },
   {
-    "titulo": "John e Rebecca",
+    "titulo": "John e Rebecah",
+    "img": "../img/missionarios/rebecah_john_familia.png",
+    "link": "#",
+    "descricao": "Aldeia Palimi-U-RR, missão MEVA"
+  },
+  {
+    "titulo": "Claudecy",
     "img": "../img/missionarios/missoes.jpg",
     "link": "#",
-    "descricao": "[Placeholder for description]"
+    "descricao": "Ribeirinhos na Amazônia, missão SEARA"
   },
   {
     "titulo": "Ricardo",
-    "img": "../img/missionarios/missoes.jpg",
+    "img": "../img/missionarios/ricardo.png",
     "link": "#",
-    "descricao": "[Placeholder for description]"
+    "descricao": "Comunidades indígenas NE, UNIEDAS"
   },
   {
-    "titulo": "Richard",
-    "img": "../img/missionarios/missoes.jpg",
+    "titulo": "Richard e Yohanna",
+    "img": "../img/missionarios/richard.png",
     "link": "#",
-    "descricao": "[Placeholder for description]"
+    "descricao": "Instituto Palavra da Vida Pará, PV"
   }
 ]

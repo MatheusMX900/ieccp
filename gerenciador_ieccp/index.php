@@ -1,13 +1,8 @@
 <?php
-// depuração
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 session_start();
 
 $usuario = "admin";
-$senha_hash = '$2y$12$lYqicsZjdVJPCA50GW4Ea.3CIjaurNXBNNOC7p/JC6IRAfBASb5kq'; // Hash gerado para "adminieccp2026"
+$senha_hash = '$2y$12$lYqicsZjdVJPCA50GW4Ea.3CIjaurNXBNNOC7p/JC6IRAfBASb5kq';
 
 if (isset($_SESSION['logado']) && $_SESSION['logado'] === true) {
     header('Location: painel.php');
