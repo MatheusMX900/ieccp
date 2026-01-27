@@ -1,85 +1,139 @@
-async function fetchNoticias() {
-  try {
-    const resposta = await fetch("https://ieccp.com.br/data/noticias.json");
-    if (!resposta.ok) throw new Error("Erro ao carregar JSON");
-    const dados = await resposta.json();
+document.addEventListener("DOMContentLoaded", () => {
+  initNoticias();
+  initMissionarios();
+  initAgenda();
+  initPastoral();
+});
 
-    criarCarrossel(dados, "container-noticias", "template-padrao", 4);
-    criarCarrossel(dados, "container-todas-noticias", "template-padrao");
-  } catch (erro) {
-    console.error("Erro no carregamento das notícias:", erro);
+// --- NOTÍCIAS E MISSÕES ---
+
+async function initNoticias() {
+  const dados = await fetchData("/data/noticias.json");
+  if (!dados) return;
+
+  renderizarCards(dados, "container-noticias", "template-padrao", 4);
+  renderizarCards(dados, "container-todas-noticias", "template-padrao");
+}
+
+async function initMissionarios() {
+  const dados = await fetchData("/data/missionarios.json");
+  if (dados) {
+    renderizarCards(dados, "container-missionarios", "template-missionarios");
   }
 }
 
-async function fetchMissionarios() {
-  try {
-    const resposta = await fetch("https://ieccp.com.br/data/missionarios.json");
-    if (!resposta.ok) throw new Error("Erro ao carregar JSON");
-    const dados = await resposta.json();
-
-    criarCarrossel(dados, "container-missionarios", "template-missionarios");
-  } catch (erro) {
-    console.error("Erro no carregamento dos missionários:", erro);
-  }
-}
-
-function criarCarrossel(
-  listaDeDados,
-  idContainer,
-  idTemplate,
-  quantidadeMaxima,
-) {
+function renderizarCards(lista, idContainer, idTemplate, maxItems = null) {
   const container = document.getElementById(idContainer);
-  if (!container) {
-    return;
-  }
-
   const template = document.getElementById(idTemplate);
-  if (!template) {
-    console.error(`Template com id "${idTemplate}" não encontrado.`);
-    return;
-  }
+  if (!container || !template) return;
 
   container.innerHTML = "";
+  const itens = maxItems ? lista.slice(0, maxItems) : lista;
 
-  const listaFinal = quantidadeMaxima
-    ? listaDeDados.slice(0, quantidadeMaxima)
-    : listaDeDados;
-
-  listaFinal.forEach((dado) => {
+  itens.forEach((item) => {
     const clone = template.content.cloneNode(true);
 
-    // 1. Acha a imagem
+    // Imagem
     const img = clone.querySelector("img");
     if (img) {
-      img.src = dado.img;
-      img.alt = dado.titulo;
+      img.src = formatarImagem(item.img, item.titulo);
+      img.alt = item.titulo;
     }
 
-    const linkWrapper = clone.querySelector(".card-link-wrapper");
-    if (linkWrapper) {
-      if (dado.id) {
-        linkWrapper.href = `leitura.html?id=${dado.id}`;
-      } else {
-        linkWrapper.href = dado.link || "#";
-      }
+    // Link
+    const linkWrap = clone.querySelector(".card-link-wrapper");
+    if (linkWrap) {
+      linkWrap.href = item.id ? `leitura.html?id=${item.id}` : item.link || "#";
     }
 
-    // 3. Acha o título
-    const titulo = clone.querySelector(".desc");
-    if (titulo) {
-      titulo.textContent = dado.titulo;
-    }
-
-    const descricao = clone.querySelector(".short-desc");
-    if (descricao) {
-      descricao.textContent = dado.descricao || "";
-    }
+    // Textos
+    setText(clone, ".desc", item.titulo);
+    setText(clone, ".short-desc", limparTexto(item.descricao));
 
     container.appendChild(clone);
   });
 }
 
-// Inicia
-fetchNoticias();
-fetchMissionarios();
+// --- AGENDA ---
+
+async function initAgenda() {
+  const container = document.getElementById("container-agenda");
+  const template = document.getElementById("template-agenda");
+  if (!container || !template) return;
+
+  const eventos = await fetchData("/data/agenda.json");
+
+  container.innerHTML = "";
+  if (!eventos || eventos.length === 0) {
+    container.innerHTML =
+      "<p class='text-center w-100'>Nenhum evento agendado.</p>";
+    return;
+  }
+
+  eventos.forEach((ev) => {
+    const clone = template.content.cloneNode(true);
+
+    // Imagem
+    const img = clone.querySelector("img");
+    if (img) {
+      img.src = formatarImagem(ev.img, ev.titulo);
+      img.alt = ev.titulo;
+    }
+
+    // Badge de Data
+    const badge = clone.querySelector(".date-badge");
+    if (badge) {
+      ev.data ? (badge.textContent = ev.data) : (badge.style.display = "none");
+    }
+
+    // Local e Textos
+    setText(clone, ".desc", ev.titulo);
+    setText(clone, ".short-desc", ev.texto);
+    setText(clone, ".texto-local", ev.local);
+
+    const divLocal = clone.querySelector(".event-location");
+    if (divLocal && !ev.local) divLocal.style.display = "none";
+
+    container.appendChild(clone);
+  });
+}
+
+// --- PASTORAL ---
+async function initPastoral() {
+  // Busca
+  const dados = await fetchData("/data/pastoral.json");
+  if (dados) {
+    renderizarCards(dados, "container-pastoral", "template-pastoral", 4);
+    renderizarCards(dados, "container-todos-pastoral", "template-pastoral");
+  }
+}
+
+// --- HELPERS (UTILITÁRIOS) ---
+
+async function fetchData(url) {
+  try {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`Erro ao carregar ${url}`);
+    return await res.json();
+  } catch (err) {
+    console.warn(err); // Warn é menos agressivo que Error no console
+    return null;
+  }
+}
+
+function setText(el, selector, text) {
+  const target = el.querySelector(selector);
+  if (target) target.innerText = text || "";
+}
+
+function formatarImagem(src, alt) {
+  if (!src) return "img/logo.png";
+  // Remove caminhos relativos (../) e domínios absolutos para evitar CORS/404
+  return src.replace("../", "").replace(/^https?:\/\/ieccp\.com\.br\//, "");
+}
+
+function limparTexto(texto) {
+  if (!texto) return "";
+  // Decodifica quebras de linha que vêm do PHP/JSON
+  return texto.replace(/&#13;/g, "").replace(/&#10;/g, "\n");
+}

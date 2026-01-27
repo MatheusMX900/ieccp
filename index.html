@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="styles/header.css" />
     <link rel="stylesheet" href="styles/home.css" />
     <link rel="stylesheet" href="styles/gallery.css" />
+    <link rel="stylesheet" href="styles/agenda.css" />
 
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://www.ieccp.com.br/" />
@@ -65,7 +66,7 @@
 
   <body>
     <header>
-      <a href="index.html" class="branding">
+      <a href="/" class="branding">
         <img src="img/logo.png" alt="LOGO_IECCP" />
         IECCP
       </a>
@@ -78,10 +79,11 @@
         </button>
 
         <ul id="menu" role="menu">
-          <li><a href="noticias.html">Notícias</a></li>
-          <li><a href="agenda.html">Agenda</a></li>
-          <li><a href="missoes.html">Missões</a></li>
-          <li><a href="sobre.html">Sobre a IECCP</a></li>
+          <li><a href="agenda">Agenda</a></li>
+          <li><a href="pastoral">Pastoral</a></li>
+          <li><a href="noticias">Notícias</a></li>
+          <li><a href="missoes">Missões</a></li>
+          <li><a href="sobre">Sobre a IECCP</a></li>
           <li>
             <button id="btn-tema" title="Mudar Tema">
               <i class="fa-solid fa-sun"></i>
@@ -121,19 +123,26 @@
     </section>
 
     <main>
-      <section id="noticias">
-        <h2 class="content_title"><a href="noticias.html">Notícias ></a></h2>
-        <div class="carousel-container" id="container-noticias"></div>
+      <section id="agenda">
+        <h2 class="content_title"><a href="agenda">Agenda IECCP ></a></h2>
+        <div class="carousel-container" id="container-agenda"></div>
       </section>
 
-      <section id="agenda">
-        <h2 class="content_title"><a href="agenda.html">Agenda IECCP ></a></h2>
-        <div class="carousel-container" id="container-agenda"></div>
+      <section id="pastoral">
+        <h2 class="content_title">
+          <a href="pastoral">Palavra Pastoral ></a>
+        </h2>
+        <div class="carousel-container" id="container-pastoral"></div>
+      </section>
+
+      <section id="noticias">
+        <h2 class="content_title"><a href="noticias">Notícias ></a></h2>
+        <div class="carousel-container" id="container-noticias"></div>
       </section>
 
       <section id="missionarios">
         <h2 class="content_title">
-          <a href="missionarios.html">Missionários da IECCP ></a>
+          <a href="missoes">Missionários da IECCP ></a>
         </h2>
         <div class="carousel-container" id="container-missionarios"></div>
       </section>
@@ -177,6 +186,61 @@
           </a>
         </div>
       </template>
+
+      <!-- Template agenda -->
+      <template id="template-agenda">
+        <div class="gallery-item">
+          <div class="card-link-wrapper" style="cursor: default">
+            <div class="card-image-box">
+              <img src="" alt="Evento" loading="lazy" />
+              <span class="date-badge">DATA</span>
+            </div>
+
+            <div class="card-content">
+              <h3 class="desc">Título</h3>
+              <p
+                class="short-desc"
+                style="
+                  margin-top: 10px;
+                  font-size: 0.9rem;
+                  color: #666;
+                  line-height: 1.5;
+                  margin-bottom: 15px;
+                "
+              ></p>
+
+              <div
+                class="event-location"
+                style="
+                  border-top: 1px solid #eee;
+                  padding-top: 10px;
+                  font-size: 0.85rem;
+                  color: #27ae60;
+                  font-weight: bold;
+                "
+              >
+                <i class="fa-solid fa-location-dot"></i>
+                <span class="texto-local">Local do Evento</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </template>
+
+      <!-- Template Pastoral -->
+      <template id="template-pastoral">
+        <div class="gallery-item">
+          <a href="" class="card-link-wrapper">
+            <div class="card-image-box">
+              <img src="" alt="" loading="lazy" />
+            </div>
+            <div class="card-content">
+              <h3 class="desc">Título</h3>
+              <p class="short-desc"></p>
+            </div>
+          </a>
+        </div>
+      </template>
     </main>
     <a href="#" id="back-to-top" title="Voltar ao topo">
       <i class="fa-solid fa-arrow-up"></i>
@@ -195,9 +259,9 @@
         <div class="footer-section links">
           <h3>Navegação</h3>
           <ul>
-            <li><a href="historia.html">Nossa História</a></li>
-            <li><a href="missionarios.html">Missionários</a></li>
-            <li><a href="doutrinas.html">Doutrinas</a></li>
+            <li><a href="historia">Nossa História</a></li>
+            <li><a href="missionarios">Missionários</a></li>
+            <li><a href="doutrinas">Doutrinas</a></li>
             <li>
               <a href="https://wa.me/+551231012589" target="_blank"
                 >Fale Conosco</a

@@ -4,11 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!--Acrecentei a descrição aqui também para o SEO-->
-    <meta
-      name="description"
-      content="Notícias da Igreja Evangélica Congregacional de Cachoeira Paulista, sobre eventos,cultos e atividades da comunidade IECCP."
-    />
-    <title>IECCP - Notícias</title>
+
+    <title>IECCP - Pastoral</title>
 
     <link rel="icon" type="image/svg+xml" href="img/ico.svg" />
     <link rel="stylesheet" href="styles/global.css" />
@@ -63,27 +60,21 @@
     </header>
 
     <section
-      class="news-page"
-      class="page-title"
+      class="page-content"
       style="text-align: center; padding: 40px 20px"
     >
-      <h1 class="content_title">Todas as Notícias</h1>
+      <h1 class="content_title">Artigos Pastorais</h1>
+      <div id="container-todos-pastoral" class="news-grid"></div>
 
-      <div class="news-grid" id="container-todas-noticias"></div>
-
-      <template id="template-padrao">
+      <template id="template-pastoral">
         <div class="gallery-item">
           <a href="" class="card-link-wrapper">
             <div class="card-image-box">
-              <img src="" alt="Notícia" loading="lazy" />
+              <img src="" alt="" loading="lazy" />
             </div>
-
             <div class="card-content">
-              <h3 class="desc">Título da Notícia</h3>
-
-              <span class="read-more">
-                Ler mais <i class="fa-solid fa-arrow-right"></i>
-              </span>
+              <h3 class="desc">Título</h3>
+              <p class="short-desc"></p>
             </div>
           </a>
         </div>

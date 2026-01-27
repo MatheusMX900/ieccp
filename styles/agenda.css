@@ -1,0 +1,21 @@
+/* Apenas o estilo do "Selo" da data */
+.date-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #f1c40f; /* Amarelo */
+  color: #1c1c1c;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 0.8rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+  text-transform: uppercase;
+  font-family: "Oswald", sans-serif;
+}
+
+/* Garante que o container da imagem permita posicionar o selo por cima */
+.card-image-box {
+  position: relative;
+}

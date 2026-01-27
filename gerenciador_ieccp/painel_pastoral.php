@@ -2,8 +2,8 @@
 session_start();
 require_once 'funcoes.php'; 
 
-$jsonFile = "../data/noticias.json";
-$imgFolder = "../img/noticias/";
+$jsonFile = "../data/pastoral.json";
+$imgFolder = "../img/pastoral/"; 
 $timeout = 1800;
 
 if (isset($_SESSION['ultima_atividade']) && (time() - $_SESSION['ultima_atividade'] > $timeout)) {
@@ -15,7 +15,6 @@ if (empty($_SESSION['logado'])) { header('Location: /'); exit; }
 $msg = "";
 $editData = null;
 
-// Load Edit
 if (isset($_GET['editar'])) {
     $data = json_decode(file_exists($jsonFile) ? file_get_contents($jsonFile) : '[]', true);
     foreach ($data as $item) {
@@ -26,7 +25,6 @@ if (isset($_GET['editar'])) {
     }
 }
 
-// Save / Update
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_exists($jsonFile) ? file_get_contents($jsonFile) : '[]', true) ?? [];
     $id = $_POST['id_editar'] ?? time();
@@ -34,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $imgPath = $_POST['imagem_atual'] ?? '';
     if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] === UPLOAD_ERR_OK) {
         $ext = pathinfo($_FILES['imagem']['name'], PATHINFO_EXTENSION);
-        $newJsonPath = "img/noticias/" . time() . "." . $ext;
+        $newJsonPath = "img/pastoral/" . time() . "." . $ext;
         
         if (compress($_FILES['imagem']['tmp_name'], "../" . $newJsonPath)) {
             $imgPath = $newJsonPath;
@@ -61,26 +59,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    if (!$updated) {
-        if (empty($imgPath)) {
-            $msg = "<p class='error'>⛔ Imagem obrigatória para novas notícias.</p>";
-        } else {
-            array_unshift($data, $newItem);
-            $updated = true; // Force save
-        }
-    }
+    if (!$updated) array_unshift($data, $newItem);
 
-    if ($updated && empty($msg)) {
-        if (file_put_contents($jsonFile, json_encode($data, JSON_PRETTY_PRINT))) {
-            $msg = "<p class='success'>✅ Salvo com sucesso!</p>";
-            $editData = null;
-        } else {
-            $msg = "<p class='error'>Erro ao salvar arquivo JSON.</p>";
-        }
+    if (file_put_contents($jsonFile, json_encode($data, JSON_PRETTY_PRINT))) {
+        $msg = "<p class='success'>✅ Publicado com sucesso!</p>";
+        $editData = null;
+    } else {
+        $msg = "<p class='error'>Erro ao salvar.</p>";
     }
 }
 
-// Delete
 if (isset($_GET['deletar'])) {
     $data = json_decode(file_exists($jsonFile) ? file_get_contents($jsonFile) : '[]', true);
     $newData = [];
@@ -103,7 +91,7 @@ $list = json_decode(file_exists($jsonFile) ? file_get_contents($jsonFile) : '[]'
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerenciar Notícias</title>
+    <title>Gerenciar Pastoral</title>
     <link href="https://fonts.googleapis.com/css?family=Poppins:400,600&display=swap" rel="stylesheet">
     <style>
         body { padding: 20px; background: #ecf0f1; font-family: 'Poppins', sans-serif; color: #333; }
@@ -121,7 +109,6 @@ $list = json_decode(file_exists($jsonFile) ? file_get_contents($jsonFile) : '[]'
         .btn-edit, .btn-del { padding: 8px 15px; text-decoration: none; border-radius: 4px; font-size: 0.9rem; color: white; }
         .btn-edit { background: #f39c12; } .btn-del { background: #e74c3c; }
         .success { color: #27ae60; background: #e8f5e9; padding: 10px; border-radius: 4px; }
-        .error { color: #c0392b; background: #fadbd8; padding: 10px; border-radius: 4px; }
     </style>
 </head>
 <body>
@@ -129,7 +116,7 @@ $list = json_decode(file_exists($jsonFile) ? file_get_contents($jsonFile) : '[]'
         <?php include 'menu_admin.php'; ?>
         <?= $msg ?>
 
-        <h3><?= $editData ? '✏️ Editar Notícia' : '➕ Nova Notícia' ?></h3>
+        <h3><?= $editData ? '✏️ Editar Pastoral' : '➕ Novo Artigo Pastoral' ?></h3>
 
         <form method="POST" enctype="multipart/form-data" id="main-form">
             <input type="hidden" name="id_editar" value="<?= $editData['id'] ?? '' ?>">
@@ -139,12 +126,11 @@ $list = json_decode(file_exists($jsonFile) ? file_get_contents($jsonFile) : '[]'
             <label>Título:</label> <input type="text" name="titulo" value="<?= $editData['titulo'] ?? '' ?>" required>
             <label>Texto:</label> <textarea name="texto" required><?= $editData['texto'] ?? '' ?></textarea>
             
-            <label>Imagem:</label>
-            <?php if($editData): ?> <small style="color:#666">(Vazio para manter atual)</small> <?php endif; ?>
-            <input type="file" name="imagem" accept="image/*" <?= $editData ? '' : 'required' ?>>
+            <label>Imagem (Opcional):</label>
+            <input type="file" name="imagem" accept="image/*">
             
             <button type="submit" id="btn-submit"><?= $editData ? 'SALVAR' : 'PUBLICAR' ?></button>
-            <?php if($editData): ?> <a href="painel.php"><button type="button" class="btn-cancel">CANCELAR</button></a> <?php endif; ?>
+            <?php if($editData): ?> <a href="painel_pastoral.php"><button type="button" class="btn-cancel">CANCELAR</button></a> <?php endif; ?>
         </form>
 
         <div style="margin-top:40px;">

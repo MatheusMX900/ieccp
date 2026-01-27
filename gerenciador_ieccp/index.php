@@ -5,7 +5,7 @@ $usuario = "admin";
 $senha_hash = '$2y$12$lYqicsZjdVJPCA50GW4Ea.3CIjaurNXBNNOC7p/JC6IRAfBASb5kq';
 
 if (isset($_SESSION['logado']) && $_SESSION['logado'] === true) {
-    header('Location: painel.php');
+    header('Location: painel');
     exit;
 }
 
@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($usuario == $usuario_post && password_verify($senha_post, $senha_hash)) {
         $_SESSION['logado'] = true;
         $_SESSION['ultimo_acesso'] = time(); 
-        header('Location: painel.php');
+        header('Location: painel');
         exit;
     } else {
         sleep(5);
