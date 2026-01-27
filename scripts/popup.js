@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const dados = { status: "aceitou", timestamp: new Date().getTime() };
     localStorage.setItem("decisaoNotificacao", JSON.stringify(dados));
     modal.style.display = "none";
-    alert("Obrigado! Em breve avisaremos.");
+    alert("Obrigado! Essa funcionalidade estará disponível no futuro!.");
   });
 
   btnRecusar.addEventListener("click", function () {
@@ -58,4 +58,25 @@ document.addEventListener("DOMContentLoaded", function () {
     localStorage.setItem("decisaoNotificacao", JSON.stringify(dados));
     modal.style.display = "none";
   });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  // --- LÓGICA DO COOKIE BANNER ---
+  const banner = document.getElementById("cookie-banner");
+  const btnCookie = document.getElementById("btn-cookie-ok");
+
+  // Verifica se já aceitou antes
+  if (!localStorage.getItem("aceitouCookies")) {
+    banner.style.display = "flex"; // Mostra a barra (flex para alinhar)
+  }
+
+  // Ao clicar em "Entendi"
+  if (btnCookie) {
+    btnCookie.addEventListener("click", function () {
+      // Salva a decisão para sempre
+      localStorage.setItem("aceitouCookies", "true");
+      // Esconde a barra
+      banner.style.display = "none";
+    });
+  }
 });

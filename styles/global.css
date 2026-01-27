@@ -282,3 +282,52 @@ footer {
   border-radius: 6px;
   cursor: pointer;
 }
+
+.cookie-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #2c3e50; /* Azul escuro elegante */
+  color: white;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  z-index: 10000; /* Fica em cima de tudo */
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+
+  /* Começa escondido, o JS vai mostrar se precisar */
+  display: none;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+}
+
+.cookie-banner p {
+  margin: 0;
+  max-width: 800px;
+}
+
+.cookie-banner button {
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.cookie-banner button:hover {
+  background-color: #219150;
+}
+
+/* Ajuste para celular */
+@media (max-width: 600px) {
+  .cookie-banner {
+    flex-direction: column;
+    text-align: center;
+  }
+}
