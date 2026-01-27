@@ -1,6 +1,6 @@
 async function fetchNoticias() {
   try {
-    const resposta = await fetch("data/noticias.json");
+    const resposta = await fetch("https://ieccp.com.br/data/noticias.json");
     if (!resposta.ok) throw new Error("Erro ao carregar JSON");
     const dados = await resposta.json();
 
@@ -13,7 +13,7 @@ async function fetchNoticias() {
 
 async function fetchMissionarios() {
   try {
-    const resposta = await fetch("data/missionarios.json");
+    const resposta = await fetch("https://ieccp.com.br/data/missionarios.json");
     if (!resposta.ok) throw new Error("Erro ao carregar JSON");
     const dados = await resposta.json();
 

@@ -13,7 +13,7 @@ require_once 'funcoes.php';
 // 2. CONFIGURAÇÕES
 $tempoLimite = 1800; // 30 minutos
 $arquivoJson = '../data/noticias.json';
-$pastaImagens = '../img/';
+$pastaImagens = '../img/noticias/';
 
 // 3. SEGURANÇA (TIMEOUT E LOGIN)
 if (isset($_SESSION['ultima_atividade']) && (time() - $_SESSION['ultima_atividade'] > $tempoLimite)) {
@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['imagem'])) {
     $nomeImagem = time() . "." . $extensao; 
     
     $caminhoFinalServidor = $pastaImagens . $nomeImagem;
-    $caminhoParaOJson = "img/noticias" . $nomeImagem;
+    $caminhoParaOJson = "../data/noticias.json" . $nomeImagem;
     
     $arquivoTemporario = $_FILES['imagem']['tmp_name'];
 
