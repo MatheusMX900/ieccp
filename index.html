@@ -3,71 +3,284 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>
-      IECCP | Igreja Evangélica Congregacional de Cachoeira Paulista
-    </title>
+    <title>IECCP | Igreja Evangélica Congregacional</title>
 
     <meta
       name="description"
-      content="Bem-vindo à IECCP em Cachoeira Paulista. Somos uma família de fé. Participe da EBD às 9h e aos Cultos às 18h.30. Venha nos visitar!"
-    />
-    <meta
-      name="keywords"
-      content="igreja, culto, evangélica, cachoeira paulista, deus, fé, ieccp, domingo, ebd, missões, comunhão, glorificar, edificar, proclamar, evangelho"
-    />
-
-    <meta name="author" content="Luiz Charleaux - Desenvolvedor Web" />
-    <meta name="author" content="Matheus Andrade - Desenvolvedor Web" />
-
-    <link rel="icon" type="image/svg+xml" href="img/ico.svg" />
-    <link rel="stylesheet" href="styles/global.css" />
-    <link rel="stylesheet" href="styles/header.css" />
-    <link rel="stylesheet" href="styles/home.css" />
-    <link rel="stylesheet" href="styles/gallery.css" />
-    <link rel="stylesheet" href="styles/agenda.css" />
-
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://www.ieccp.com.br/" />
-    <meta property="og:title" content="IECCP - Venha nos conhecer" />
-    <meta
-      property="og:description"
-      content="Participe dos nossos cultos e eventos. Uma igreja família esperando por você."
-    />
-    <!-- <meta
-      property="og:image"
-      content="https://www.seudominio.com.br/img/capa-social.jpg"
-    /> -->
-
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://www.ieccp.com.br/" />
-    <meta property="twitter:title" content="IECCP - Igreja Evangélica" />
-    <meta
-      property="twitter:description"
-      content="Participe dos nossos cultos e eventos."
-    />
-    <meta
-      property="twitter:image"
-      content="https://www.ieccp.com.br/img/capa-social.jpg"
+      content="IECCP - Uma família de fé em Cachoeira Paulista."
     />
 
     <link
-      href="https://fonts.googleapis.com/css?family=Oswald"
+      href="https://fonts.googleapis.com/css?family=Oswald:400,500,700"
       rel="stylesheet"
     />
     <link
-      href="https://fonts.googleapis.com/css?family=Poppins"
+      href="https://fonts.googleapis.com/css?family=Poppins:300,400,600,700"
       rel="stylesheet"
     />
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
       rel="stylesheet"
     />
+
+    <link rel="icon" type="image/svg+xml" href="img/ico.svg" />
+    <link rel="stylesheet" href="styles/global.css" />
+    <link rel="stylesheet" href="styles/header.css" />
+    <link rel="stylesheet" href="styles/gallery.css" />
+    <link rel="stylesheet" href="styles/agenda.css" />
+
+    <style>
+      /* =================================================================
+           DESIGN SYSTEM UNIFICADO (HERO + CONTEÚDO)
+           ================================================================= */
+
+      /* 1. O CONTAINER GERAL (Alinha tudo no centro com a mesma largura) */
+      .main-wrapper {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* 2. AJUSTE DO HERO (Bento Grid) */
+      .hero-section {
+        margin-top: 30px;
+        margin-bottom: 60px;
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: 340px 200px; /* Altura ajustada */
+        gap: 20px;
+      }
+
+      /* 3. ESTILO BASE DOS CARDS (Serve para Hero E para os Carrosséis) */
+      .bento-card,
+      .gallery-item {
+        background-color: var(--bg-card);
+        border: 1px solid var(--card-border);
+        border-radius: 16px !important; /* Arredondamento UNIFICADO */
+        overflow: hidden;
+        transition:
+          transform 0.2s ease,
+          border-color 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+
+      /* Hover Unificado */
+      .bento-card:hover,
+      .gallery-item:hover {
+        transform: translateY(-4px);
+        border-color: var(--secondary);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+      }
+
+      /* --- ESTILOS ESPECÍFICOS DO HERO --- */
+      .bento-card {
+        padding: 25px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        position: relative;
+        text-decoration: none;
+        color: var(--text-color);
+      }
+
+      /* Card Welcome */
+      .card-welcome {
+        grid-column: span 2;
+        grid-row: span 2;
+        background:
+          linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.1)),
+          url("https://images.unsplash.com/photo-1543791959-12b3f543282a?q=80&w=2070&auto=format&fit=crop");
+        background-size: cover;
+        background-position: center;
+        border: none;
+      }
+      .welcome-content h1 {
+        font-family: "Oswald", sans-serif;
+        font-size: 2.8rem;
+        color: white;
+        line-height: 1;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+      }
+      .welcome-content p {
+        color: #ddd;
+        font-family: "Poppins", sans-serif;
+      }
+
+      /* Card Destaque (Amarelo) */
+      .card-highlight {
+        grid-column: span 2;
+        background-color: var(--secondary);
+        color: #1c1c1c;
+        border: none;
+        justify-content: center;
+      }
+      .card-highlight h2 {
+        font-family: "Oswald", sans-serif;
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+      }
+      .info-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-family: "Poppins", sans-serif;
+        font-weight: 600;
+        margin-bottom: 8px;
+      }
+
+      /* Card Versículo */
+      .card-verse {
+        grid-column: span 1;
+        background-color: var(--header-bg);
+        color: white;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        border: none;
+      }
+
+      /* Card Mapa */
+      .card-map {
+        grid-column: span 1;
+        background-image: url("https://images.unsplash.com/photo-1524661135-423995f22d0b?w=800&auto=format&fit=crop");
+        background-size: cover;
+        color: white;
+      }
+      .card-map::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        transition: 0.3s;
+      }
+      .card-map:hover::before {
+        background: rgba(0, 0, 0, 0.3);
+      }
+      .map-content {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        width: 100%;
+      }
+      .btn-ver-mapa {
+        background: var(--secondary);
+        color: #111;
+        padding: 8px 15px;
+        border-radius: 6px;
+        font-weight: bold;
+        font-size: 0.8rem;
+        margin-top: 10px;
+        display: inline-block;
+        text-transform: uppercase;
+        font-family: "Oswald", sans-serif;
+      }
+
+      /* =================================================================
+           SOBRESCREVENDO A GALERIA PARA FICAR IGUAL AO HERO
+           ================================================================= */
+
+      /* Títulos das Seções (Agora iguais ao Hero) */
+      .content_title {
+        font-family: "Oswald", sans-serif !important;
+        font-size: 1.8rem !important;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 25px !important;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .content_title a {
+        text-decoration: none;
+      }
+      .content_title i {
+        font-size: 1.2rem;
+        color: var(--secondary);
+      }
+
+      /* Ajuste do Card da Galeria */
+      .gallery-item {
+        width: 280px !important; /* Um pouco mais largo para parecer um "bloco" */
+        border-radius: 16px !important; /* Força o arredondamento */
+      }
+
+      /* Imagem do Card */
+      .card-image-box {
+        height: 180px;
+        border-bottom: 1px solid var(--card-border);
+      }
+
+      /* Conteúdo do Card */
+      .card-content {
+        padding: 20px !important;
+      }
+
+      .card-content h3.desc {
+        font-family:
+          "Oswald", sans-serif !important; /* Fonte do título igual ao Hero */
+        font-size: 1.2rem !important;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+      }
+
+      /* Link "Ler Mais" transformado em Badge */
+      .read-more {
+        margin-top: auto;
+        font-family: "Oswald", sans-serif !important;
+        font-size: 0.8rem !important;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--secondary) !important;
+        font-weight: bold;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      /* Ajuste Específico para Agenda (Data) */
+      .date-badge {
+        border-radius: 8px !important; /* Menos redondo, mais "tech" */
+        font-family: "Oswald", sans-serif !important;
+        letter-spacing: 1px;
+        background-color: var(--secondary) !important;
+        color: #111 !important;
+        top: 15px !important;
+        right: 15px !important;
+      }
+
+      /* Ajuste de Espaçamento das Seções */
+      section {
+        padding: 0 !important;
+        margin-bottom: 60px;
+      }
+
+      /* RESPONSIVO */
+      @media (max-width: 850px) {
+        .hero-grid {
+          display: flex;
+          flex-direction: column;
+        }
+        .bento-card {
+          min-height: 200px;
+        }
+        .card-welcome {
+          min-height: 350px;
+        }
+        .content_title {
+          font-size: 1.5rem !important;
+        }
+      }
+    </style>
   </head>
 
   <body>
     <header>
       <a href="index.html" class="branding">
-        <img src="img/logo.png" alt="Igreja Evangélica Congregacional de Cachoeira Paulista | IECCP" />
+        <img src="img/logo.png" alt="IECCP" />
         IECCP
       </a>
 
@@ -83,7 +296,7 @@
           <li><a href="pastoral.html">Pastoral</a></li>
           <li><a href="noticias.html">Notícias</a></li>
           <li><a href="missoes.html">Missões</a></li>
-          <li><a href="sobre.html">Sobre a IECCP</a></li>
+          <li><a href="sobre.html">Sobre</a></li>
           <li>
             <button id="btn-tema" title="Mudar Tema">
               <i class="fa-solid fa-sun"></i>
@@ -93,158 +306,214 @@
       </nav>
     </header>
 
-    <section class="hero">
-      <div class="hero-wrapper">
-        <div class="hero-content">
-          <h1 class="hero-title">
-            Igreja Evangélica Congregacional de Cachoeira Paulista
-          </h1>
-          <p class="hero-subtitle">
-            Uma Igreja para glorificar a Deus, Proclamar o evangelho e edificar
-            a igreja.
-          </p>
-        </div>
-
-        <div class="botoes-hero">
-          <a href="https://maps.app.goo.gl/pz23waNTkSb8d4Ru7" target="_blank"
-            ><button><i class="fa-solid fa-location-arrow"></i></button
-          ></a>
-          <a href="https://instagram.com/ieccp" target="_blank"
-            ><button><i class="fa-brands fa-instagram"></i></button
-          ></a>
-          <a href="https://youtube.com/@ieccp" target="_blank"
-            ><button><i class="fa-brands fa-youtube"></i></button
-          ></a>
-          <a href="https://wa.me/+551231012589" target="_blank"
-            ><button><i class="fab fa-whatsapp"></i></button
-          ></a>
-        </div>
-      </div>
-    </section>
-
-    <main>
-      <section id="agenda">
-        <h2 class="content_title"><a href="agenda.html">Agenda IECCP ></a></h2>
-        <div class="carousel-container" id="container-agenda"></div>
-      </section>
-
-      <section id="pastoral">
-        <h2 class="content_title">
-          <a href="pastoral.html">Palavra Pastoral ></a>
-        </h2>
-        <div class="carousel-container" id="container-pastoral"></div>
-      </section>
-
-      <section id="noticias">
-        <h2 class="content_title"><a href="noticias.html">Notícias ></a></h2>
-        <div class="carousel-container" id="container-noticias"></div>
-      </section>
-
-      <section id="missionarios">
-        <h2 class="content_title">
-          <a href="missoes.html">Missionários da IECCP ></a>
-        </h2>
-        <div class="carousel-container" id="container-missionarios"></div>
-      </section>
-
-      <!-- Template notícia -->
-      <template id="template-padrao">
-        <div class="gallery-item">
-          <a href="" class="card-link-wrapper">
-            <div class="card-image-box">
-              <img src="" alt="Notícia" loading="lazy" />
+    <div class="main-wrapper">
+      <section class="hero-section">
+        <div class="hero-grid">
+          <div class="bento-card card-welcome">
+            <div class="welcome-content">
+              <h1>Bem-vindo à Casa</h1>
+              <p>Uma família de fé esperando por você.</p>
+              <p style="margin-top: 10px; font-size: 0.9rem; opacity: 0.8">
+                <i class="fa-solid fa-location-dot"></i> Cachoeira Paulista - SP
+              </p>
             </div>
+          </div>
 
-            <div class="card-content">
-              <h3 class="desc">Título da Notícia</h3>
-
-              <span class="read-more">
-                Ler mais <i class="fa-solid fa-arrow-right"></i>
-              </span>
+          <div class="bento-card card-highlight">
+            <h2>
+              <i class="fa-regular fa-calendar-check"></i> Cultos & Reuniões
+            </h2>
+            <div class="info-row">
+              <i class="fa-solid fa-sun"></i> <span>Domingo, 09h — EBD</span>
             </div>
-          </a>
-        </div>
-      </template>
-
-      <!-- Template missionários -->
-      <template id="template-missionarios">
-        <div class="gallery-item">
-          <a href="" class="card-link-wrapper">
-            <div class="card-image-box">
-              <img src="" alt="Notícia" loading="lazy" />
+            <div class="info-row">
+              <i class="fa-solid fa-church"></i>
+              <span>Domingo, 18h30 — Culto Solene</span>
             </div>
-
-            <div class="card-content">
-              <h3 class="desc">Nome do Missionário</h3>
-
-              <p class="short-desc">Descrição do projeto...</p>
-
-              <span class="read-more">
-                Ler mais <i class="fa-solid fa-arrow-right"></i>
-              </span>
+            <div class="info-row">
+              <i class="fa-solid fa-fire"></i>
+              <span>Sábado, 19h — Juventude</span>
             </div>
-          </a>
-        </div>
-      </template>
+          </div>
 
-      <!-- Template agenda -->
-      <template id="template-agenda">
-        <div class="gallery-item">
-          <div class="card-link-wrapper" style="cursor: default">
-            <div class="card-image-box">
-              <img src="" alt="Evento" loading="lazy" />
-              <span class="date-badge">DATA</span>
+          <div class="bento-card card-verse">
+            <i
+              class="fa-solid fa-book-bible"
+              style="
+                font-size: 2.5rem;
+                margin-bottom: 15px;
+                color: var(--secondary);
+              "
+            ></i>
+            <p style="font-style: italic">
+              "Porque onde estiverem dois ou três reunidos em meu nome, aí estou
+              eu no meio deles."
+            </p>
+            <div
+              style="
+                margin-top: 10px;
+                font-weight: bold;
+                font-family: &quot;Oswald&quot;, sans-serif;
+              "
+            >
+              Mateus 18:20
             </div>
+          </div>
 
-            <div class="card-content">
-              <h3 class="desc">Título</h3>
-              <p
-                class="short-desc"
+          <a
+            href="https://maps.app.goo.gl/pz23waNTkSb8d4Ru7"
+            target="_blank"
+            class="bento-card card-map"
+          >
+            <div class="map-content">
+              <i
+                class="fa-solid fa-map-location-dot"
                 style="
-                  margin-top: 10px;
-                  font-size: 0.9rem;
-                  color: #666;
-                  line-height: 1.5;
-                  margin-bottom: 15px;
+                  font-size: 2rem;
+                  color: var(--secondary);
+                  margin-bottom: 5px;
                 "
-              ></p>
-
-              <div
-                class="event-location"
+              ></i>
+              <h3
                 style="
-                  border-top: 1px solid #eee;
-                  padding-top: 10px;
-                  font-size: 0.85rem;
-                  color: #27ae60;
-                  font-weight: bold;
+                  font-family: &quot;Oswald&quot;, sans-serif;
+                  font-size: 1.2rem;
+                  margin: 5px 0;
                 "
               >
-                <i class="fa-solid fa-location-dot"></i>
-                <span class="texto-local">Local do Evento</span>
-              </div>
+                Onde Estamos
+              </h3>
+              <span class="btn-ver-mapa">Ver no Mapa</span>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <main>
+        <section id="agenda">
+          <h2 class="content_title">
+            <a href="agenda.html"
+              >Próximos Eventos
+              <i class="fa-solid fa-chevron-right" style="font-size: 0.8em"></i
+            ></a>
+          </h2>
+          <div class="carousel-container" id="container-agenda"></div>
+        </section>
+
+        <section id="pastoral">
+          <h2 class="content_title">
+            <a href="pastoral.html"
+              >Palavra Pastoral
+              <i class="fa-solid fa-chevron-right" style="font-size: 0.8em"></i
+            ></a>
+          </h2>
+          <div class="carousel-container" id="container-pastoral"></div>
+        </section>
+
+        <section id="noticias">
+          <h2 class="content_title">
+            <a href="noticias.html"
+              >Últimas Notícias
+              <i class="fa-solid fa-chevron-right" style="font-size: 0.8em"></i
+            ></a>
+          </h2>
+          <div class="carousel-container" id="container-noticias"></div>
+        </section>
+
+        <section id="missionarios">
+          <h2 class="content_title">
+            <a href="missoes.html"
+              >Missionários
+              <i class="fa-solid fa-chevron-right" style="font-size: 0.8em"></i
+            ></a>
+          </h2>
+          <div class="carousel-container" id="container-missionarios"></div>
+        </section>
+      </main>
+    </div>
+    <template id="template-padrao">
+      <div class="gallery-item">
+        <a href="" class="card-link-wrapper">
+          <div class="card-image-box">
+            <img src="" alt="Notícia" loading="lazy" />
+          </div>
+          <div class="card-content">
+            <h3 class="desc">Título</h3>
+            <span class="read-more"
+              >Ler Mais <i class="fa-solid fa-arrow-right"></i
+            ></span>
+          </div>
+        </a>
+      </div>
+    </template>
+
+    <template id="template-missionarios">
+      <div class="gallery-item">
+        <a href="" class="card-link-wrapper">
+          <div class="card-image-box">
+            <img src="" alt="Missões" loading="lazy" />
+          </div>
+          <div class="card-content">
+            <h3 class="desc">Nome</h3>
+            <p class="short-desc">Descrição...</p>
+            <span class="read-more"
+              >Apoiar <i class="fa-solid fa-arrow-right"></i
+            ></span>
+          </div>
+        </a>
+      </div>
+    </template>
+
+    <template id="template-agenda">
+      <div class="gallery-item">
+        <div class="card-link-wrapper" style="cursor: default">
+          <div class="card-image-box">
+            <img src="" alt="Evento" loading="lazy" />
+            <span class="date-badge">DATA</span>
+          </div>
+          <div class="card-content">
+            <h3 class="desc">Título</h3>
+            <p
+              class="short-desc"
+              style="margin-top: 5px; font-size: 0.85rem; opacity: 0.8"
+            ></p>
+            <div
+              class="event-location"
+              style="
+                margin-top: auto;
+                padding-top: 10px;
+                font-size: 0.85rem;
+                color: #27ae60;
+                font-weight: bold;
+                border-top: 1px solid var(--card-border);
+              "
+            >
+              <i class="fa-solid fa-location-dot"></i>
+              <span class="texto-local">Local</span>
             </div>
           </div>
         </div>
-      </template>
+      </div>
+    </template>
 
-      <!-- Template Pastoral -->
-      <template id="template-pastoral">
-        <div class="gallery-item">
-          <a href="" class="card-link-wrapper">
-            <div class="card-image-box">
-              <img src="" alt="" loading="lazy" />
-            </div>
-            <div class="card-content">
-              <h3 class="desc">Título</h3>
-              <p class="short-desc"></p>
-            </div>
-          </a>
-        </div>
-      </template>
-    </main>
-    <a href="#" id="back-to-top" title="Voltar ao topo">
-      <i class="fa-solid fa-arrow-up"></i>
-    </a>
+    <template id="template-pastoral">
+      <div class="gallery-item">
+        <a href="" class="card-link-wrapper">
+          <div class="card-image-box"><img src="" alt="" loading="lazy" /></div>
+          <div class="card-content">
+            <h3 class="desc">Título</h3>
+            <p class="short-desc"></p>
+            <span class="read-more"
+              >Ler Reflexão <i class="fa-solid fa-arrow-right"></i
+            ></span>
+          </div>
+        </a>
+      </div>
+    </template>
+
+    <a href="#" id="back-to-top" title="Voltar ao topo"
+      ><i class="fa-solid fa-arrow-up"></i
+    ></a>
 
     <footer>
       <div class="footer-content">
@@ -255,13 +524,11 @@
             igreja.
           </p>
         </div>
-
         <div class="footer-section links">
           <h3>Navegação</h3>
           <ul>
             <li><a href="sobre.html">Nossa História</a></li>
             <li><a href="missoes.html">Missionários</a></li>
-            <li><a href="sobre.html">Doutrinas</a></li>
             <li>
               <a href="https://wa.me/+551231012589" target="_blank"
                 >Fale Conosco</a
@@ -269,25 +536,14 @@
             </li>
           </ul>
         </div>
-
         <div class="footer-section contact">
           <h3>Encontre-nos</h3>
           <p>
-            <i class="fa-solid fa-location-dot"></i>
-            <a href="https://maps.app.goo.gl/pz23waNTkSb8d4Ru7">
-              R. Conselheiro Rodrigues Alves, 358, Cachoeira Paulista - SP,
-              12630-000</a
-            >
-          </p>
-          <p>
-            <i class="fa-solid fa-envelope"></i>
-            <a href="mailto:congregacp.secretaria@gmail.com"
-              >congregacp.secretaria@gmail.com</a
-            >
+            <i class="fa-solid fa-location-dot"></i> R. Conselheiro Rodrigues
+            Alves, 358
           </p>
         </div>
       </div>
-
       <div class="footer-bottom">
         <p>Criado por Matheus Andrade e Luiz Charleaux © 2026 – IECCP</p>
       </div>
@@ -296,22 +552,15 @@
     <div id="modal-notificacao" class="modal-overlay">
       <div class="modal-box">
         <h3>Fique por dentro! ⛪</h3>
-        <p>
-          Gostaria de receber avisos sobre cultos e eventos da nossa igreja?
-        </p>
-
+        <p>Receba avisos sobre cultos e eventos.</p>
         <div class="modal-botoes">
           <button id="btn-agora-nao" class="btn-secundario">Agora não</button>
-          <button id="btn-aceitar" class="btn-primario">Sim, eu quero!</button>
+          <button id="btn-aceitar" class="btn-primario">Sim!</button>
         </div>
       </div>
     </div>
-
     <div id="cookie-banner" class="cookie-banner">
-      <p>
-        🍪 Usamos cookies para melhorar sua experiência e integrar com Google
-        Maps e YouTube. Ao continuar, você concorda com nossa política.
-      </p>
+      <p>🍪 Usamos cookies para melhorar sua experiência.</p>
       <button id="btn-cookie-ok">Entendi</button>
     </div>
 
