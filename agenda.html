@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--Acrecentei a descrição aqui também para o SEO-->
+    <meta
+      name="description"
+      content="Agenda da Igreja Evangélica Congregacional de Cachoeira Paulista, sobre eventos, cultos e atividades da comunidade IECCP."
+    />
+    <title>IECCP - Agenda</title>
+
+    <link rel="icon" type="image/svg+xml" href="img/ico.svg" />
+    <link rel="stylesheet" href="styles/global.css" />
+    <link rel="stylesheet" href="styles/header.css" />
+    <link rel="stylesheet" href="styles/gallery.css" />
+    <link rel="stylesheet" href="styles/pages.css" />
+    <link rel="stylesheet" href="styles/agenda.css" />
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Oswald"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <header>
+      <a href="index" class="branding">
+        <img
+          src="img/logo.png"
+          alt="Igreja Evangélica Congregacional de Cachoeira Paulista | IECCP"
+        />
+        IECCP
+      </a>
+
+      <nav>
+        <button id="btn-mobile" onclick="toggleMenu()">
+          <div class="line1"></div>
+          <div class="line2"></div>
+          <div class="line3"></div>
+        </button>
+
+        <ul id="menu" role="menu">
+          <li><a href="agenda">Agenda</a></li>
+          <li><a href="pastoral">Pastoral</a></li>
+          <li><a href="noticias">Notícias</a></li>
+          <li><a href="missoes">Missões</a></li>
+          <li><a href="sobre">Sobre a IECCP</a></li>
+          <li>
+            <button id="btn-tema" title="Mudar Tema">
+              <i class="fa-solid fa-sun"></i>
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <section class="news-page" style="text-align: center; padding: 40px 20px">
+      <h1 class="content_title">Agenda IECCP</h1>
+
+      <div class="news-grid" id="container-agenda"></div>
+
+      <template id="template-agenda">
+        <div class="gallery-item">
+          <div class="card-link-wrapper" style="cursor: default">
+            <div class="card-image-box">
+              <img src="" alt="Evento" loading="lazy" />
+              <span class="date-badge">DATA</span>
+            </div>
+
+            <div class="card-content">
+              <h3 class="desc">Título</h3>
+              <p
+                class="short-desc"
+                style="
+                  margin-top: 10px;
+                  font-size: 0.9rem;
+                  color: #666;
+                  line-height: 1.5;
+                  margin-bottom: 15px;
+                "
+              ></p>
+
+              <div
+                class="event-location"
+                style="
+                  border-top: 1px solid #eee;
+                  padding-top: 10px;
+                  font-size: 0.85rem;
+                  color: #27ae60;
+                  font-weight: bold;
+                "
+              >
+                <i class="fa-solid fa-location-dot"></i>
+                <span class="texto-local">Local do Evento</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </template>
+    </section>
+
+    <footer>
+      <p>Criado por Matheus Andrade e Luiz Charleaux © 2026 – IECCP</p>
+    </footer>
+
+    <script src="scripts/tema.js"></script>
+    <script src="scripts/menu.js"></script>
+    <script src="scripts/conteudo.js" defer></script>
+  </body>
+</html>

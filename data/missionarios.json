@@ -1,26 +1,38 @@
 [
   {
-    "titulo": "Pr. João e Família",
-    "img": "https://images.unsplash.com/photo-1509099836639-18ba1795216d?auto=format&fit=crop&w=600&q=80",
+    "titulo": "Aurino",
+    "img": "../img/missionarios/aurino_familia.png",
     "link": "#",
-    "descricao": "Missionários em Moçambique"
+    "descricao": "Missionários em Moçambique, ministério Palavra da Vida"
   },
   {
-    "titulo": "Miss. Maria Silva",
-    "img": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=600&q=80",
+    "titulo": "Alex",
+    "img": "../img/missionarios/alex.png",
     "link": "#",
-    "descricao": "Projeto Ribeirinhos na Amazônia"
+    "descricao": "Ribeirinhos na Amazônia, missão SEARA"
   },
   {
-    "titulo": "Família Oliveira",
-    "img": "https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=600&q=80",
+    "titulo": "John e Rebecah",
+    "img": "../img/missionarios/rebecah_john_familia.png",
     "link": "#",
-    "descricao": "Plantação de Igrejas no Sertão"
+    "descricao": "Aldeia Palimi-U-RR, missão MEVA"
   },
   {
-    "titulo": "Projeto Lucas",
-    "img": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=600&q=80",
+    "titulo": "Claudecy",
+    "img": "../img/missionarios/claudecy.jpg",
     "link": "#",
-    "descricao": "Apoio médico e social"
+    "descricao": "Ribeirinhos na Amazônia, missão SEARA"
+  },
+  {
+    "titulo": "Ricardo",
+    "img": "../img/missionarios/ricardo.png",
+    "link": "#",
+    "descricao": "Comunidades indígenas NE, UNIEDAS"
+  },
+  {
+    "titulo": "Richard e Yohanna",
+    "img": "../img/missionarios/richard.png",
+    "link": "#",
+    "descricao": "Instituto Palavra da Vida Pará, PV"
   }
 ]

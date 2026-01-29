@@ -3,6 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--Acrecentei a descrição aqui também para o SEO-->
+    <meta
+      name="description"
+      content="Notícias da Igreja Evangélica Congregacional de Cachoeira Paulista, sobre eventos,cultos e atividades da comunidade IECCP."
+    />
     <title>IECCP - Notícias</title>
 
     <link rel="icon" type="image/svg+xml" href="img/ico.svg" />
@@ -27,8 +32,11 @@
 
   <body>
     <header>
-      <a href="index.html" class="branding">
-        <img src="img/logo.png" alt="LOGO_IECCP" />
+      <a href="/" class="branding">
+        <img
+          src="img/logo.png"
+          alt="Igreja Evangélica Congregacional de Cachoeira Paulista | IECCP"
+        />
         IECCP
       </a>
 
@@ -40,12 +48,11 @@
         </button>
 
         <ul id="menu" role="menu">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="historia.html">História</a></li>
-          <li><a href="noticias.html">Notícias</a></li>
-          <li><a href="missionarios.html">Missionários</a></li>
-          <li><a href="doutrinas.html">Doutrinas</a></li>
-          <li><a href="sobre.html">Sobre</a></li>
+          <li><a href="agenda">Agenda</a></li>
+          <li><a href="pastoral">Pastoral</a></li>
+          <li><a href="noticias">Notícias</a></li>
+          <li><a href="missoes">Missões</a></li>
+          <li><a href="sobre">Sobre a IECCP</a></li>
           <li>
             <button id="btn-tema" title="Mudar Tema">
               <i class="fa-solid fa-sun"></i>
@@ -55,8 +62,12 @@
       </nav>
     </header>
 
-    <section class="news-page">
-      <h2 class="content_title">Todas as Notícias</h2>
+    <section
+      class="news-page"
+      class="page-title"
+      style="text-align: center; padding: 40px 20px"
+    >
+      <h1 class="content_title">Todas as Notícias</h1>
 
       <div class="news-grid" id="container-todas-noticias"></div>
 

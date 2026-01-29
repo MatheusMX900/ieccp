@@ -134,3 +134,18 @@ div.gallery-item a.card-link-wrapper {
     justify-content: center;
   }
 }
+
+.short-desc {
+  font-family: "Poppins", sans-serif;
+  font-size: 0.85rem;
+  color: var(--text-color);
+  opacity: 0.8;
+  margin-bottom: 15px;
+  line-height: 1.5;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

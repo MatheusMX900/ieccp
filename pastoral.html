@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--Acrecentei a descrição aqui também para o SEO-->
+
+    <title>IECCP - Pastoral</title>
+
+    <link rel="icon" type="image/svg+xml" href="img/ico.svg" />
+    <link rel="stylesheet" href="styles/global.css" />
+    <link rel="stylesheet" href="styles/header.css" />
+    <link rel="stylesheet" href="styles/gallery.css" />
+    <link rel="stylesheet" href="styles/pages.css" />
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Oswald"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <header>
+      <a href="/" class="branding">
+        <img
+          src="img/logo.png"
+          alt="Igreja Evangélica Congregacional de Cachoeira Paulista | IECCP"
+        />
+        IECCP
+      </a>
+
+      <nav>
+        <button id="btn-mobile" onclick="toggleMenu()">
+          <div class="line1"></div>
+          <div class="line2"></div>
+          <div class="line3"></div>
+        </button>
+
+        <ul id="menu" role="menu">
+          <li><a href="agenda">Agenda</a></li>
+          <li><a href="pastoral">Pastoral</a></li>
+          <li><a href="noticias">Notícias</a></li>
+          <li><a href="missoes">Missões</a></li>
+          <li><a href="sobre">Sobre a IECCP</a></li>
+          <li>
+            <button id="btn-tema" title="Mudar Tema">
+              <i class="fa-solid fa-sun"></i>
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <section
+      class="page-content"
+      style="text-align: center; padding: 40px 20px"
+    >
+      <h1 class="content_title">Artigos Pastorais</h1>
+      <div id="container-todos-pastoral" class="news-grid"></div>
+
+      <template id="template-pastoral">
+        <div class="gallery-item">
+          <a href="" class="card-link-wrapper">
+            <div class="card-image-box">
+              <img src="" alt="" loading="lazy" />
+            </div>
+            <div class="card-content">
+              <h3 class="desc">Título</h3>
+              <p class="short-desc"></p>
+            </div>
+          </a>
+        </div>
+      </template>
+    </section>
+
+    <footer>
+      <p>Criado por Matheus Andrade e Luiz Charleaux © 2026 – IECCP</p>
+    </footer>
+
+    <script src="scripts/tema.js"></script>
+    <script src="scripts/menu.js"></script>
+    <script src="scripts/conteudo.js" defer></script>
+  </body>
+</html>

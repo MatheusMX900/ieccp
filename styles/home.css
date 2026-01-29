@@ -99,3 +99,9 @@ section {
     font-size: 2rem;
   }
 }
+
+.card-content p,
+.card-content .short-desc,
+.card-content .desc {
+  white-space: pre-wrap;
+}
