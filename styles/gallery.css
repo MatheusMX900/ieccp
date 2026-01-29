@@ -11,6 +11,24 @@
 
   scroll-snap-type: x mandatory;
   overflow-x: auto;
+
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 1%,
+    black 99%,
+    transparent
+  );
+
+  --webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 1%,
+    black 99%,
+    transparent
+  );
+
+  scrollbar-width: none;
 }
 
 /* =========================================
@@ -29,6 +47,8 @@ div.gallery-item {
   overflow: hidden;
   scroll-snap-align: start;
   position: relative;
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 
   transition:
     border-color 0.2s ease,
