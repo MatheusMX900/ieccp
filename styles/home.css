@@ -219,27 +219,23 @@ body {
 }
 
 .read-more {
-  /* Mantém o posicionamento */
   margin-top: 15px;
   display: inline-block;
   text-align: center;
 
-  /* Fontes */
   font-family: "Oswald", sans-serif !important;
   font-size: 0.85rem !important;
   text-transform: uppercase;
   letter-spacing: 1px;
   border-radius: 4px;
-  padding: 10px 20px; /* Aumentei um pouco para ficar mais bonito preenchido */
+  padding: 10px 20px;
   transition: 0.3s;
 
-  /* --- A MUDANÇA MÁGICA AQUI --- */
-  background-color: var(--header-bg) !important; /* Usa o Azul do seu tema */
-  color: white !important; /* Letra Branca */
-  border: 1px solid var(--header-bg); /* Borda da mesma cor */
+  background-color: var(--header-bg) !important;
+  color: white !important;
+  border: 1px solid var(--header-bg);
 }
 
-/* Efeito ao passar o mouse (Opcional: ficar amarelo) */
 .gallery-item:hover .read-more {
   background-color: var(--secondary) !important;
   border-color: var(--secondary);
