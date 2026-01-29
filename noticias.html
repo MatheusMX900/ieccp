@@ -10,78 +10,12 @@
     />
     <title>IECCP - Notícias</title>
 
-    <style>
-  body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-  }
-
-  .noticia {
-    max-width: 1100px;
-    margin: 80px auto;
-    padding: 0 20px;
-
-    display: flex;               /* chave do layout */
-    gap: 40px;
-    align-items: flex-start;
-  }
-
-  .conteudo-texto {
-    flex: 2;                     /* texto ocupa mais espaço */
-    text-align: left;
-  }
-
-  .conteudo-texto h2 {
-    margin-bottom: 20px;
-    font-size: 1.8rem;
-  }
-
-  .conteudo-texto p {
-    text-align: justify;
-    line-height: 1.7;
-    font-size: 1rem;
-    margin-bottom: 16px;
-  }
-
-  .conteudo-texto ul {
-    margin: 20px 0;
-    padding-left: 20px;
-  }
-
-  .conteudo-texto li {
-    margin-bottom: 10px;
-    line-height: 1.6;
-  }
-
-  .conteudo-imagem {
-    flex: 1;
-    display: flex;
-    gap: 16px;                 /* espaço entre as imagens */
-    align-items: flex-start;
-  }
-
-  .conteudo-imagem img {
-    width: 100%;
-    max-width: 160px;          /* controla o tamanho */
-    border-radius: 8px;
-    display: block;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  }
-
-  /* Responsivo (celular) */
-  @media (max-width: 768px) {
-    .noticia {
-      flex-direction: column;
-    }
-  }
-</style>
-
-
     <link rel="icon" type="image/svg+xml" href="img/ico.svg" />
     <link rel="stylesheet" href="styles/global.css" />
     <link rel="stylesheet" href="styles/header.css" />
     <link rel="stylesheet" href="styles/gallery.css" />
     <link rel="stylesheet" href="styles/pages.css" />
+    <link rel="stylesheet" href="styles/noticia.css" />
 
     <link
       href="https://fonts.googleapis.com/css?family=Oswald"
@@ -130,64 +64,38 @@
     </header>
 
     <main>
+      <div class="page-header">
+        <h1>Notícias e Atividades</h1>
+      </div>
 
-    <section
-      class="news-page"
-      class="page-title"
-      style="text-align: center; padding: 40px 20px"
-    >
-      <h1 class="content_title">Todas as Notícias</h1>
-
-      <div class="news-grid" id="container-todas-noticias"></div>
-
-      <template id="template-padrao">
-        <div class="gallery-item">
-          <a href="" class="card-link-wrapper">
-            <div class="card-image-box">
-              <img src="" alt="Notícia" loading="lazy" />
-            </div>
-
-            <div class="card-content">
-              <h2 class="desc">Título da Notícia</h2>
-
-              <span class="read-more">
-                Ler mais <i class="fa-solid fa-arrow-right"></i>
-              </span>
-            </div>
-          </a>
-        </div>
-      </template>
-    </section>
-
-    <section class="noticia">
-      <div class="conteudo-texto">
-      <h3>
-        Escola Bíblica Dominical está de volta! 
-        <span role="img" aria-label="oração">🙏</span>
-      </h3>
-      <p>
-        No dia 25 de janeiro, a IECCP celebrou com alegria o retorno da nossa Escola Bíblica Dominical.
-        Foi um domingo de reencontros marcantes e muito aprendizado para todas as idades.
-      </p>
-
-      <ul>
-        <li><strong>Adultos e Adolescentes:</strong> Estudo do livro “O Evangelho para a Vida Real”.</li>
-        <li><strong>Ministério Infantil:</strong> Brincadeiras, recepção e ensino bíblico de forma lúdica.</li>
-      </ul>
-
-      <p>
-        A EBD é o coração do ensino em nossa igreja.
-        Se você não pôde estar conosco, sinta-se convidado para as próximas aulas.
-      </p>
-    </div>
-
-    <div class="conteudo-imagem">
-      <img src="img/ebd.jpeg" alt="Foto da placa de EBD"/>
-      <img src="img/gincana.jpeg" alt="Foto com crianças em circulo"/>
-    </div>
-    </section>
-
+      <div id="feed-container">
+        <p style="text-align: center">Carregando notícias...</p>
+      </div>
     </main>
+
+    <template id="template-noticia">
+      <article class="noticia-item">
+        <div class="conteudo-texto">
+          <span class="data-badge"></span>
+
+          <h2></h2>
+
+          <div class="texto-dinamico"></div>
+        </div>
+
+        <div class="conteudo-imagem">
+          <img src="" alt="Imagem da Notícia" loading="lazy" />
+        </div>
+      </article>
+    </template>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        if (typeof carregarFeedNoticias === "function") {
+          carregarFeedNoticias();
+        }
+      });
+    </script>
 
     <footer>
       <p>Criado por Matheus Andrade e Luiz Charleaux © 2026 – IECCP</p>

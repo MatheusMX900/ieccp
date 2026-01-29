@@ -137,3 +137,62 @@ function limparTexto(texto) {
   // Decodifica quebras de linha que vêm do PHP/JSON
   return texto.replace(/&#13;/g, "").replace(/&#10;/g, "\n");
 }
+
+async function carregarFeedNoticias() {
+  const container = document.getElementById("feed-container");
+  const template = document.getElementById("template-noticia");
+
+  if (!container || !template) return;
+
+  try {
+    const response = await fetch("data/noticias.json");
+    const noticias = await response.json();
+
+    container.innerHTML = "";
+
+    if (noticias.length === 0) {
+      container.innerHTML =
+        "<p style='text-align:center'>Nenhuma notícia encontrada!</p>";
+      return;
+    }
+
+    noticias.forEach((item) => {
+      const clone = template.content.cloneNode(true);
+
+      const dataBadge = clone.querySelector(".data-badge");
+      if (dataBadge) dataBadge.textContent = item.data || "";
+
+      const titulo = clone.querySelector("h2");
+      if (titulo) titulo.textContent = item.titulo;
+
+      const divTexto = clone.querySelector(".texto-dinamico");
+      if (divTexto && item.texto) {
+        const paragrafos = item.texto.split("\n");
+        paragrafos.forEach((paragrafo) => {
+          if (paragrafo.trim() !== "") {
+            const p = document.createElement("p");
+            p.textContent = paragrafo;
+            divTexto.appendChild(p);
+          }
+        });
+      }
+
+      const img = clone.querySelector("img");
+      const divImg = clone.querySelector(".conteudo-imagem");
+
+      if (item.img) {
+        let srcLimpo = item.img
+          .replace("../", "")
+          .replace("https://ieccp.com.br/", "");
+        img.src = srcLimpo;
+        img.alt = item.titulo;
+      } else {
+        if (divImg) divImg.remove();
+      }
+
+      container.appendChild(clone);
+    });
+  } catch (error) {
+    console.error("Erro feed:", erro);
+  }
+}
