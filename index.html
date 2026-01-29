@@ -7,7 +7,7 @@
 
     <meta
       name="description"
-      content="IECCP - Uma família de fé em Cachoeira Paulista."
+      content="IECCP - Uma família de fé em Cachoeira Paulista. Participe dos nossos cultos."
     />
 
     <link
@@ -15,7 +15,7 @@
       rel="stylesheet"
     />
     <link
-      href="https://fonts.googleapis.com/css?family=Poppins:300,400,600,700"
+      href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700"
       rel="stylesheet"
     />
     <link
@@ -24,257 +24,12 @@
     />
 
     <link rel="icon" type="image/svg+xml" href="img/ico.svg" />
+
     <link rel="stylesheet" href="styles/global.css" />
     <link rel="stylesheet" href="styles/header.css" />
     <link rel="stylesheet" href="styles/gallery.css" />
     <link rel="stylesheet" href="styles/agenda.css" />
-
-    <style>
-      /* =================================================================
-           DESIGN SYSTEM UNIFICADO (HERO + CONTEÚDO)
-           ================================================================= */
-
-      /* 1. O CONTAINER GERAL (Alinha tudo no centro com a mesma largura) */
-      .main-wrapper {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 20px;
-      }
-
-      /* 2. AJUSTE DO HERO (Bento Grid) */
-      .hero-section {
-        margin-top: 30px;
-        margin-bottom: 60px;
-      }
-
-      .hero-grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        grid-template-rows: 340px 200px; /* Altura ajustada */
-        gap: 20px;
-      }
-
-      /* 3. ESTILO BASE DOS CARDS (Serve para Hero E para os Carrosséis) */
-      .bento-card,
-      .gallery-item {
-        background-color: var(--bg-card);
-        border: 1px solid var(--card-border);
-        border-radius: 16px !important; /* Arredondamento UNIFICADO */
-        overflow: hidden;
-        transition:
-          transform 0.2s ease,
-          border-color 0.2s ease,
-          box-shadow 0.2s ease;
-      }
-
-      /* Hover Unificado */
-      .bento-card:hover,
-      .gallery-item:hover {
-        transform: translateY(-4px);
-        border-color: var(--secondary);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-      }
-
-      /* --- ESTILOS ESPECÍFICOS DO HERO --- */
-      .bento-card {
-        padding: 25px;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        position: relative;
-        text-decoration: none;
-        color: var(--text-color);
-      }
-
-      /* Card Welcome */
-      .card-welcome {
-        grid-column: span 2;
-        grid-row: span 2;
-        background:
-          linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.1)),
-          url("https://images.unsplash.com/photo-1543791959-12b3f543282a?q=80&w=2070&auto=format&fit=crop");
-        background-size: cover;
-        background-position: center;
-        border: none;
-      }
-      .welcome-content h1 {
-        font-family: "Oswald", sans-serif;
-        font-size: 2.8rem;
-        color: white;
-        line-height: 1;
-        margin-bottom: 10px;
-        text-transform: uppercase;
-      }
-      .welcome-content p {
-        color: #ddd;
-        font-family: "Poppins", sans-serif;
-      }
-
-      /* Card Destaque (Amarelo) */
-      .card-highlight {
-        grid-column: span 2;
-        background-color: var(--secondary);
-        color: #1c1c1c;
-        border: none;
-        justify-content: center;
-      }
-      .card-highlight h2 {
-        font-family: "Oswald", sans-serif;
-        font-size: 1.5rem;
-        margin-bottom: 15px;
-      }
-      .info-row {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        font-family: "Poppins", sans-serif;
-        font-weight: 600;
-        margin-bottom: 8px;
-      }
-
-      /* Card Versículo */
-      .card-verse {
-        grid-column: span 1;
-        background-color: var(--header-bg);
-        color: white;
-        text-align: center;
-        justify-content: center;
-        align-items: center;
-        border: none;
-      }
-
-      /* Card Mapa */
-      .card-map {
-        grid-column: span 1;
-        background-image: url("https://images.unsplash.com/photo-1524661135-423995f22d0b?w=800&auto=format&fit=crop");
-        background-size: cover;
-        color: white;
-      }
-      .card-map::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.5);
-        transition: 0.3s;
-      }
-      .card-map:hover::before {
-        background: rgba(0, 0, 0, 0.3);
-      }
-      .map-content {
-        position: relative;
-        z-index: 2;
-        text-align: center;
-        width: 100%;
-      }
-      .btn-ver-mapa {
-        background: var(--secondary);
-        color: #111;
-        padding: 8px 15px;
-        border-radius: 6px;
-        font-weight: bold;
-        font-size: 0.8rem;
-        margin-top: 10px;
-        display: inline-block;
-        text-transform: uppercase;
-        font-family: "Oswald", sans-serif;
-      }
-
-      /* =================================================================
-           SOBRESCREVENDO A GALERIA PARA FICAR IGUAL AO HERO
-           ================================================================= */
-
-      /* Títulos das Seções (Agora iguais ao Hero) */
-      .content_title {
-        font-family: "Oswald", sans-serif !important;
-        font-size: 1.8rem !important;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        margin-bottom: 25px !important;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-      .content_title a {
-        text-decoration: none;
-      }
-      .content_title i {
-        font-size: 1.2rem;
-        color: var(--secondary);
-      }
-
-      /* Ajuste do Card da Galeria */
-      .gallery-item {
-        width: 280px !important; /* Um pouco mais largo para parecer um "bloco" */
-        border-radius: 16px !important; /* Força o arredondamento */
-      }
-
-      /* Imagem do Card */
-      .card-image-box {
-        height: 180px;
-        border-bottom: 1px solid var(--card-border);
-      }
-
-      /* Conteúdo do Card */
-      .card-content {
-        padding: 20px !important;
-      }
-
-      .card-content h3.desc {
-        font-family:
-          "Oswald", sans-serif !important; /* Fonte do título igual ao Hero */
-        font-size: 1.2rem !important;
-        margin-bottom: 8px;
-        text-transform: uppercase;
-      }
-
-      /* Link "Ler Mais" transformado em Badge */
-      .read-more {
-        margin-top: auto;
-        font-family: "Oswald", sans-serif !important;
-        font-size: 0.8rem !important;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        color: var(--secondary) !important;
-        font-weight: bold;
-        display: inline-flex;
-        align-items: center;
-        gap: 5px;
-      }
-
-      /* Ajuste Específico para Agenda (Data) */
-      .date-badge {
-        border-radius: 8px !important; /* Menos redondo, mais "tech" */
-        font-family: "Oswald", sans-serif !important;
-        letter-spacing: 1px;
-        background-color: var(--secondary) !important;
-        color: #111 !important;
-        top: 15px !important;
-        right: 15px !important;
-      }
-
-      /* Ajuste de Espaçamento das Seções */
-      section {
-        padding: 0 !important;
-        margin-bottom: 60px;
-      }
-
-      /* RESPONSIVO */
-      @media (max-width: 850px) {
-        .hero-grid {
-          display: flex;
-          flex-direction: column;
-        }
-        .bento-card {
-          min-height: 200px;
-        }
-        .card-welcome {
-          min-height: 350px;
-        }
-        .content_title {
-          font-size: 1.5rem !important;
-        }
-      }
-    </style>
+    <link rel="stylesheet" href="styles/home.css" />
   </head>
 
   <body>
@@ -306,84 +61,64 @@
       </nav>
     </header>
 
-    <div class="main-wrapper">
+    <div class="wrapper">
       <section class="hero-section">
         <div class="hero-grid">
-          <div class="bento-card card-welcome">
-            <div class="welcome-content">
-              <h1>Bem-vindo à Casa</h1>
-              <p>Uma família de fé esperando por você.</p>
-              <p style="margin-top: 10px; font-size: 0.9rem; opacity: 0.8">
-                <i class="fa-solid fa-location-dot"></i> Cachoeira Paulista - SP
-              </p>
-            </div>
-          </div>
-
-          <div class="bento-card card-highlight">
-            <h2>
-              <i class="fa-regular fa-calendar-check"></i> Cultos & Reuniões
-            </h2>
-            <div class="info-row">
-              <i class="fa-solid fa-sun"></i> <span>Domingo, 09h — EBD</span>
-            </div>
-            <div class="info-row">
-              <i class="fa-solid fa-church"></i>
-              <span>Domingo, 18h30 — Culto Solene</span>
-            </div>
-            <div class="info-row">
-              <i class="fa-solid fa-fire"></i>
-              <span>Sábado, 19h — Juventude</span>
-            </div>
-          </div>
-
-          <div class="bento-card card-verse">
-            <i
-              class="fa-solid fa-book-bible"
-              style="
-                font-size: 2.5rem;
-                margin-bottom: 15px;
-                color: var(--secondary);
-              "
-            ></i>
-            <p style="font-style: italic">
-              "Porque onde estiverem dois ou três reunidos em meu nome, aí estou
-              eu no meio deles."
+          <div class="master-card card-welcome">
+            <span class="welcome-badge">Seja Bem-vindo</span>
+            <h1 class="welcome-title">
+              Glorificar, Edificar <br />& Proclamar
+            </h1>
+            <p class="welcome-text">
+              Uma comunidade viva em Cachoeira Paulista, pronta para te receber
+              de braços abertos.
             </p>
-            <div
-              style="
-                margin-top: 10px;
-                font-weight: bold;
-                font-family: &quot;Oswald&quot;, sans-serif;
-              "
-            >
-              Mateus 18:20
+          </div>
+
+          <div class="master-card card-times">
+            <div class="times-header">
+              <h2>Nossos Horários</h2>
+              <i class="fa-regular fa-clock" style="font-size: 1.5rem"></i>
             </div>
+            <div class="time-row">
+              <i class="fa-solid fa-sun"></i> <span>Dom 09h — EBD</span>
+            </div>
+            <div class="time-row">
+              <i class="fa-solid fa-church"></i> <span>Dom 18h30 — Culto</span>
+            </div>
+            <div class="time-row">
+              <i class="fa-solid fa-fire"></i> <span>Sáb 19h — Juventude</span>
+            </div>
+          </div>
+
+          <div class="master-card card-verse">
+            <i class="fa-solid fa-quote-left quote-icon"></i>
+            <p class="verse-text">
+              "Alegrei-me quando me disseram: vamos à casa do Senhor"
+            </p>
+            <span class="verse-ref">SALMOS 122:1</span>
           </div>
 
           <a
             href="https://maps.app.goo.gl/pz23waNTkSb8d4Ru7"
             target="_blank"
-            class="bento-card card-map"
+            class="master-card card-map"
           >
-            <div class="map-content">
+            <div class="map-overlay">
               <i
-                class="fa-solid fa-map-location-dot"
+                class="fa-solid fa-location-dot"
                 style="
                   font-size: 2rem;
+                  margin-bottom: 10px;
                   color: var(--secondary);
-                  margin-bottom: 5px;
                 "
               ></i>
               <h3
-                style="
-                  font-family: &quot;Oswald&quot;, sans-serif;
-                  font-size: 1.2rem;
-                  margin: 5px 0;
-                "
+                style="font-family: &quot;Oswald&quot;, sans-serif; margin: 0"
               >
-                Onde Estamos
+                ONDE ESTAMOS
               </h3>
-              <span class="btn-ver-mapa">Ver no Mapa</span>
+              <span class="btn-map">Ver Rotas</span>
             </div>
           </a>
         </div>
@@ -391,42 +126,46 @@
 
       <main>
         <section id="agenda">
-          <h2 class="content_title">
-            <a href="agenda.html"
-              >Próximos Eventos
-              <i class="fa-solid fa-chevron-right" style="font-size: 0.8em"></i
+          <div class="section-header">
+            <h2 class="section-title">Próximos Eventos</h2>
+            <a href="agenda.html" class="section-link"
+              ><span>Ver Agenda Completa</span>
+              <i class="fa-solid fa-arrow-right-long"></i
             ></a>
-          </h2>
+          </div>
           <div class="carousel-container" id="container-agenda"></div>
         </section>
 
         <section id="pastoral">
-          <h2 class="content_title">
-            <a href="pastoral.html"
-              >Palavra Pastoral
-              <i class="fa-solid fa-chevron-right" style="font-size: 0.8em"></i
+          <div class="section-header">
+            <h2 class="section-title">Palavra Pastoral</h2>
+            <a href="pastoral.html" class="section-link"
+              ><span>Ler Mais Artigos</span>
+              <i class="fa-solid fa-arrow-right-long"></i
             ></a>
-          </h2>
+          </div>
           <div class="carousel-container" id="container-pastoral"></div>
         </section>
 
         <section id="noticias">
-          <h2 class="content_title">
-            <a href="noticias.html"
-              >Últimas Notícias
-              <i class="fa-solid fa-chevron-right" style="font-size: 0.8em"></i
+          <div class="section-header">
+            <h2 class="section-title">Últimas Notícias</h2>
+            <a href="noticias.html" class="section-link"
+              ><span>Ver Todas</span>
+              <i class="fa-solid fa-arrow-right-long"></i
             ></a>
-          </h2>
+          </div>
           <div class="carousel-container" id="container-noticias"></div>
         </section>
 
         <section id="missionarios">
-          <h2 class="content_title">
-            <a href="missoes.html"
-              >Missionários
-              <i class="fa-solid fa-chevron-right" style="font-size: 0.8em"></i
+          <div class="section-header">
+            <h2 class="section-title">Nossos Missionários</h2>
+            <a href="missoes.html" class="section-link"
+              ><span>Conhecer Projetos</span>
+              <i class="fa-solid fa-arrow-right-long"></i
             ></a>
-          </h2>
+          </div>
           <div class="carousel-container" id="container-missionarios"></div>
         </section>
       </main>
@@ -439,9 +178,7 @@
           </div>
           <div class="card-content">
             <h3 class="desc">Título</h3>
-            <span class="read-more"
-              >Ler Mais <i class="fa-solid fa-arrow-right"></i
-            ></span>
+            <span class="read-more">Ler Mais</span>
           </div>
         </a>
       </div>
@@ -456,9 +193,7 @@
           <div class="card-content">
             <h3 class="desc">Nome</h3>
             <p class="short-desc">Descrição...</p>
-            <span class="read-more"
-              >Apoiar <i class="fa-solid fa-arrow-right"></i
-            ></span>
+            <span class="read-more">Apoiar</span>
           </div>
         </a>
       </div>
@@ -473,19 +208,20 @@
           </div>
           <div class="card-content">
             <h3 class="desc">Título</h3>
-            <p
-              class="short-desc"
-              style="margin-top: 5px; font-size: 0.85rem; opacity: 0.8"
-            ></p>
+            <p class="short-desc" style="margin-bottom: 15px"></p>
+
             <div
               class="event-location"
               style="
                 margin-top: auto;
                 padding-top: 10px;
-                font-size: 0.85rem;
-                color: #27ae60;
-                font-weight: bold;
                 border-top: 1px solid var(--card-border);
+                color: var(--secondary);
+                font-weight: bold;
+                font-size: 0.85rem;
+                display: flex;
+                align-items: center;
+                gap: 8px;
               "
             >
               <i class="fa-solid fa-location-dot"></i>
@@ -503,9 +239,7 @@
           <div class="card-content">
             <h3 class="desc">Título</h3>
             <p class="short-desc"></p>
-            <span class="read-more"
-              >Ler Reflexão <i class="fa-solid fa-arrow-right"></i
-            ></span>
+            <span class="read-more">Ler Reflexão</span>
           </div>
         </a>
       </div>

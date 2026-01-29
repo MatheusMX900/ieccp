@@ -1,58 +1,58 @@
-function toggleMenu() {
-  const nav = document.getElementById("menu");
-  const btn = document.getElementById("btn-mobile");
+const btnMobile = document.getElementById("btn-mobile");
+const menu = document.getElementById("menu");
 
-  // Se não encontrar os elementos, para o código para não dar erro
-  if (!nav || !btn) return;
+function toggleMenu(event) {
+  if (event && event.type === "touchstart") event.preventDefault();
 
-  // Alterna a classe 'active' no menu (para ele deslizar na tela)
-  nav.classList.toggle("active");
+  // Troca o estado (Abre/Fecha)
+  menu.classList.toggle("active");
+  btnMobile.classList.toggle("active");
 
-  // Alterna a classe 'active' no botão (para as linhas virarem X)
-  btn.classList.toggle("active");
+  // Acessibilidade: avisa o navegador se está aberto ou não
+  const active = menu.classList.contains("active");
+  btnMobile.setAttribute("aria-expanded", active);
+
+  // Trava a rolagem da página quando o menu está aberto (opcional, mas recomendado)
+  if (active) {
+    document.body.style.overflow = "hidden";
+  } else {
+    document.body.style.overflow = "";
+  }
 }
 
-/**
- * 2. EVENTOS QUE CARREGAM JUNTO COM A PÁGINA
- */
-document.addEventListener("DOMContentLoaded", () => {
-  /* --- FECHAR MENU AO CLICAR EM UM LINK --- */
-  // Seleciona todos os links dentro do menu
-  const links = document.querySelectorAll("#menu li a");
+// Eventos de clique no botão hambúrguer
+btnMobile.addEventListener("click", toggleMenu);
+btnMobile.addEventListener("touchstart", toggleMenu);
 
-  links.forEach((link) => {
-    link.addEventListener("click", () => {
-      const nav = document.getElementById("menu");
-      const btn = document.getElementById("btn-mobile");
+// --- NOVA FUNCIONALIDADE: FECHAR SOZINHO ---
 
-      // Remove a classe 'active' para fechar tudo suavemente
-      if (nav) nav.classList.remove("active");
-      if (btn) btn.classList.remove("active");
-    });
+// 1. Fechar ao clicar em qualquer Link do menu
+// (Isso é essencial para quando a pessoa clica em "Agenda", o menu sair da frente)
+const links = document.querySelectorAll("#menu a");
+links.forEach((link) => {
+  link.addEventListener("click", () => {
+    closeMenu();
   });
+});
 
-  /* --- LÓGICA DO BOTÃO VOLTAR AO TOPO --- */
-  const btnTop = document.getElementById("back-to-top");
-
-  // Só executa se o botão existir na página (para não dar erro)
-  if (btnTop) {
-    // Evento de Rolagem (Scroll)
-    window.addEventListener("scroll", () => {
-      // Se rolou mais de 300 pixels para baixo, mostra o botão
-      if (window.scrollY > 300) {
-        btnTop.classList.add("show");
-      } else {
-        btnTop.classList.remove("show");
+// 2. Fechar ao clicar na "Parte Vazia" (Overlay)
+// Como seu menu ocupa 100% da tela, a "parte vazia" é o próprio elemento <ul>
+document.addEventListener("click", (event) => {
+  // Se o menu estiver aberto...
+  if (menu.classList.contains("active")) {
+    // E o clique NÃO foi dentro do botão de abrir...
+    if (!btnMobile.contains(event.target)) {
+      // Verifica se clicou direto no fundo do menu (o espaço vazio entre os links)
+      if (event.target === menu) {
+        closeMenu();
       }
-    });
-
-    // Evento de Clique (Subir)
-    btnTop.addEventListener("click", (e) => {
-      e.preventDefault(); // Evita que o # apareça na URL
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth", // Faz a subida ser suave e elegante
-      });
-    });
+    }
   }
 });
+
+// Função auxiliar para fechar tudo limpo
+function closeMenu() {
+  menu.classList.remove("active");
+  btnMobile.classList.remove("active");
+  document.body.style.overflow = ""; // Destrava a rolagem
+}
