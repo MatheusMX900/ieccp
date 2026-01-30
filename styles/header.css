@@ -1,42 +1,32 @@
-/* =========================================
-   HEADER FIXO E NAVEGAÇÃO
-   ========================================= */
+/* HEADER E NAVEGAÇÃO */
 header {
-  height: 80px; /* Altura fixa */
-  width: 100%;
-
-  /* O SEGREDO DO FIXO: */
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 9999; /* Garante que fique acima de tudo */
-
+  z-index: 9999;
+  width: 100%;
+  height: 80px;
+  padding: 0 5%;
+  background-color: var(--header-bg);
+  color: white;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
   display: flex;
   justify-content: space-between;
-  align-items: center !important;
-  padding: 0 5%;
-
-  background-color: var(--header-bg);
-  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
-
-  /* Texto sempre branco no header */
-  color: white !important;
+  align-items: center;
 }
 
-/* Links (Desktop) */
 header a {
-  color: white !important;
+  color: white;
   font-family: "Oswald", sans-serif;
   font-weight: 500;
-  text-decoration: none;
-  text-transform: uppercase;
   font-size: 0.95rem;
+  text-transform: uppercase;
   letter-spacing: 1px;
   transition: color 0.3s;
 }
 
 header nav ul li a:hover {
-  color: var(--secondary) !important;
+  color: var(--secondary);
 }
 
 .branding {
@@ -52,23 +42,20 @@ header nav ul li a:hover {
   height: auto;
 }
 
-/* Menu Desktop */
 nav ul {
   display: flex;
   align-items: center;
   gap: 25px;
   list-style: none;
-  margin: 0;
-  padding: 0;
 }
 
-/* Botão Tema */
+/* BOTÃO DE TEMA */
 #btn-tema {
-  background: rgba(255, 255, 255, 0.15);
-  border: none;
-  color: white;
   width: 35px;
   height: 35px;
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  border: none;
   border-radius: 50%;
   cursor: pointer;
   display: flex;
@@ -77,18 +64,18 @@ nav ul {
   font-size: 1.1rem;
 }
 
-/* Botão Hambúrguer (Mobile) */
+/* MENU MOBILE (BOTÃO HAMBÚRGUER) */
 #btn-mobile {
-  display: none; /* Escondido no PC */
-  background: none;
-  border: none;
-  cursor: pointer;
-  width: 30px;
-  height: 24px;
-  padding: 0;
-  z-index: 1001; /* Fica acima do menu aberto */
+  display: none;
   flex-direction: column;
   justify-content: space-between;
+  width: 30px;
+  height: 24px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  z-index: 1001;
 }
 
 #btn-mobile div {
@@ -109,33 +96,21 @@ nav ul {
   transform: translateY(-10.5px) rotate(-45deg);
 }
 
-/* =========================================
-   RESPONSIVIDADE (TABLET E MOBILE)
-   ========================================= */
-
+/* RESPONSIVIDADE */
 @media (max-width: 900px) {
   header {
+    height: 70px;
     padding: 0 20px;
-    height: 70px; /* Levemente menor no celular */
   }
 
-  /* Esconde menu desktop */
   nav ul {
     display: none;
   }
 
-  nav ul li {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-  }
-
-  /* Mostra botão hambúrguer */
   #btn-mobile {
     display: flex;
   }
 
-  /* MENU GAVETA (CELULAR) */
   #menu {
     position: fixed;
     top: 0;
@@ -143,22 +118,18 @@ nav ul {
     width: 100%;
     height: 100vh;
     background: var(--header-bg);
-
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start; /* Alinha no topo */
-    padding-top: 100px; /* Espaço para não ficar embaixo do header */
-    gap: 0;
-
-    transform: translateX(100%); /* Escondido na direita */
+    padding-top: 100px;
+    transform: translateX(100%);
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 1000;
-    overflow-y: auto; /* Rolagem se a tela for pequena */
+    overflow-y: auto;
   }
 
   #menu.active {
-    transform: translateX(0); /* Abre */
+    transform: translateX(0);
   }
 
   #menu li {
@@ -171,25 +142,13 @@ nav ul {
     padding: 20px;
     font-size: 1.3rem;
     text-align: center;
-    width: 100%;
   }
 
   #btn-tema {
-    /* 1. Remove a margem esquerda do Desktop e aplica AUTO para centralizar */
-    margin: 20px auto !important;
-
-    /* 2. Tamanho maior para o dedo */
+    margin: 20px auto;
     width: 50px;
     height: 50px;
     font-size: 1.5rem;
-
-    /* 3. Centraliza o ícone dentro da bolinha */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    /* 4. Visual */
     background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 50%;
   }
 }

@@ -1,3 +1,4 @@
+/* ESTRUTURA DA PÁGINA */
 body {
   font-family: "Poppins", sans-serif;
   margin: 0;
@@ -14,7 +15,7 @@ main {
   padding: 0 20px;
 }
 
-/* --- CABEÇALHO --- */
+/* CABEÇALHO */
 .page-header {
   text-align: center;
   margin-bottom: 50px;
@@ -31,20 +32,17 @@ main {
   margin: 0;
 }
 
-/* --- O CARTÃO (FEED) --- */
+/* CARTÃO DE NOTÍCIA (FEED) */
 .noticia-item {
-  background: var(--bg-card);
-  color: var(--card-text);
-  border: 1px solid var(--card-border);
-
-  border-radius: 16px;
-  padding: 40px;
-  margin-bottom: 40px;
   display: flex;
   gap: 40px;
   align-items: flex-start;
-
-  /* Sombra suave */
+  padding: 40px;
+  margin-bottom: 40px;
+  background: var(--bg-card);
+  color: var(--card-text);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease;
 }
@@ -53,29 +51,29 @@ main {
   transform: translateY(-2px);
 }
 
-/* --- TEXTOS --- */
+/* ÁREA DE TEXTO */
 .conteudo-texto {
   flex: 1;
 }
 
 .data-badge {
   display: inline-block;
+  margin-bottom: 15px;
+  padding: 6px 12px;
   background-color: var(--secondary);
   color: #1c1c1c;
   font-size: 0.75rem;
   font-weight: 700;
-  padding: 6px 12px;
-  border-radius: 50px;
   text-transform: uppercase;
-  margin-bottom: 15px;
+  border-radius: 50px;
 }
 
 .conteudo-texto h2 {
   font-size: 1.8rem;
-  color: var(--card-text);
-  margin: 0 0 20px 0;
   line-height: 1.2;
   font-weight: 700;
+  color: var(--card-text);
+  margin: 0 0 20px 0;
 }
 
 .texto-dinamico p {
@@ -87,7 +85,7 @@ main {
   text-align: left;
 }
 
-/* --- IMAGEM --- */
+/* ÁREA DE IMAGEM */
 .conteudo-imagem {
   flex: 0 0 300px;
 }
@@ -98,22 +96,26 @@ main {
   object-fit: cover;
   border-radius: 12px;
   border: 1px solid var(--card-border);
+  display: block;
 }
 
-/* --- RESPONSIVO --- */
+/* RESPONSIVIDADE */
 @media (max-width: 850px) {
   .noticia-item {
     flex-direction: column-reverse;
     padding: 25px;
     gap: 25px;
   }
+
   .conteudo-imagem {
     flex: auto;
     width: 100%;
   }
+
   .conteudo-imagem img {
     height: 250px;
   }
+
   .conteudo-texto h2 {
     font-size: 1.5rem;
   }

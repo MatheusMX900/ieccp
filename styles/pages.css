@@ -1,20 +1,16 @@
-/* =========================================
-   PÁGINAS INTERNAS (Texto)
-   ========================================= */
-
-/* Estilos de Texto (História, Sobre, Doutrinas) */
+/* PÁGINAS INTERNAS (TEXTO E HISTÓRIA) */
 .historia-ieccp,
 .texto-padrao {
   max-width: 900px;
-  margin: 0 auto; /* Centraliza o bloco de texto */
+  margin: 0 auto;
   padding: 40px 20px;
 }
 
 .historia-ieccp img {
+  display: block;
   width: 100%;
   max-width: 800px;
-  display: block;
-  margin: 0 auto 40px auto;
+  margin: 0 auto 40px;
   border-radius: 10px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
@@ -22,63 +18,42 @@
 .historia-ieccp h1 {
   font-family: "Oswald", sans-serif;
   font-size: 3rem;
-  margin-bottom: 20px;
   text-align: center;
+  margin-bottom: 20px;
 }
 
 .historia-ieccp h2 {
   font-family: "Oswald", sans-serif;
   font-size: 2rem;
-  margin-top: 30px;
-  margin-bottom: 15px;
-  border-left: 5px solid var(--secondary); /* Detalhe visual bonito */
+  margin: 30px 0 15px;
   padding-left: 15px;
+  border-left: 5px solid var(--secondary);
 }
 
 .historia-ieccp p {
   font-family: "Poppins", sans-serif;
-  line-height: 1.8; /* Melhor leitura */
+  line-height: 1.8;
   margin-bottom: 15px;
   text-align: justify;
 }
 
-/* Título Específico da Página de Notícias */
+/* TÍTULOS ESPECÍFICOS (PÁGINA DE NOTÍCIAS) */
 .news-page .content_title,
 .page-title .content_title {
-  text-align: center;
-  font-family: "Poppins", sans-serif;
-  font-weight: bolder;
-  font-size: 2.5rem;
-  margin-top: 30px;
-  margin-bottom: 40px;
   display: block;
   width: 100%;
-}
-
-@media (max-width: 810px) {
-  .news-page .content_title,
-  .page-title .content_title {
-    font-size: 2rem;
-  }
+  margin: 30px 0 40px;
+  font-family: "Poppins", sans-serif;
+  font-size: 2.5rem;
+  font-weight: bolder;
+  text-align: center;
 }
 
 .news-page .content_title::after {
-  display: none; /* Remove a linha nesta página */
+  display: none;
 }
 
-@media (max-width: 810px) {
-  .historia-ieccp h1 {
-    font-size: 2rem;
-  }
-  .historia-ieccp p {
-    text-align: left;
-  }
-}
-
-/* =========================================
-   PÁGINA DE LEITURA DE NOTÍCIAS
-   ========================================= */
-
+/* PÁGINA DE LEITURA DE NOTÍCIAS */
 .leitura-wrapper {
   max-width: 800px;
   margin: 0 auto;
@@ -86,12 +61,9 @@
   animation: fadeIn 0.5s ease-in;
 }
 
-/* Cabeçalho da Notícia */
 .leitura-header {
   text-align: center;
-  justify-content: safe;
   margin-bottom: 40px;
-  border-radius: 20px;
 }
 
 .leitura-title {
@@ -104,26 +76,25 @@
 }
 
 .leitura-data {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   font-family: "Poppins", sans-serif;
   font-size: 0.95rem;
   color: var(--text-color);
   opacity: 0.6;
   font-style: italic;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
 }
 
-/* Imagem de Destaque */
 .leitura-img-container {
   width: 100%;
   max-height: 500px;
-  overflow: hidden;
-  border-radius: 12px;
   margin-bottom: 40px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
   border: 1px solid var(--card-border);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .leitura-img-container img {
@@ -133,7 +104,6 @@
   display: block;
 }
 
-/* O Texto em si */
 .leitura-content {
   font-family: "Poppins", sans-serif;
   font-size: 1.15rem;
@@ -143,7 +113,7 @@
   white-space: pre-wrap;
 }
 
-/* Animação suave de entrada */
+/* ANIMAÇÕES */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -155,11 +125,24 @@
   }
 }
 
-/* Responsivo para celular */
+/* RESPONSIVIDADE */
+@media (max-width: 810px) {
+  .historia-ieccp h1,
+  .news-page .content_title,
+  .page-title .content_title {
+    font-size: 2rem;
+  }
+
+  .historia-ieccp p {
+    text-align: left;
+  }
+}
+
 @media (max-width: 768px) {
   .leitura-title {
     font-size: 1.2rem;
   }
+
   .leitura-content {
     font-size: 1rem;
     text-align: left;
