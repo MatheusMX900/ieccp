@@ -55,7 +55,7 @@ body {
   grid-row: span 2;
   background:
     linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.8) 100%),
-    url("../img/templo_hero.png") center/cover;
+    url("../img/templo_hero_2.jpeg") center/cover;
   border: none;
   padding: 40px;
   justify-content: flex-end;
