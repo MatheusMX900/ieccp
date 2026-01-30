@@ -33,20 +33,18 @@ function renderizarCards(lista, idContainer, idTemplate, maxItems = null) {
   itens.forEach((item) => {
     const clone = template.content.cloneNode(true);
 
-    // Imagem
     const img = clone.querySelector("img");
     if (img) {
       img.src = formatarImagem(item.img, item.titulo);
       img.alt = item.titulo;
     }
 
-    // Link
     const linkWrap = clone.querySelector(".card-link-wrapper");
     if (linkWrap) {
-      linkWrap.href = item.id ? `leitura.html?id=${item.id}` : item.link || "#";
+      linkWrap.href = item.id ? `leitura.html?id=${item.id}` : item.link || "";
+      linkWrap.setAttribute("aria-label", `Ler conteúdo: ${item.titulo}`);
     }
 
-    // Textos
     setText(clone, ".desc", item.titulo);
     setText(clone, ".short-desc", limparTexto(item.descricao));
 
@@ -73,20 +71,17 @@ async function initAgenda() {
   eventos.forEach((ev) => {
     const clone = template.content.cloneNode(true);
 
-    // Imagem
     const img = clone.querySelector("img");
     if (img) {
       img.src = formatarImagem(ev.img, ev.titulo);
       img.alt = ev.titulo;
     }
 
-    // Badge de Data
     const badge = clone.querySelector(".date-badge");
     if (badge) {
       ev.data ? (badge.textContent = ev.data) : (badge.style.display = "none");
     }
 
-    // Local e Textos
     setText(clone, ".desc", ev.titulo);
     setText(clone, ".short-desc", ev.texto);
     setText(clone, ".texto-local", ev.local);
@@ -99,8 +94,8 @@ async function initAgenda() {
 }
 
 // --- PASTORAL ---
+
 async function initPastoral() {
-  // Busca
   const dados = await fetchData("/data/pastoral.json");
   if (dados) {
     renderizarCards(dados, "container-pastoral", "template-pastoral", 4);
@@ -108,7 +103,7 @@ async function initPastoral() {
   }
 }
 
-// --- HELPERS (UTILITÁRIOS) ---
+// --- HELPERS ---
 
 async function fetchData(url) {
   try {
@@ -116,7 +111,7 @@ async function fetchData(url) {
     if (!res.ok) throw new Error(`Erro ao carregar ${url}`);
     return await res.json();
   } catch (err) {
-    console.warn(err); // Warn é menos agressivo que Error no console
+    console.warn(err);
     return null;
   }
 }
@@ -126,22 +121,21 @@ function setText(el, selector, text) {
   if (target) target.innerText = text || "";
 }
 
-function formatarImagem(src, alt) {
+function formatarImagem(src) {
   if (!src) return "img/logo.png";
-  // Remove caminhos relativos (../) e domínios absolutos para evitar CORS/404
   return src.replace("../", "").replace(/^https?:\/\/ieccp\.com\.br\//, "");
 }
 
 function limparTexto(texto) {
   if (!texto) return "";
-  // Decodifica quebras de linha que vêm do PHP/JSON
   return texto.replace(/&#13;/g, "").replace(/&#10;/g, "\n");
 }
+
+// --- FEED DE NOTÍCIAS (noticias.html) ---
 
 async function carregarFeedNoticias() {
   const container = document.getElementById("feed-container");
   const template = document.getElementById("template-noticia");
-
   if (!container || !template) return;
 
   try {
@@ -150,7 +144,7 @@ async function carregarFeedNoticias() {
 
     container.innerHTML = "";
 
-    if (noticias.length === 0) {
+    if (!noticias.length) {
       container.innerHTML =
         "<p style='text-align:center'>Nenhuma notícia encontrada!</p>";
       return;
@@ -158,6 +152,10 @@ async function carregarFeedNoticias() {
 
     noticias.forEach((item) => {
       const clone = template.content.cloneNode(true);
+
+      const link = clone.querySelector(".noticia-link");
+      link.href = `leitura.html?id=${item.id}`;
+      link.setAttribute("aria-label", `Ler notícia: ${item.titulo}`);
 
       const dataBadge = clone.querySelector(".data-badge");
       if (dataBadge) dataBadge.textContent = item.data || "";
@@ -167,11 +165,10 @@ async function carregarFeedNoticias() {
 
       const divTexto = clone.querySelector(".texto-dinamico");
       if (divTexto && item.texto) {
-        const paragrafos = item.texto.split("\n");
-        paragrafos.forEach((paragrafo) => {
-          if (paragrafo.trim() !== "") {
+        item.texto.split("\n").forEach((pTxt) => {
+          if (pTxt.trim()) {
             const p = document.createElement("p");
-            p.textContent = paragrafo;
+            p.textContent = pTxt;
             divTexto.appendChild(p);
           }
         });
@@ -181,18 +178,15 @@ async function carregarFeedNoticias() {
       const divImg = clone.querySelector(".conteudo-imagem");
 
       if (item.img) {
-        let srcLimpo = item.img
-          .replace("../", "")
-          .replace("https://ieccp.com.br/", "");
-        img.src = srcLimpo;
+        img.src = formatarImagem(item.img);
         img.alt = item.titulo;
-      } else {
-        if (divImg) divImg.remove();
+      } else if (divImg) {
+        divImg.remove();
       }
 
       container.appendChild(clone);
     });
   } catch (error) {
-    console.error("Erro feed:", erro);
+    console.error("Erro feed:", error);
   }
 }

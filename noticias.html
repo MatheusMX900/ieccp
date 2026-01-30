@@ -73,20 +73,33 @@
       </div>
     </main>
 
+    <style>
+      .noticia-link {
+        display: block;
+        text-decoration: none;
+        color: inherit;
+      }
+
+      .noticia-link:focus-visible {
+        outline: 3px solid var(--secondary);
+        outline-offset: 4px;
+      }
+    </style>
+
     <template id="template-noticia">
-      <article class="noticia-item">
-        <div class="conteudo-texto">
-          <span class="data-badge"></span>
+      <a class="noticia-link" href="">
+        <article class="noticia-item">
+          <div class="conteudo-texto">
+            <span class="data-badge"></span>
+            <h2></h2>
+            <div class="texto-dinamico"></div>
+          </div>
 
-          <h2></h2>
-
-          <div class="texto-dinamico"></div>
-        </div>
-
-        <div class="conteudo-imagem">
-          <img src="" alt="Imagem da Notícia" loading="lazy" />
-        </div>
-      </article>
+          <div class="conteudo-imagem">
+            <img src="" alt="" loading="lazy" />
+          </div>
+        </article>
+      </a>
     </template>
 
     <script>
