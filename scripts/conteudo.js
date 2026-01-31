@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // --- NOTÍCIAS E MISSÕES ---
 
 async function initNoticias() {
-  const dados = await fetchData("/data/noticias.json");
+  const dados = await fetchData("data/noticias.json");
   if (!dados) return;
 
   renderizarCards(dados, "container-noticias", "template-padrao", 4);
@@ -16,7 +16,7 @@ async function initNoticias() {
 }
 
 async function initMissionarios() {
-  const dados = await fetchData("/data/missionarios.json");
+  const dados = await fetchData("data/missionarios.json");
   if (dados) {
     renderizarCards(dados, "container-missionarios", "template-missionarios");
   }
@@ -59,7 +59,7 @@ async function initAgenda() {
   const template = document.getElementById("template-agenda");
   if (!container || !template) return;
 
-  const eventos = await fetchData("/data/agenda.json");
+  const eventos = await fetchData("data/agenda.json");
 
   container.innerHTML = "";
   if (!eventos || eventos.length === 0) {
@@ -96,7 +96,7 @@ async function initAgenda() {
 // --- PASTORAL ---
 
 async function initPastoral() {
-  const dados = await fetchData("/data/pastoral.json");
+  const dados = await fetchData("data/pastoral.json");
   if (dados) {
     renderizarCards(dados, "container-pastoral", "template-pastoral", 4);
     renderizarCards(dados, "container-todos-pastoral", "template-pastoral");
