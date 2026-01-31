@@ -271,6 +271,41 @@ footer {
   }
 }
 
+footer {
+  text-align: center;
+  padding: 20px;
+  background: var(--header-bg);
+  color: white;
+  font-size: 0.9rem;
+  margin-top: auto;
+}
+
+/* Títulos das Seções (H2 com linha embaixo) */
+.content_title {
+  display: inline-block;
+  position: relative;
+  color: inherit;
+  text-decoration: none;
+  font-family: "Poppins", sans-serif;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.content_title::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 3px;
+  bottom: -5px;
+  left: 0;
+  background-color: var(--header-bg);
+  transition: width 0.3s ease;
+}
+
+.content_title:hover::after {
+  width: 100%;
+}
+
 /* ANIMAÇÕES E RESPONSIVIDADE */
 @keyframes subir {
   from {
