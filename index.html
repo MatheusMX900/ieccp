@@ -3,71 +3,39 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>
-      IECCP | Igreja Evangélica Congregacional de Cachoeira Paulista
-    </title>
+    <title>IECCP | Igreja Evangélica Congregacional</title>
 
     <meta
       name="description"
-      content="Bem-vindo à IECCP em Cachoeira Paulista. Somos uma família de fé. Participe da EBD às 9h e aos Cultos às 18h.30. Venha nos visitar!"
-    />
-    <meta
-      name="keywords"
-      content="igreja, culto, evangélica, cachoeira paulista, deus, fé, ieccp, domingo, ebd, missões, comunhão, glorificar, edificar, proclamar, evangelho"
-    />
-
-    <meta name="author" content="Luiz Charleaux - Desenvolvedor Web" />
-    <meta name="author" content="Matheus Andrade - Desenvolvedor Web" />
-
-    <link rel="icon" type="image/svg+xml" href="img/ico.svg" />
-    <link rel="stylesheet" href="styles/global.css" />
-    <link rel="stylesheet" href="styles/header.css" />
-    <link rel="stylesheet" href="styles/home.css" />
-    <link rel="stylesheet" href="styles/gallery.css" />
-    <link rel="stylesheet" href="styles/agenda.css" />
-
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://www.ieccp.com.br/" />
-    <meta property="og:title" content="IECCP - Venha nos conhecer" />
-    <meta
-      property="og:description"
-      content="Participe dos nossos cultos e eventos. Uma igreja família esperando por você."
-    />
-    <!-- <meta
-      property="og:image"
-      content="https://www.seudominio.com.br/img/capa-social.jpg"
-    /> -->
-
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://www.ieccp.com.br/" />
-    <meta property="twitter:title" content="IECCP - Igreja Evangélica" />
-    <meta
-      property="twitter:description"
-      content="Participe dos nossos cultos e eventos."
-    />
-    <meta
-      property="twitter:image"
-      content="https://www.ieccp.com.br/img/capa-social.jpg"
+      content="IECCP - Uma família de fé em Cachoeira Paulista. Participe dos nossos cultos."
     />
 
     <link
-      href="https://fonts.googleapis.com/css?family=Oswald"
+      href="https://fonts.googleapis.com/css?family=Oswald:400,500,700"
       rel="stylesheet"
     />
     <link
-      href="https://fonts.googleapis.com/css?family=Poppins"
+      href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700"
       rel="stylesheet"
     />
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
       rel="stylesheet"
     />
+
+    <link rel="icon" type="image/svg+xml" href="img/ico.svg" />
+
+    <link rel="stylesheet" href="styles/global.css" />
+    <link rel="stylesheet" href="styles/header.css" />
+    <link rel="stylesheet" href="styles/gallery.css" />
+    <link rel="stylesheet" href="styles/agenda.css" />
+    <link rel="stylesheet" href="styles/home.css" />
   </head>
 
   <body>
     <header>
       <a href="index.html" class="branding">
-        <img src="img/logo.png" alt="Igreja Evangélica Congregacional de Cachoeira Paulista | IECCP" />
+        <img src="img/logo.png" alt="IECCP" />
         IECCP
       </a>
 
@@ -83,7 +51,7 @@
           <li><a href="pastoral.html">Pastoral</a></li>
           <li><a href="noticias.html">Notícias</a></li>
           <li><a href="missoes.html">Missões</a></li>
-          <li><a href="sobre.html">Sobre a IECCP</a></li>
+          <li><a href="sobre.html">Sobre</a></li>
           <li>
             <button id="btn-tema" title="Mudar Tema">
               <i class="fa-solid fa-sun"></i>
@@ -93,158 +61,200 @@
       </nav>
     </header>
 
-    <section class="hero">
-      <div class="hero-wrapper">
-        <div class="hero-content">
-          <h1 class="hero-title">
-            Igreja Evangélica Congregacional de Cachoeira Paulista
-          </h1>
-          <p class="hero-subtitle">
-            Uma Igreja para glorificar a Deus, Proclamar o evangelho e edificar
-            a igreja.
-          </p>
-        </div>
+    <div class="wrapper">
+      <section class="hero-section">
+        <div class="hero-grid">
+          <div class="master-card card-welcome">
+            <span class="welcome-badge">Seja Bem-vindo</span>
+            <h1 class="welcome-title">
+              Glorificar, Edificar <br />& Proclamar
+            </h1>
+            <p class="welcome-text">
+              Uma comunidade viva em Cachoeira Paulista, pronta para te receber
+              de braços abertos.
+            </p>
+          </div>
 
-        <div class="botoes-hero">
-          <a href="https://maps.app.goo.gl/pz23waNTkSb8d4Ru7" target="_blank"
-            ><button><i class="fa-solid fa-location-arrow"></i></button
-          ></a>
-          <a href="https://instagram.com/ieccp" target="_blank"
-            ><button><i class="fa-brands fa-instagram"></i></button
-          ></a>
-          <a href="https://youtube.com/@ieccp" target="_blank"
-            ><button><i class="fa-brands fa-youtube"></i></button
-          ></a>
-          <a href="https://wa.me/+551231012589" target="_blank"
-            ><button><i class="fab fa-whatsapp"></i></button
-          ></a>
-        </div>
-      </div>
-    </section>
-
-    <main>
-      <section id="agenda">
-        <h2 class="content_title"><a href="agenda.html">Agenda IECCP ></a></h2>
-        <div class="carousel-container" id="container-agenda"></div>
-      </section>
-
-      <section id="pastoral">
-        <h2 class="content_title">
-          <a href="pastoral.html">Palavra Pastoral ></a>
-        </h2>
-        <div class="carousel-container" id="container-pastoral"></div>
-      </section>
-
-      <section id="noticias">
-        <h2 class="content_title"><a href="noticias.html">Notícias ></a></h2>
-        <div class="carousel-container" id="container-noticias"></div>
-      </section>
-
-      <section id="missionarios">
-        <h2 class="content_title">
-          <a href="missoes.html">Missionários da IECCP ></a>
-        </h2>
-        <div class="carousel-container" id="container-missionarios"></div>
-      </section>
-
-      <!-- Template notícia -->
-      <template id="template-padrao">
-        <div class="gallery-item">
-          <a href="" class="card-link-wrapper">
-            <div class="card-image-box">
-              <img src="" alt="Notícia" loading="lazy" />
+          <div class="master-card card-times">
+            <div class="times-header">
+              <h2>Nossos Horários</h2>
+              <i class="fa-regular fa-clock" style="font-size: 1.5rem"></i>
             </div>
-
-            <div class="card-content">
-              <h3 class="desc">Título da Notícia</h3>
-
-              <span class="read-more">
-                Ler mais <i class="fa-solid fa-arrow-right"></i>
-              </span>
+            <div class="time-row">
+              <i class="fa-solid fa-bible"></i> <span>Dom 09h — EBD</span>
             </div>
-          </a>
-        </div>
-      </template>
-
-      <!-- Template missionários -->
-      <template id="template-missionarios">
-        <div class="gallery-item">
-          <a href="" class="card-link-wrapper">
-            <div class="card-image-box">
-              <img src="" alt="Notícia" loading="lazy" />
+            <div class="time-row">
+              <i class="fa-solid fa-church"></i> <span>Dom 18h30 — Culto</span>
             </div>
-
-            <div class="card-content">
-              <h3 class="desc">Nome do Missionário</h3>
-
-              <p class="short-desc">Descrição do projeto...</p>
-
-              <span class="read-more">
-                Ler mais <i class="fa-solid fa-arrow-right"></i>
-              </span>
+            <div class="time-row">
+              <i class="fa-solid fa-hands-praying"></i>
+              <span>Qua 7h30 — Reunião de Oração</span>
             </div>
-          </a>
-        </div>
-      </template>
+          </div>
 
-      <!-- Template agenda -->
-      <template id="template-agenda">
-        <div class="gallery-item">
-          <div class="card-link-wrapper" style="cursor: default">
-            <div class="card-image-box">
-              <img src="" alt="Evento" loading="lazy" />
-              <span class="date-badge">DATA</span>
-            </div>
+          <div class="master-card card-verse">
+            <i
+              class="fa-solid fa-quote-left quote-icon"
+              style="font-size: 3rem; color: rgba(255, 204, 0, 0.4)"
+            ></i>
+            <p class="verse-text">
+              "Alegrei-me quando me disseram: vamos à casa do Senhor"
+            </p>
+            <span
+              class="verse-ref"
+              style="color: var(--secondary); font-weight: 800"
+              >SALMOS 122:1</span
+            >
+          </div>
 
-            <div class="card-content">
-              <h3 class="desc">Título</h3>
-              <p
-                class="short-desc"
+          <a
+            href="https://maps.app.goo.gl/pz23waNTkSb8d4Ru7"
+            target="_blank"
+            class="master-card card-map"
+          >
+            <div class="map-overlay">
+              <i
+                class="fa-solid fa-location-dot"
                 style="
-                  margin-top: 10px;
-                  font-size: 0.9rem;
-                  color: #666;
-                  line-height: 1.5;
-                  margin-bottom: 15px;
+                  font-size: 2rem;
+                  margin-bottom: 10px;
+                  color: var(--secondary);
                 "
-              ></p>
-
-              <div
-                class="event-location"
-                style="
-                  border-top: 1px solid #eee;
-                  padding-top: 10px;
-                  font-size: 0.85rem;
-                  color: #27ae60;
-                  font-weight: bold;
-                "
+              ></i>
+              <h3
+                style="font-family: &quot;Oswald&quot;, sans-serif; margin: 0"
               >
-                <i class="fa-solid fa-location-dot"></i>
-                <span class="texto-local">Local do Evento</span>
-              </div>
+                ONDE ESTAMOS
+              </h3>
+              <span class="btn-map">Ver Rotas</span>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <main>
+        <section id="agenda">
+          <div class="section-header">
+            <h2 class="section-title">Próximos Eventos</h2>
+            <a href="agenda.html" class="section-link"
+              ><span>Ver Agenda Completa</span>
+              <i class="fa-solid fa-arrow-right-long"></i
+            ></a>
+          </div>
+          <div class="carousel-container" id="container-agenda"></div>
+        </section>
+
+        <section id="pastoral">
+          <div class="section-header">
+            <h2 class="section-title">Palavra Pastoral</h2>
+            <a href="pastoral.html" class="section-link"
+              ><span>Ler Mais Artigos</span>
+              <i class="fa-solid fa-arrow-right-long"></i
+            ></a>
+          </div>
+          <div class="carousel-container" id="container-pastoral"></div>
+        </section>
+
+        <section id="noticias">
+          <div class="section-header">
+            <h2 class="section-title">Últimas Notícias</h2>
+            <a href="noticias.html" class="section-link"
+              ><span>Ver Todas</span>
+              <i class="fa-solid fa-arrow-right-long"></i
+            ></a>
+          </div>
+          <div class="carousel-container" id="container-noticias"></div>
+        </section>
+
+        <section id="missionarios">
+          <div class="section-header">
+            <h2 class="section-title">Nossos Missionários</h2>
+            <a href="missoes.html" class="section-link"
+              ><span>Conhecer Projetos</span>
+              <i class="fa-solid fa-arrow-right-long"></i
+            ></a>
+          </div>
+          <div class="carousel-container" id="container-missionarios"></div>
+        </section>
+      </main>
+    </div>
+    <template id="template-padrao">
+      <div class="gallery-item">
+        <a href="" class="card-link-wrapper">
+          <div class="card-image-box">
+            <img src="" alt="Notícia" loading="lazy" />
+          </div>
+          <div class="card-content">
+            <h3 class="desc">Título</h3>
+            <span class="read-more">Ler Mais</span>
+          </div>
+        </a>
+      </div>
+    </template>
+
+    <template id="template-missionarios">
+      <div class="gallery-item">
+        <a href="" class="card-link-wrapper">
+          <div class="card-image-box">
+            <img src="" alt="Missões" loading="lazy" />
+          </div>
+          <div class="card-content">
+            <h3 class="desc">Nome</h3>
+            <p class="short-desc">Descrição...</p>
+            <span class="read-more">Apoiar</span>
+          </div>
+        </a>
+      </div>
+    </template>
+
+    <template id="template-agenda">
+      <div class="gallery-item">
+        <div class="card-link-wrapper" style="cursor: default">
+          <div class="card-image-box">
+            <img src="" alt="Evento" loading="lazy" />
+            <span class="date-badge">DATA</span>
+          </div>
+          <div class="card-content">
+            <h3 class="desc">Título</h3>
+            <p class="short-desc" style="margin-bottom: 15px"></p>
+
+            <div
+              class="event-location"
+              style="
+                margin-top: auto;
+                padding-top: 10px;
+                border-top: 1px solid var(--card-border);
+                font-weight: bold;
+                font-size: 0.85rem;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+              "
+            >
+              <i class="fa-solid fa-location-dot"></i>
+              <span class="texto-local">Local</span>
             </div>
           </div>
         </div>
-      </template>
+      </div>
+    </template>
 
-      <!-- Template Pastoral -->
-      <template id="template-pastoral">
-        <div class="gallery-item">
-          <a href="" class="card-link-wrapper">
-            <div class="card-image-box">
-              <img src="" alt="" loading="lazy" />
-            </div>
-            <div class="card-content">
-              <h3 class="desc">Título</h3>
-              <p class="short-desc"></p>
-            </div>
-          </a>
-        </div>
-      </template>
-    </main>
-    <a href="#" id="back-to-top" title="Voltar ao topo">
-      <i class="fa-solid fa-arrow-up"></i>
-    </a>
+    <template id="template-pastoral">
+      <div class="gallery-item">
+        <a href="" class="card-link-wrapper">
+          <div class="card-image-box"><img src="" alt="" loading="lazy" /></div>
+          <div class="card-content">
+            <h3 class="desc">Título</h3>
+            <p class="short-desc"></p>
+            <span class="read-more">Ler Reflexão</span>
+          </div>
+        </a>
+      </div>
+    </template>
+
+    <a href="#" id="back-to-top" title="Voltar ao topo"
+      ><i class="fa-solid fa-arrow-up"></i
+    ></a>
 
     <footer>
       <div class="footer-content">
@@ -296,22 +306,15 @@
     <div id="modal-notificacao" class="modal-overlay">
       <div class="modal-box">
         <h3>Fique por dentro! ⛪</h3>
-        <p>
-          Gostaria de receber avisos sobre cultos e eventos da nossa igreja?
-        </p>
-
+        <p>Receba avisos sobre cultos e eventos.</p>
         <div class="modal-botoes">
           <button id="btn-agora-nao" class="btn-secundario">Agora não</button>
-          <button id="btn-aceitar" class="btn-primario">Sim, eu quero!</button>
+          <button id="btn-aceitar" class="btn-primario">Sim!</button>
         </div>
       </div>
     </div>
-
     <div id="cookie-banner" class="cookie-banner">
-      <p>
-        🍪 Usamos cookies para melhorar sua experiência e integrar com Google
-        Maps e YouTube. Ao continuar, você concorda com nossa política.
-      </p>
+      <p>🍪 Usamos cookies para melhorar sua experiência.</p>
       <button id="btn-cookie-ok">Entendi</button>
     </div>
 

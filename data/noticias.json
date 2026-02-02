@@ -1,1 +1,30 @@
-[]
+[
+  {
+    "id": 1769600001,
+    "img": "https://images.unsplash.com/photo-1491841550275-ad7854e35ca6?w=800&auto=format&fit=crop",
+    "titulo": "Escola Bíblica Dominical está de volta! 🙏",
+    "texto": "No dia 25 de janeiro, a IECCP celebrou com alegria o retorno da nossa Escola Bíblica Dominical.\nFoi um domingo de reencontros marcantes e muito aprendizado para todas as idades.\n\nAs turmas foram divididas entre adultos, jovens e crianças, cada uma com um material didático preparado especialmente para sua faixa etária. O tema deste trimestre será 'O Evangelho para a Vida Real'.\n\nA EBD é o coração do ensino em nossa igreja. Se você não pôde estar conosco, sinta-se convidado para as próximas aulas todos os domingos às 9h.",
+    "data": "25/01/2026"
+  },
+  {
+    "id": 1769600002,
+    "img": "https://images.unsplash.com/photo-1516280440614-6697288d5d38?w=800&auto=format&fit=crop",
+    "titulo": "Culto da Juventude: Uma Geração Eleita",
+    "texto": "Neste último sábado tivemos um tempo precioso de louvor e adoração com a juventude da IECCP.\n\nO preletor convidado trouxe uma palavra impactante sobre identidade e propósito. Foi inspirador ver tantos jovens buscando a presença de Deus.\n\nNão perca o próximo encontro! Acompanhe nossa agenda e venha fazer parte dessa geração que não se envergonha do Evangelho.",
+    "data": "20/01/2026"
+  },
+  {
+    "id": 1769600003,
+    "img": "",
+    "titulo": "Comunicado Importante: Reforma do Estacionamento",
+    "texto": "Atenção membros e visitantes.\n\nInformamos que durante a próxima semana o estacionamento lateral estará fechado para manutenção e pintura das vagas.\n\nPedimos a compreensão de todos e sugerimos que utilizem as vagas disponíveis na rua lateral ou em frente ao templo antigo.\n\nAgradecemos a colaboração para melhorarmos nossa estrutura.",
+    "data": "18/01/2026"
+  },
+  {
+    "id": 1769600004,
+    "img": "https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?w=800&auto=format&fit=crop",
+    "titulo": "Campanha de Missões 2026",
+    "texto": "Iniciamos nossa campanha anual de missões!\n\nNossa meta este ano é apoiar 3 projetos no sertão nordestino e 2 projetos transculturais na África.\n\n'Ide por todo o mundo e pregai o evangelho a toda criatura.'\n\nParticipe orando e contribuindo.",
+    "data": "10/01/2026"
+  }
+]
