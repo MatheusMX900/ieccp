@@ -22,8 +22,8 @@ try {
     echo " Passo 1: Tabela 'admins' verificada com sucesso.<br>";
 
     // 2. CADASTRA O USUÁRIO (Edite aqui se quiser mudar a senha)
-    $novo_user = 'admin';
-    $nova_pass = 'umafamiliaemcristo';
+    $novo_user = 'asdhaiusdiaisudnijashda';
+    $nova_pass = 'asidhaisldauisgdauisbd';
 
     // Verifica se já existe
     $stmt = $pdo->prepare("SELECT id FROM admins WHERE usuario = ?");
