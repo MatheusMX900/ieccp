@@ -1,36 +1,31 @@
-// scripts/tema.js
-
-const toggleBtn = document.getElementById("btn-tema"); // Usei o ID correto que está no seu HTML
+const toggleBtn = document.getElementById("btn-tema");
 const body = document.body;
 
-// 1. CARREGAR PREFERÊNCIA
-// Como o padrão (CSS) já é escuro, só precisamos agir se o usuário salvou 'light'
-const temaSalvo = localStorage.getItem("temaPreferido");
+// Ícones para facilitar a manutenção
+const iconSun = '<i class="fa-solid fa-sun"></i>';
+const iconMoon = '<i class="fa-solid fa-moon"></i>';
 
-if (temaSalvo === "light") {
+// 1. Verifica se há um tema salvo ou se o sistema prefere "light"
+const temaSalvo = localStorage.getItem("temaPreferido");
+const prefereLightSistema = window.matchMedia(
+  "(prefers-color-scheme: light)",
+).matches;
+
+// 2. Define o estado inicial (Prioridade: LocalStorage > Sistema > Padrão Dark)
+if (temaSalvo === "light" || (!temaSalvo && prefereLightSistema)) {
   body.classList.add("light-mode");
+  if (toggleBtn) toggleBtn.innerHTML = iconMoon;
+} else {
+  if (toggleBtn) toggleBtn.innerHTML = iconSun;
 }
 
-// 2. FUNÇÃO DE ALTERNAR
+// 3. Lógica do botão de alternância
 if (toggleBtn) {
   toggleBtn.addEventListener("click", () => {
-    // Alterna a classe 'light-mode'
     body.classList.toggle("light-mode");
 
-    // Salva a decisão na memória
-    if (body.classList.contains("light-mode")) {
-      localStorage.setItem("temaPreferido", "light");
-      // Opcional: Mudar ícone para Lua
-      toggleBtn.innerHTML = '<i class="fa-solid fa-moon"></i>';
-    } else {
-      localStorage.setItem("temaPreferido", "dark");
-      // Opcional: Mudar ícone para Sol
-      toggleBtn.innerHTML = '<i class="fa-solid fa-sun"></i>';
-    }
+    const isLight = body.classList.contains("light-mode");
+    localStorage.setItem("temaPreferido", isLight ? "light" : "dark");
+    toggleBtn.innerHTML = isLight ? iconMoon : iconSun;
   });
-
-  // Ajustar ícone inicial se carregar light
-  if (temaSalvo === "light") {
-    toggleBtn.innerHTML = '<i class="fa-solid fa-moon"></i>';
-  }
 }

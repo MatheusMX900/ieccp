@@ -2,25 +2,125 @@
 <html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Carregando notícia... - IECCP</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="img/ico.svg" />
+
+    <title>Leitura da notícia</title>
+
     <link rel="stylesheet" href="styles/global.css" />
     <link rel="stylesheet" href="styles/header.css" />
-    <link rel="stylesheet" href="styles/pages.css" />
+    <link rel="stylesheet" href="styles/gallery.css" />
+    <link rel="stylesheet" href="styles/agenda.css" />
+    <link rel="stylesheet" href="styles/home.css" />
+
     <link
-      href="https://fonts.googleapis.com/css?family=Oswald"
+      href="https://fonts.googleapis.com/css?family=Oswald:400,500,700"
       rel="stylesheet"
     />
     <link
-      href="https://fonts.googleapis.com/css?family=Poppins"
+      href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700"
       rel="stylesheet"
     />
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
       rel="stylesheet"
     />
+
+    <style>
+      /* CONTAINER EDITORIAL */
+      .news-container {
+        max-width: 720px;
+        margin: 48px auto;
+        padding: 0 20px;
+      }
+
+      /* TÍTULO */
+      .news-title {
+        font-size: clamp(1.8rem, 3vw, 2.4rem);
+        font-weight: 700;
+        line-height: 1.2;
+        margin-bottom: 12px;
+      }
+
+      /* META */
+      .news-meta {
+        font-size: 0.9rem;
+        color: var(--text-color);
+        margin-bottom: 28px;
+      }
+
+      /* IMAGEM */
+      figure {
+        margin: 0 0 28px 0;
+      }
+
+      figure img {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 6px;
+      }
+
+      figcaption {
+        font-size: 0.85rem;
+        color: #666;
+        margin-top: 6px;
+      }
+
+      /* TEXTO */
+      .news-content p {
+        font-size: 1.05rem;
+        margin-bottom: 1.3em;
+      }
+
+      /* ACESSIBILIDADE */
+      a:focus-visible,
+      button:focus-visible {
+        outline: 3px solid #005fcc;
+        outline-offset: 3px;
+      }
+
+      /* RESPONSIVO */
+      @media (max-width: 600px) {
+        .news-container {
+          margin-top: 32px;
+        }
+
+        .news-title {
+          font-size: 1.6rem;
+        }
+      }
+
+      footer {
+        padding: 20px 10px;
+      }
+
+      .footer-bottom {
+        padding: 10px 0;
+        font-size: 0.85rem;
+      }
+
+      .news-nav {
+        margin-bottom: 12px;
+      }
+
+      .back-link {
+        font-size: 0.9rem;
+        color: #005fcc;
+        text-decoration: none;
+        font-weight: 500;
+      }
+
+      .back-link:hover {
+        text-decoration: underline;
+      }
+
+      .back-link:focus-visible {
+        outline: 3px solid #005fcc;
+        outline-offset: 3px;
+        border-radius: 4px;
+      }
+    </style>
   </head>
 
   <body>
@@ -29,91 +129,148 @@
         <img src="img/logo.png" alt="Igreja Evangélica Congregacional de Cachoeira Paulista | IECCP" />
         IECCP
       </a>
+
       <nav>
-        <a
-          href="/"
-          style="font-size: 1rem; display: flex; align-items: center; gap: 8px"
-        >
-          <i class="fa-solid fa-arrow-left"></i> Voltar
-        </a>
+        <button id="btn-mobile" onclick="toggleMenu()">
+          <div class="line1"></div>
+          <div class="line2"></div>
+          <div class="line3"></div>
+        </button>
+
+        <ul id="menu" role="menu">
+          <li><a href="agenda.html">Agenda</a></li>
+          <li><a href="pastoral.html">Pastoral</a></li>
+          <li><a href="noticias.html">Notícias</a></li>
+          <li><a href="missoes.html">Missões</a></li>
+          <li><a href="sobre.html">Sobre</a></li>
+          <li>
+            <button id="btn-tema" title="Mudar Tema">
+              <i class="fa-solid fa-sun"></i>
+            </button>
+          </li>
+        </ul>
       </nav>
     </header>
 
     <main>
-      <article class="leitura-wrapper">
-        <header class="leitura-header">
-          <h1 id="titulo-noticia" class="leitura-title">Carregando...</h1>
-          <div class="leitura-data">
-            <i class="fa-regular fa-calendar"></i>
-            <span id="data-noticia">...</span>
-          </div>
-        </header>
+      <article class="news-container" aria-labelledby="titulo">
+        <nav aria-label="Navegação da notícia" class="news-nav">
+          <a
+            href="noticias.html"
+            class="back-link"
+            aria-label="Voltar para a lista de notícias"
+          >
+            ← Voltar para Notícias
+          </a>
+        </nav>
+        <h1 id="titulo" class="news-title">Carregando notícia…</h1>
 
-        <div class="leitura-img-container" id="box-img" style="display: none">
-          <img id="img-noticia" src="" alt="Capa da Notícia" />
+        <div class="news-meta">
+          <time id="data"></time>
         </div>
 
-        <div id="texto-noticia" class="leitura-content"></div>
+        <figure id="figure" hidden>
+          <img id="imagem" alt="" />
+          <figcaption>Imagem ilustrativa da notícia</figcaption>
+        </figure>
+
+        <section
+          id="conteudo"
+          class="news-content"
+          aria-label="Texto da notícia"
+        ></section>
       </article>
     </main>
 
     <footer>
-      <p>Criado por Matheus Andrade e Luiz Charleaux © 2026 – IECCP</p>
+      <div class="footer-content">
+        <div class="footer-section brand">
+          <h3>IECCP</h3>
+          <p>
+            Uma Igreja para adorar a Deus, proclamar o evangelho e edificar a
+            igreja.
+          </p>
+        </div>
+
+        <div class="footer-section links">
+          <h3>Navegação</h3>
+          <ul>
+            <li><a href="historia">Nossa História</a></li>
+            <li><a href="missionarios">Missionários</a></li>
+            <li><a href="doutrinas">Doutrinas</a></li>
+            <li>
+              <a href="https://wa.me/+551231012589" target="_blank"
+                >Fale Conosco</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <div class="footer-section contact">
+          <h3>Encontre-nos</h3>
+          <p>
+            <i class="fa-solid fa-location-dot"></i>
+            <a href="https://maps.app.goo.gl/pz23waNTkSb8d4Ru7">
+              R. Conselheiro Rodrigues Alves, 358, Cachoeira Paulista - SP,
+              12630-000</a
+            >
+          </p>
+          <p>
+            <i class="fa-solid fa-envelope"></i>
+            <a href="mailto:congregacp.secretaria@gmail.com"
+              >congregacp.secretaria@gmail.com</a
+            >
+          </p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>Criado por Matheus Andrade e Luiz Charleaux © 2026 – IECCP</p>
+      </div>
     </footer>
 
     <script>
       async function carregarNoticia() {
-        const params = new URLSearchParams(window.location.search);
-        const idProcurado = params.get("id");
+        const id = new URLSearchParams(window.location.search).get("id");
 
-        if (!idProcurado) {
-          document.getElementById("titulo-noticia").innerText =
-            "Notícia não encontrada.";
-          return;
+        if (!id) return;
+
+        const res = await fetch("data/noticias.json");
+        const dados = await res.json();
+
+        const noticia = dados.find((n) => n.id == id);
+
+        if (!noticia) return;
+
+        document.getElementById("titulo").textContent = noticia.titulo;
+        document.title = noticia.titulo;
+
+        document.getElementById("data").textContent = noticia.data || "";
+
+        if (noticia.img) {
+          const img = document.getElementById("imagem");
+          img.src = noticia.img;
+          img.alt = noticia.titulo;
+          document.getElementById("figure").hidden = false;
         }
 
-        try {
-          // Adicionei um timestamp (?v=...) para evitar que o navegador use cache velho do JSON
-          const resposta = await fetch(
-            "data/noticias.json?v=" + new Date().getTime(),
-          );
-          const noticias = await resposta.json();
-          const noticia = noticias.find((item) => item.id == idProcurado);
+        const conteudo = document.getElementById("conteudo");
+        conteudo.innerHTML = "";
 
-          if (noticia) {
-            // Preenche Título
-            document.getElementById("titulo-noticia").innerText =
-              noticia.titulo;
-            document.title = noticia.titulo + " - IECCP";
-
-            // Preenche Texto
-            document.getElementById("texto-noticia").innerText = noticia.texto;
-
-            // Preenche Data (se tiver)
-            if (noticia.data) {
-              document.getElementById("data-noticia").innerText = noticia.data;
-            } else {
-              document.querySelector(".leitura-data").style.display = "none";
-            }
-
-            // Preenche Imagem
-            const img = document.getElementById("img-noticia");
-            const box = document.getElementById("box-img");
-            img.src = noticia.img;
-            box.style.display = "block"; // Mostra a caixa da imagem
-          } else {
-            document.getElementById("titulo-noticia").innerText =
-              "Notícia removida ou não encontrada.";
+        noticia.texto.split("\n").forEach((linha) => {
+          if (linha.trim()) {
+            const p = document.createElement("p");
+            p.textContent = linha;
+            conteudo.appendChild(p);
           }
-        } catch (erro) {
-          console.error(erro);
-          document.getElementById("titulo-noticia").innerText =
-            "Erro ao carregar.";
-        }
+        });
       }
 
       carregarNoticia();
     </script>
+
+    <script src="scripts/menu.js"></script>
+    <script src="scripts/popup.js"></script>
     <script src="scripts/tema.js"></script>
   </body>
 </html>
