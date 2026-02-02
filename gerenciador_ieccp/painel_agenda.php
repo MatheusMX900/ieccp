@@ -1,10 +1,8 @@
 <?php
-// Arquivo: gerenciador_ieccp/painel_agenda.php
 session_start();
 require_once __DIR__ . '/../includes/db.php';
 require_once 'funcoes.php';
 
-// --- NOVA AUTENTICAÇÃO ---
 if (!isset($_COOKIE['admin_token'])) {
     header("Location: index.php");
     exit;
@@ -16,7 +14,6 @@ if (!$stmt->fetch()) {
     header("Location: index.php");
     exit;
 }
-// -------------------------
 
 $jsonFile = "../data/agenda.json";
 $imgFolder = "../img/agenda/";

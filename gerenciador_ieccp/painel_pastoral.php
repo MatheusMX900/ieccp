@@ -1,22 +1,19 @@
 <?php
-// Arquivo: gerenciador_ieccp/painel_pastoral.php
 session_start();
 require_once __DIR__ . '/../includes/db.php';
 require_once 'funcoes.php';
 
-// --- NOVA AUTENTICAÇÃO ---
 if (!isset($_COOKIE['admin_token'])) {
-    header("Location: index.php");
+    header("Location: /gerenciador_ieccp/");
     exit;
 }
 $stmt = $pdo->prepare("SELECT id FROM admins WHERE session_token = ?");
 $stmt->execute([$_COOKIE['admin_token']]);
 if (!$stmt->fetch()) {
     setcookie('admin_token', '', time() - 3600, '/');
-    header("Location: index.php");
+    header("Location: /gerenciador_ieccp/");
     exit;
 }
-// -------------------------
 
 $jsonFile = "../data/pastoral.json";
 $imgFolder = "../img/pastoral/";
