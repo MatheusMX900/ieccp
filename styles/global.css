@@ -107,34 +107,46 @@ a:visited {
   background-color: #ffd633;
 }
 
+/* --- MODAL (POPUP) CORRIGIDO PARA CELULAR --- */
 .modal-overlay {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(3px);
-  z-index: 9999;
-  display: none;
+  /* Z-index bem alto para ficar acima de tudo (menu, header, cookies) */
+  z-index: 10001;
+  display: none; /* O JavaScript muda isso para 'flex' */
   justify-content: center;
   align-items: center;
+  padding: 20px; /* Garante espaço nas laterais no celular */
 }
 
 .modal-box {
   background: white;
   padding: 30px;
   border-radius: 12px;
-  max-width: 400px;
+  width: 90%; /* Ocupa quase toda a largura no celular */
+  max-width: 400px; /* Mas não passa de 400px no computador */
   text-align: center;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
   animation: subir 0.3s ease-out;
+  position: relative;
 }
 
 .modal-box h3 {
   color: #333;
   margin-top: 0;
+  font-size: 1.4rem;
+  margin-bottom: 10px;
 }
+
 .modal-box p {
   color: #666;
   margin-bottom: 25px;
+  font-size: 1rem;
 }
 
 .modal-botoes {
@@ -143,23 +155,37 @@ a:visited {
   justify-content: center;
 }
 
+/* Botões do Modal */
 .btn-primario {
   background: var(--header-bg);
   color: white;
   border: none;
-  padding: 10px 20px;
+  padding: 12px 24px;
   border-radius: 6px;
   cursor: pointer;
   font-weight: bold;
+  font-size: 1rem;
+  transition: background 0.3s;
+}
+
+.btn-primario:hover {
+  background-color: #34495e; /* Um pouco mais claro que o header */
 }
 
 .btn-secundario {
   background: transparent;
   border: 1px solid #ccc;
   color: #666;
-  padding: 10px 20px;
+  padding: 12px 24px;
   border-radius: 6px;
   cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s;
+}
+
+.btn-secundario:hover {
+  background-color: #f0f0f0;
+  border-color: #bbb;
 }
 
 /* COOKIE BANNER */
@@ -319,6 +345,14 @@ footer {
 }
 
 @media (max-width: 768px) {
+  .modal-botoes {
+    flex-direction: column; /* Botões um embaixo do outro */
+  }
+  .btn-primario,
+  .btn-secundario {
+    width: 100%;
+  }
+
   .footer-content {
     flex-direction: column;
     text-align: center;

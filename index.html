@@ -30,6 +30,24 @@
     <link rel="stylesheet" href="styles/gallery.css" />
     <link rel="stylesheet" href="styles/agenda.css" />
     <link rel="stylesheet" href="styles/home.css" />
+
+    <script
+      src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js"
+      defer
+    ></script>
+    <script>
+      window.OneSignalDeferred = window.OneSignalDeferred || [];
+      OneSignalDeferred.push(async function (OneSignal) {
+        await OneSignal.init({
+          appId: "574229ff-3df7-474b-8e1c-4d6d3bca5ade",
+          safari_web_id:
+            "web.onesignal.auto.31f2bfbe-48d0-4a72-b7e0-d44022a2d3bb",
+          notifyButton: {
+            enable: false /* Desativado pois você usa popup personalizado */,
+          },
+        });
+      });
+    </script>
   </head>
 
   <body>

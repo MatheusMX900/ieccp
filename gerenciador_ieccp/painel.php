@@ -61,6 +61,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ];
 
     $updated = false;
+    $isNewPost = false;
+
     foreach ($data as $k => $v) {
         if ($v['id'] == $id) {
             $data[$k] = $newItem;
@@ -75,12 +77,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             array_unshift($data, $newItem);
             $updated = true;
+            $isNewPost = true;
         }
     }
 
     if ($updated && empty($msg)) {
         if (file_put_contents($jsonFile, json_encode($data, JSON_PRETTY_PRINT))) {
             $msg = "<p class='success'>✅ Salvo com sucesso!</p>";
+
+            if ($isNewPost) {
+                enviarNotificacaoOneSignal("Nova Notícia! 📰", $newItem['titulo']);
+            }
             $editData = null;
         } else {
             $msg = "<p class='error'>Erro ao salvar arquivo JSON.</p>";

@@ -3,6 +3,7 @@ session_start();
 require_once __DIR__ . '/../includes/db.php';
 require_once 'funcoes.php';
 
+// 1. SEGURANÇA
 if (!isset($_COOKIE['admin_token'])) {
     header("Location: /gerenciador_ieccp/");
     exit;
@@ -15,36 +16,59 @@ if (!$stmt->fetch()) {
     exit;
 }
 
+// 2. CONFIGURAÇÕES E CRIAÇÃO DE PASTAS (CORREÇÃO CRÍTICA)
 $jsonFile = "../data/pastoral.json";
 $imgFolder = "../img/pastoral/";
+
+// Garante que as pastas existem. Se não existirem, o PHP cria.
+if (!is_dir(dirname($jsonFile))) mkdir(dirname($jsonFile), 0777, true);
+if (!is_dir($imgFolder)) mkdir($imgFolder, 0777, true);
 
 $msg = "";
 $editData = null;
 
+// 3. CARREGAR DADOS (COM PROTEÇÃO CONTRA ERRO)
 if (isset($_GET['editar'])) {
-    $data = json_decode(file_exists($jsonFile) ? file_get_contents($jsonFile) : '[]', true);
-    foreach ($data as $item) {
-        if ($item['id'] == $_GET['editar']) {
-            $editData = $item;
-            break;
+    $conteudo = file_exists($jsonFile) ? file_get_contents($jsonFile) : '[]';
+    $data = json_decode($conteudo, true);
+    if (is_array($data)) {
+        foreach ($data as $item) {
+            if ($item['id'] == $_GET['editar']) {
+                $editData = $item;
+                break;
+            }
         }
     }
 }
 
+// 4. SALVAR / ATUALIZAR
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $data = json_decode(file_exists($jsonFile) ? file_get_contents($jsonFile) : '[]', true) ?? [];
-    $id = $_POST['id_editar'] ?? time();
+    $conteudo = file_exists($jsonFile) ? file_get_contents($jsonFile) : '[]';
+    $data = json_decode($conteudo, true);
 
+    // Se o arquivo estiver corrompido, inicia um array limpo para não travar
+    if (!is_array($data)) $data = [];
+
+    $id = !empty($_POST['id_editar']) ? $_POST['id_editar'] : time();
+
+    // Lógica da Imagem
     $imgPath = $_POST['imagem_atual'] ?? '';
     if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] === UPLOAD_ERR_OK) {
         $ext = pathinfo($_FILES['imagem']['name'], PATHINFO_EXTENSION);
         $newJsonPath = "img/pastoral/" . time() . "." . $ext;
 
-        if (compress($_FILES['imagem']['tmp_name'], "../" . $newJsonPath)) {
+        // Tenta comprimir. Se der erro, salva normal.
+        if (function_exists('compress') && compress($_FILES['imagem']['tmp_name'], "../" . $newJsonPath)) {
             $imgPath = $newJsonPath;
-            if (!empty($_POST['imagem_atual']) && file_exists("../" . $_POST['imagem_atual'])) {
-                @unlink("../" . $_POST['imagem_atual']);
-            }
+        } else {
+            // Fallback: move o arquivo sem comprimir se a função falhar
+            move_uploaded_file($_FILES['imagem']['tmp_name'], "../" . $newJsonPath);
+            $imgPath = $newJsonPath;
+        }
+
+        // Apaga a antiga
+        if (!empty($_POST['imagem_atual']) && file_exists("../" . $_POST['imagem_atual'])) {
+            @unlink("../" . $_POST['imagem_atual']);
         }
     }
 
@@ -57,6 +81,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ];
 
     $updated = false;
+    $isNewPost = false;
+
     foreach ($data as $k => $v) {
         if ($v['id'] == $id) {
             $data[$k] = $newItem;
@@ -65,31 +91,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    if (!$updated) array_unshift($data, $newItem);
+    if (!$updated) {
+        array_unshift($data, $newItem);
+        $isNewPost = true;
+    }
 
-    if (file_put_contents($jsonFile, json_encode($data, JSON_PRETTY_PRINT))) {
+    // AQUI ESTÁ O SEGREDO: JSON_UNESCAPED_UNICODE
+    $jsonSalvo = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+
+    if ($jsonSalvo && file_put_contents($jsonFile, $jsonSalvo, LOCK_EX)) {
         $msg = "<p class='success'>✅ Publicado com sucesso!</p>";
         $editData = null;
+
+        // Notificação
+        if ($isNewPost) {
+            enviarNotificacaoOneSignal("Nova Palavra Pastoral 📖", $newItem['titulo']);
+        }
     } else {
-        $msg = "<p class='error'>Erro ao salvar.</p>";
+        $msg = "<p class='error'>Erro ao salvar. Verifique permissões ou caracteres inválidos.</p>";
     }
 }
 
+// 5. DELETAR
 if (isset($_GET['deletar'])) {
     $data = json_decode(file_exists($jsonFile) ? file_get_contents($jsonFile) : '[]', true);
-    $newData = [];
-    foreach ($data as $item) {
-        if ($item['id'] == $_GET['deletar']) {
-            if (file_exists("../" . $item['img'])) @unlink("../" . $item['img']);
-        } else {
-            $newData[] = $item;
+    if (is_array($data)) {
+        $newData = [];
+        foreach ($data as $item) {
+            if ($item['id'] == $_GET['deletar']) {
+                if (file_exists("../" . $item['img'])) @unlink("../" . $item['img']);
+            } else {
+                $newData[] = $item;
+            }
         }
+        file_put_contents($jsonFile, json_encode($newData, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE), LOCK_EX);
+        $msg = "<p class='warning'>🗑️ Item removido.</p>";
     }
-    file_put_contents($jsonFile, json_encode($newData, JSON_PRETTY_PRINT));
-    $msg = "<p class='warning'>🗑️ Item removido.</p>";
 }
 
-$list = json_decode(file_exists($jsonFile) ? file_get_contents($jsonFile) : '[]', true);
+// Recarrega a lista segura
+$conteudo = file_exists($jsonFile) ? file_get_contents($jsonFile) : '[]';
+$list = json_decode($conteudo, true) ?? [];
 ?>
 
 <!DOCTYPE html>
@@ -193,6 +235,13 @@ $list = json_decode(file_exists($jsonFile) ? file_get_contents($jsonFile) : '[]'
             padding: 10px;
             border-radius: 4px;
         }
+
+        .error {
+            color: #c0392b;
+            background: #fadbd8;
+            padding: 10px;
+            border-radius: 4px;
+        }
     </style>
 </head>
 
@@ -220,10 +269,14 @@ $list = json_decode(file_exists($jsonFile) ? file_get_contents($jsonFile) : '[]'
 
         <div style="margin-top:40px;">
             <h3>Publicados</h3>
-            <?php if ($list): foreach ($list as $i): ?>
+            <?php if (!empty($list)): foreach ($list as $i): ?>
                     <div class="item">
                         <div class="item-info">
-                            <?php if ($i['img']): ?> <img src="../<?= $i['img'] ?>" width="60" height="60" style="object-fit:cover; border-radius:4px;"> <?php endif; ?>
+                            <?php if (!empty($i['img'])): ?>
+                                <img src="../<?= $i['img'] ?>" width="60" height="60" style="object-fit:cover; border-radius:4px;">
+                            <?php else: ?>
+                                <div style="width:60px; height:60px; background:#eee; border-radius:4px;"></div>
+                            <?php endif; ?>
                             <div><strong><?= $i['titulo'] ?></strong><br><small><?= $i['data'] ?></small></div>
                         </div>
                         <div class="actions">
@@ -231,8 +284,10 @@ $list = json_decode(file_exists($jsonFile) ? file_get_contents($jsonFile) : '[]'
                             <a href="?deletar=<?= $i['id'] ?>" class="btn-del" onclick="return confirm('Apagar?');">Excluir</a>
                         </div>
                     </div>
-            <?php endforeach;
-            endif; ?>
+                <?php endforeach;
+            else: ?>
+                <p style="text-align:center; color:#777;">Nenhum pastoral encontrado.</p>
+            <?php endif; ?>
         </div>
     </div>
 </body>
