@@ -1,15 +1,13 @@
 <?php
-// Arquivo: gerenciador_ieccp/index.php
 session_start();
 
-// Caminho correto para sair da pasta 'gerenciador_ieccp' e achar o db.php
 require_once __DIR__ . '/../includes/db.php';
 
 $erro_login = "";
 
 // Se já estiver logado, manda pro painel
 if (isset($_COOKIE['admin_token'])) {
-    header("Location: painel.php");
+    header("Location: painel");
     exit;
 }
 
@@ -31,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Cookie válido por 24h
         setcookie('admin_token', $token, time() + 86400, '/', '', false, true);
 
-        header("Location: painel.php");
+        header("Location: painel");
         exit;
     } else {
         $erro_login = "Usuário ou senha incorretos.";
@@ -45,6 +43,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <title>Login Admin - IECCP</title>
+    <link rel="icon" type="image/svg+xml" href="/../img/ico.svg" />
+
     <style>
         body {
             font-family: sans-serif;

@@ -1,10 +1,8 @@
 <?php
-// Arquivo: gerenciador_ieccp/painel_agenda.php
 session_start();
 require_once __DIR__ . '/../includes/db.php';
 require_once 'funcoes.php';
 
-// --- NOVA AUTENTICAÇÃO ---
 if (!isset($_COOKIE['admin_token'])) {
     header("Location: index.php");
     exit;
@@ -16,7 +14,6 @@ if (!$stmt->fetch()) {
     header("Location: index.php");
     exit;
 }
-// -------------------------
 
 $jsonFile = "../data/agenda.json";
 $imgFolder = "../img/agenda/";
@@ -68,6 +65,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ];
 
     $updated = false;
+    $isNewPost = false;
+
     foreach ($data as $k => $v) {
         if ($v['id'] == $id) {
             $data[$k] = $newItem;
@@ -76,11 +75,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    if (!$updated) array_unshift($data, $newItem);
+    if (!$updated) {
+        array_unshift($data, $newItem);
+        $isNewPost = true;
+    }
 
     if (file_put_contents($jsonFile, json_encode($data, JSON_PRETTY_PRINT))) {
         $msg = "<p class='success'>✅ Evento salvo!</p>";
         $editData = null;
+
+        if ($isNewPost) {
+            $msgEvento = $newItem['data'] . " - " . $newItem['titulo'];
+            enviarNotificacaoOneSignal("Novo Evento na Agenda 🗓️", $msgEvento);
+        }
     } else {
         $msg = "<p class='error'>Erro ao salvar.</p>";
     }

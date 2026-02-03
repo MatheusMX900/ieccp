@@ -55,7 +55,7 @@ body {
   grid-row: span 2;
   background:
     linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.8) 100%),
-    url("../img/templo_hero_2.jpeg") center/cover;
+    url("../img/louvor.jpeg") center/cover;
   border: none;
   padding: 40px;
   justify-content: flex-end;
@@ -250,6 +250,7 @@ body {
 @media (max-width: 900px) {
   .wrapper {
     padding: 90px 15px 0;
+    padding-top: 0;
   }
 
   .hero-grid {

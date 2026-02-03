@@ -1,36 +1,29 @@
 <?php
-// Arquivo: gerenciador_ieccp/painel.php
 session_start();
 
-// 1. INCLUI A CONEXÃO E FUNÇÕES
 require_once __DIR__ . '/../includes/db.php';
 require_once 'funcoes.php';
 
-// 2. NOVA AUTENTICAÇÃO (SISTEMA DE TOKENS)
 if (!isset($_COOKIE['admin_token'])) {
-    header("Location: index.php");
+    header("Location: /gerenciador_ieccp/");
     exit;
 }
-// Verifica se o token do cookie bate com o banco
 $stmt = $pdo->prepare("SELECT id, usuario FROM admins WHERE session_token = ?");
 $stmt->execute([$_COOKIE['admin_token']]);
 $adminLogado = $stmt->fetch();
 
 if (!$adminLogado) {
     setcookie('admin_token', '', time() - 3600, '/'); // Limpa cookie inválido
-    header("Location: index.php");
+    header("Location: /gerenciador_ieccp/");
     exit;
 }
-// --- FIM DA AUTENTICAÇÃO ---
 
-// CONFIGURAÇÕES ORIGINAIS
 $jsonFile = "../data/noticias.json";
 $imgFolder = "../img/noticias/";
 
 $msg = "";
 $editData = null;
 
-// CARREGAR EDIÇÃO
 if (isset($_GET['editar'])) {
     $data = json_decode(file_exists($jsonFile) ? file_get_contents($jsonFile) : '[]', true);
     foreach ($data as $item) {
@@ -68,6 +61,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ];
 
     $updated = false;
+    $isNewPost = false;
+
     foreach ($data as $k => $v) {
         if ($v['id'] == $id) {
             $data[$k] = $newItem;
@@ -82,12 +77,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             array_unshift($data, $newItem);
             $updated = true;
+            $isNewPost = true;
         }
     }
 
     if ($updated && empty($msg)) {
         if (file_put_contents($jsonFile, json_encode($data, JSON_PRETTY_PRINT))) {
             $msg = "<p class='success'>✅ Salvo com sucesso!</p>";
+
+            if ($isNewPost) {
+                enviarNotificacaoOneSignal("Nova Notícia! 📰", $newItem['titulo']);
+            }
             $editData = null;
         } else {
             $msg = "<p class='error'>Erro ao salvar arquivo JSON.</p>";

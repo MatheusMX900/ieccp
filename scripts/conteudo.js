@@ -3,119 +3,176 @@ document.addEventListener("DOMContentLoaded", () => {
   initMissionarios();
   initAgenda();
   initPastoral();
+
+  // Se estiver na página de feed de notícias
+  if (document.getElementById("feed-container")) {
+    carregarFeedNoticias();
+  }
 });
 
-// --- NOTÍCIAS E MISSÕES ---
+// --- FUNÇÃO DE BUSCA (COM ANTI-CACHE) ---
+async function fetchData(url) {
+  try {
+    // Adiciona timestamp para forçar o navegador a pegar a versão nova do arquivo
+    const urlComCache = `${url}?v=${Date.now()}`;
+    const res = await fetch(urlComCache);
+    if (!res.ok) throw new Error(`Erro ao carregar ${url}`);
+    return await res.json();
+  } catch (err) {
+    console.warn(`Erro ou lista vazia em ${url}:`, err);
+    return [];
+  }
+}
 
+// --- PASTORAL (AQUI ESTÁ A CORREÇÃO) ---
+async function initPastoral() {
+  const dados = await fetchData("data/pastoral.json");
+
+  if (dados && dados.length > 0) {
+    // 1. Carrega na Home (limite de 4)
+    renderizarCards(dados, "container-pastoral", "template-pastoral", 4);
+
+    // 2. Carrega na página pastoral.html (TODOS) - Este é o que faltava carregar
+    renderizarCards(dados, "container-todos-pastoral", "template-pastoral");
+  }
+}
+
+// --- OUTRAS INICIALIZAÇÕES ---
 async function initNoticias() {
   const dados = await fetchData("data/noticias.json");
   if (!dados) return;
-
   renderizarCards(dados, "container-noticias", "template-padrao", 4);
   renderizarCards(dados, "container-todas-noticias", "template-padrao");
 }
 
 async function initMissionarios() {
   const dados = await fetchData("data/missionarios.json");
-  if (dados) {
+  if (dados)
     renderizarCards(dados, "container-missionarios", "template-missionarios");
-  }
 }
 
+async function initAgenda() {
+  const dados = await fetchData("data/agenda.json");
+  const container = document.getElementById("container-agenda");
+  const template = document.getElementById("template-agenda");
+
+  if (!container || !template) return;
+  container.innerHTML = "";
+
+  if (!dados || dados.length === 0) {
+    container.innerHTML =
+      "<p class='text-center w-100'>Nenhum evento agendado.</p>";
+    return;
+  }
+
+  dados.slice(0, 6).forEach((ev) => {
+    const clone = template.content.cloneNode(true);
+
+    // Imagem
+    const img = clone.querySelector("img");
+    if (img) {
+      img.src = formatarImagem(ev.img);
+      img.alt = ev.titulo;
+    }
+
+    // Data e Texto
+    setText(clone, ".date-badge", ev.data);
+    setText(clone, ".desc", ev.titulo);
+    setText(clone, ".texto-local", ev.local);
+
+    // Remove descrição da agenda para ficar padrão
+    const descEl = clone.querySelector(".short-desc");
+    if (descEl) descEl.style.display = "none";
+
+    // Link
+    const linkWrap = clone.querySelector(".card-link-wrapper");
+    if (linkWrap && ev.id)
+      linkWrap.href = `leitura.html?id=${ev.id}&tipo=agenda`;
+
+    container.appendChild(clone);
+  });
+}
+
+// --- RENDERIZADOR UNIVERSAL ---
 function renderizarCards(lista, idContainer, idTemplate, maxItems = null) {
   const container = document.getElementById(idContainer);
   const template = document.getElementById(idTemplate);
   if (!container || !template) return;
 
   container.innerHTML = "";
-  const itens = maxItems ? lista.slice(0, maxItems) : lista;
+  const safeList = Array.isArray(lista) ? lista : [];
+  const itens = maxItems ? safeList.slice(0, maxItems) : safeList;
 
   itens.forEach((item) => {
     const clone = template.content.cloneNode(true);
 
     const img = clone.querySelector("img");
     if (img) {
-      img.src = formatarImagem(item.img, item.titulo);
-      img.alt = item.titulo;
+      img.src = formatarImagem(item.img);
+      img.alt = item.titulo || "Imagem";
+      img.onerror = function () {
+        this.src = "img/logo.png";
+      };
     }
 
     const linkWrap = clone.querySelector(".card-link-wrapper");
     if (linkWrap) {
-      linkWrap.href = item.id ? `leitura.html?id=${item.id}` : item.link || "";
-      linkWrap.setAttribute("aria-label", `Ler conteúdo: ${item.titulo}`);
+      if (item.id) {
+        let tipo = "noticia";
+        if (idContainer.includes("pastoral")) tipo = "pastoral";
+        if (idContainer.includes("agenda")) tipo = "agenda";
+
+        linkWrap.href = `leitura.html?id=${item.id}&tipo=${tipo}`;
+      } else {
+        linkWrap.href = item.link || "#";
+      }
+      linkWrap.setAttribute("aria-label", `Ler: ${item.titulo}`);
     }
 
     setText(clone, ".desc", item.titulo);
-    setText(clone, ".short-desc", limparTexto(item.descricao));
+
+    // Remove descrição curta da listagem
+    const descEl = clone.querySelector(".short-desc");
+    if (descEl) descEl.remove();
 
     container.appendChild(clone);
   });
 }
 
-// --- AGENDA ---
-
-async function initAgenda() {
-  const container = document.getElementById("container-agenda");
-  const template = document.getElementById("template-agenda");
+// --- FEED DE NOTÍCIAS COMPLETO ---
+async function carregarFeedNoticias() {
+  // (O mesmo código que te passei antes para noticias.html, mantido aqui)
+  const container = document.getElementById("feed-container");
+  const template = document.getElementById("template-noticia");
   if (!container || !template) return;
 
-  const eventos = await fetchData("data/agenda.json");
-
+  const dados = await fetchData("data/noticias.json");
   container.innerHTML = "";
-  if (!eventos || eventos.length === 0) {
-    container.innerHTML =
-      "<p class='text-center w-100'>Nenhum evento agendado.</p>";
+  if (!dados || !dados.length) {
+    container.innerHTML = "<p>Nenhuma notícia.</p>";
     return;
   }
 
-  eventos.forEach((ev) => {
+  dados.forEach((item) => {
     const clone = template.content.cloneNode(true);
+    // ... (preenchimento padrão) ...
+    const link = clone.querySelector(".noticia-link");
+    if (link) link.href = `leitura.html?id=${item.id}&tipo=noticia`;
+    setText(clone, "h2", item.titulo);
+    setText(clone, ".data-badge", item.data);
 
     const img = clone.querySelector("img");
-    if (img) {
-      img.src = formatarImagem(ev.img, ev.titulo);
-      img.alt = ev.titulo;
-    }
+    if (item.img && img) img.src = formatarImagem(item.img);
 
-    const badge = clone.querySelector(".date-badge");
-    if (badge) {
-      ev.data ? (badge.textContent = ev.data) : (badge.style.display = "none");
-    }
-
-    setText(clone, ".desc", ev.titulo);
-    setText(clone, ".short-desc", ev.texto);
-    setText(clone, ".texto-local", ev.local);
-
-    const divLocal = clone.querySelector(".event-location");
-    if (divLocal && !ev.local) divLocal.style.display = "none";
+    const divTexto = clone.querySelector(".texto-dinamico");
+    const texto = item.texto || item.descricao || "";
+    if (divTexto) divTexto.innerText = texto.substring(0, 200) + "..."; // Resumo simples
 
     container.appendChild(clone);
   });
 }
 
-// --- PASTORAL ---
-
-async function initPastoral() {
-  const dados = await fetchData("data/pastoral.json");
-  if (dados) {
-    renderizarCards(dados, "container-pastoral", "template-pastoral", 4);
-    renderizarCards(dados, "container-todos-pastoral", "template-pastoral");
-  }
-}
-
 // --- HELPERS ---
-
-async function fetchData(url) {
-  try {
-    const res = await fetch(url);
-    if (!res.ok) throw new Error(`Erro ao carregar ${url}`);
-    return await res.json();
-  } catch (err) {
-    console.warn(err);
-    return null;
-  }
-}
-
 function setText(el, selector, text) {
   const target = el.querySelector(selector);
   if (target) target.innerText = text || "";
@@ -124,69 +181,4 @@ function setText(el, selector, text) {
 function formatarImagem(src) {
   if (!src) return "img/logo.png";
   return src.replace("../", "").replace(/^https?:\/\/ieccp\.com\.br\//, "");
-}
-
-function limparTexto(texto) {
-  if (!texto) return "";
-  return texto.replace(/&#13;/g, "").replace(/&#10;/g, "\n");
-}
-
-// --- FEED DE NOTÍCIAS (noticias.html) ---
-
-async function carregarFeedNoticias() {
-  const container = document.getElementById("feed-container");
-  const template = document.getElementById("template-noticia");
-  if (!container || !template) return;
-
-  try {
-    const response = await fetch("data/noticias.json");
-    const noticias = await response.json();
-
-    container.innerHTML = "";
-
-    if (!noticias.length) {
-      container.innerHTML =
-        "<p style='text-align:center'>Nenhuma notícia encontrada!</p>";
-      return;
-    }
-
-    noticias.forEach((item) => {
-      const clone = template.content.cloneNode(true);
-
-      const link = clone.querySelector(".noticia-link");
-      link.href = `leitura.html?id=${item.id}`;
-      link.setAttribute("aria-label", `Ler notícia: ${item.titulo}`);
-
-      const dataBadge = clone.querySelector(".data-badge");
-      if (dataBadge) dataBadge.textContent = item.data || "";
-
-      const titulo = clone.querySelector("h2");
-      if (titulo) titulo.textContent = item.titulo;
-
-      const divTexto = clone.querySelector(".texto-dinamico");
-      if (divTexto && item.texto) {
-        item.texto.split("\n").forEach((pTxt) => {
-          if (pTxt.trim()) {
-            const p = document.createElement("p");
-            p.textContent = pTxt;
-            divTexto.appendChild(p);
-          }
-        });
-      }
-
-      const img = clone.querySelector("img");
-      const divImg = clone.querySelector(".conteudo-imagem");
-
-      if (item.img) {
-        img.src = formatarImagem(item.img);
-        img.alt = item.titulo;
-      } else if (divImg) {
-        divImg.remove();
-      }
-
-      container.appendChild(clone);
-    });
-  } catch (error) {
-    console.error("Erro feed:", error);
-  }
 }

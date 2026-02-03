@@ -230,43 +230,100 @@
     </footer>
 
     <script>
-      async function carregarNoticia() {
-        const id = new URLSearchParams(window.location.search).get("id");
+      async function carregarConteudo() {
+        // 1. Pega ID e TIPO da URL (ex: leitura.html?id=123&tipo=pastoral)
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get("id");
+        // Se não vier o tipo, assume que é notícia (para compatibilidade com links antigos)
+        const tipo = params.get("tipo") || "noticia";
 
-        if (!id) return;
-
-        const res = await fetch("data/noticias.json");
-        const dados = await res.json();
-
-        const noticia = dados.find((n) => n.id == id);
-
-        if (!noticia) return;
-
-        document.getElementById("titulo").textContent = noticia.titulo;
-        document.title = noticia.titulo;
-
-        document.getElementById("data").textContent = noticia.data || "";
-
-        if (noticia.img) {
-          const img = document.getElementById("imagem");
-          img.src = noticia.img;
-          img.alt = noticia.titulo;
-          document.getElementById("figure").hidden = false;
+        if (!id) {
+          document.getElementById("titulo").textContent =
+            "Conteúdo não encontrado.";
+          return;
         }
 
-        const conteudo = document.getElementById("conteudo");
-        conteudo.innerHTML = "";
+        // 2. Define qual JSON carregar
+        let arquivoJson = "data/noticias.json"; // Padrão
+        let voltarLink = "noticias.html";
+        let voltarTexto = "← Voltar para Notícias";
 
-        noticia.texto.split("\n").forEach((linha) => {
-          if (linha.trim()) {
-            const p = document.createElement("p");
-            p.textContent = linha;
-            conteudo.appendChild(p);
+        if (tipo === "pastoral") {
+          arquivoJson = "data/pastoral.json";
+          voltarLink = "pastoral.html";
+          voltarTexto = "← Voltar para Pastoral";
+        } else if (tipo === "agenda") {
+          arquivoJson = "data/agenda.json";
+          voltarLink = "agenda.html";
+          voltarTexto = "← Voltar para Agenda";
+        }
+
+        // Atualiza o botão de voltar
+        const btnVoltar = document.querySelector(".back-link");
+        if (btnVoltar) {
+          btnVoltar.href = voltarLink;
+          btnVoltar.textContent = voltarTexto;
+        }
+
+        try {
+          // 3. Busca os dados (com anti-cache)
+          const res = await fetch(`${arquivoJson}?v=${Date.now()}`);
+          if (!res.ok) throw new Error("Erro ao carregar arquivo");
+
+          const dados = await res.json();
+          // Encontra pelo ID (pode ser número ou string)
+          const item = dados.find((n) => n.id == id);
+
+          if (!item) {
+            document.getElementById("titulo").textContent =
+              "Conteúdo não encontrado ou removido.";
+            return;
           }
-        });
+
+          // 4. Preenche a tela
+          document.getElementById("titulo").textContent = item.titulo;
+          document.title = `${item.titulo} | IECCP`;
+
+          document.getElementById("data").textContent = item.data || "";
+
+          // Imagem (Remove o "../" do PHP)
+          if (item.img) {
+            const img = document.getElementById("imagem");
+            const srcLimpo = item.img
+              .replace("../", "")
+              .replace(/^https?:\/\/ieccp\.com\.br\//, "");
+            img.src = srcLimpo;
+            img.alt = item.titulo;
+            document.getElementById("figure").hidden = false;
+          }
+
+          // Texto (Aceita 'texto', 'descricao' ou 'conteudo')
+          const conteudo = document.getElementById("conteudo");
+          conteudo.innerHTML = "";
+
+          const textoFull = item.texto || item.descricao || item.conteudo || "";
+
+          // Quebra as linhas em parágrafos
+          textoFull.split("\n").forEach((linha) => {
+            if (linha.trim()) {
+              const p = document.createElement("p");
+              // Verifica se já não é HTML (alguns editores salvam <p>)
+              if (linha.includes("<p>")) {
+                p.innerHTML = linha; // Se tiver HTML, renderiza
+              } else {
+                p.textContent = linha; // Se for texto puro, protege
+              }
+              conteudo.appendChild(p);
+            }
+          });
+        } catch (erro) {
+          console.error(erro);
+          document.getElementById("titulo").textContent =
+            "Erro ao carregar o conteúdo.";
+        }
       }
 
-      carregarNoticia();
+      carregarConteudo();
     </script>
 
     <script src="scripts/menu.js"></script>

@@ -1,14 +1,9 @@
 <?php
-// Arquivo: database/add_user.php
-
-// Ajuste de caminho: sai de 'database', sobe um nível e entra em 'includes'
 require_once __DIR__ . '/../includes/db.php';
 
 echo "<h1>Ferramenta de Configuração</h1>";
 
 try {
-    // 1. GARANTE QUE A TABELA EXISTE
-    // (Isso substitui a necessidade do arquivo setup.sql)
     $pdo->exec("CREATE TABLE IF NOT EXISTS admins (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         usuario TEXT NOT NULL UNIQUE,
@@ -21,7 +16,6 @@ try {
     )");
     echo " Passo 1: Tabela 'admins' verificada com sucesso.<br>";
 
-    // 2. CADASTRA O USUÁRIO (Edite aqui se quiser mudar a senha)
     $novo_user = 'asdhaiusdiaisudnijashda';
     $nova_pass = 'asidhaisldauisgdauisbd';
 

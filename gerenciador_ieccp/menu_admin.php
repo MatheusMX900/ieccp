@@ -1,11 +1,11 @@
 <div class="menu-admin">
     <span class="brand">Painel IECCP</span>
     <nav>
-        <a href="painel.php" class="<?= basename($_SERVER['PHP_SELF']) == 'painel.php' ? 'active' : '' ?>">📰 Notícias</a>
-        <a href="painel_pastoral.php" class="<?= basename($_SERVER['PHP_SELF']) == 'painel_pastoral.php' ? 'active' : '' ?>">🐑 Pastoral</a>
-        <a href="painel_agenda.php" class="<?= basename($_SERVER['PHP_SELF']) == 'painel_agenda.php' ? 'active' : '' ?>">📅 Agenda</a>
+        <a href="painel" class="<?= basename($_SERVER['PHP_SELF']) == 'painel.php' ? 'active' : '' ?>">📰 Notícias</a>
+        <a href="painel_pastoral" class="<?= basename($_SERVER['PHP_SELF']) == 'painel_pastoral.php' ? 'active' : '' ?>">🐑 Pastoral</a>
+        <a href="painel_agenda" class="<?= basename($_SERVER['PHP_SELF']) == 'painel_agenda.php' ? 'active' : '' ?>">📅 Agenda</a>
     </nav>
-    <a href="logout.php" class="btn-logout">Sair</a>
+    <a href="logout" class="btn-logout">Sair</a>
 </div>
 
 <style>
