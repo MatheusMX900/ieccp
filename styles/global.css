@@ -5,8 +5,15 @@
   padding: 0;
 }
 
+html,
+body {
+  width: 100%;
+  overflow-x: hidden;
+}
+
 :root {
   --bg-body: #1c1c1c;
+  --bg-body-transparent: rgba(28, 28, 28, 0.7);
   --text-color: #ffffff;
   --header-bg: #293e5c;
   --card-border: #ccc;
@@ -17,6 +24,7 @@
 
 body.light-mode {
   --bg-body: #f4f4f4;
+  --bg-body-transparent: rgba(244, 244, 244, 0.7);
   --text-color: #1a1a1a;
   --card-border: #333;
   --card-text: #000;
@@ -30,7 +38,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  padding-top: 100px;
+  /* padding-top: 100px; */
   transition:
     background-color 0.3s ease,
     color 0.3s ease;

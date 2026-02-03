@@ -43,7 +43,7 @@
           safari_web_id:
             "web.onesignal.auto.31f2bfbe-48d0-4a72-b7e0-d44022a2d3bb",
           notifyButton: {
-            enable: false /* Desativado pois você usa popup personalizado */,
+            enable: false,
           },
         });
       });
@@ -79,8 +79,8 @@
       </nav>
     </header>
 
-    <div class="wrapper">
-      <section class="hero-section">
+    <section class="hero-section">
+      <div class="wrapper">
         <div class="hero-grid">
           <div class="master-card card-welcome">
             <span class="welcome-badge">Seja Bem-vindo</span>
@@ -102,7 +102,8 @@
               <i class="fa-solid fa-bible"></i> <span>Dom 09h — EBD</span>
             </div>
             <div class="time-row">
-              <i class="fa-solid fa-church"></i> <span>Dom 18h30 — Culto</span>
+              <i class="fa-solid fa-church"></i>
+              <span>Dom 18h30 — Culto</span>
             </div>
             <div class="time-row">
               <i class="fa-solid fa-hands-praying"></i>
@@ -148,54 +149,59 @@
             </div>
           </a>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <main>
-        <section id="agenda">
-          <div class="section-header">
-            <h2 class="section-title">Próximos Eventos</h2>
-            <a href="agenda.html" class="section-link"
-              ><span>Ver Agenda Completa</span>
-              <i class="fa-solid fa-arrow-right-long"></i
-            ></a>
-          </div>
-          <div class="carousel-container" id="container-agenda"></div>
-        </section>
+    <div class="background-fixo-louvor">
+      <div class="pelicula-escura">
+        <main>
+          <section id="agenda">
+            <div class="section-header">
+              <h2 class="section-title">Próximos Eventos</h2>
+              <a href="agenda.html" class="section-link"
+                ><span>Ver Agenda Completa</span>
+                <i class="fa-solid fa-arrow-right-long"></i
+              ></a>
+            </div>
+            <div class="carousel-container" id="container-agenda"></div>
+          </section>
 
-        <section id="pastoral">
-          <div class="section-header">
-            <h2 class="section-title">Palavra Pastoral</h2>
-            <a href="pastoral.html" class="section-link"
-              ><span>Ler Mais Artigos</span>
-              <i class="fa-solid fa-arrow-right-long"></i
-            ></a>
-          </div>
-          <div class="carousel-container" id="container-pastoral"></div>
-        </section>
+          <section id="pastoral">
+            <div class="section-header">
+              <h2 class="section-title">Palavra Pastoral</h2>
+              <a href="pastoral.html" class="section-link"
+                ><span>Ler Mais Artigos</span>
+                <i class="fa-solid fa-arrow-right-long"></i
+              ></a>
+            </div>
+            <div class="carousel-container" id="container-pastoral"></div>
+          </section>
 
-        <section id="noticias">
-          <div class="section-header">
-            <h2 class="section-title">Últimas Notícias</h2>
-            <a href="noticias.html" class="section-link"
-              ><span>Ver Todas</span>
-              <i class="fa-solid fa-arrow-right-long"></i
-            ></a>
-          </div>
-          <div class="carousel-container" id="container-noticias"></div>
-        </section>
+          <section id="noticias">
+            <div class="section-header">
+              <h2 class="section-title">Últimas Notícias</h2>
+              <a href="noticias.html" class="section-link"
+                ><span>Ver Todas</span>
+                <i class="fa-solid fa-arrow-right-long"></i
+              ></a>
+            </div>
+            <div class="carousel-container" id="container-noticias"></div>
+          </section>
 
-        <section id="missionarios">
-          <div class="section-header">
-            <h2 class="section-title">Nossos Missionários</h2>
-            <a href="missoes.html" class="section-link"
-              ><span>Conhecer Projetos</span>
-              <i class="fa-solid fa-arrow-right-long"></i
-            ></a>
-          </div>
-          <div class="carousel-container" id="container-missionarios"></div>
-        </section>
-      </main>
+          <section id="missionarios">
+            <div class="section-header">
+              <h2 class="section-title">Nossos Missionários</h2>
+              <a href="missoes.html" class="section-link"
+                ><span>Conhecer Projetos</span>
+                <i class="fa-solid fa-arrow-right-long"></i
+              ></a>
+            </div>
+            <div class="carousel-container" id="container-missionarios"></div>
+          </section>
+        </main>
+      </div>
     </div>
+
     <template id="template-padrao">
       <div class="gallery-item">
         <a href="" class="card-link-wrapper">
@@ -260,7 +266,9 @@
     <template id="template-pastoral">
       <div class="gallery-item">
         <a href="" class="card-link-wrapper">
-          <div class="card-image-box"><img src="" alt="" loading="lazy" /></div>
+          <div class="card-image-box">
+            <img src="" alt="" loading="lazy" />
+          </div>
           <div class="card-content">
             <h3 class="desc">Título</h3>
             <p class="short-desc"></p>
@@ -335,6 +343,16 @@
       <p>🍪 Usamos cookies para melhorar sua experiência.</p>
       <button id="btn-cookie-ok">Entendi</button>
     </div>
+
+    <script>
+      window.addEventListener("scroll", function () {
+        const hero = document.querySelector(".hero-section");
+        let scrollPosition = window.pageYOffset;
+
+        hero.style.backgroundPosition =
+          "center calc(50% + " + scrollPosition * 0.4 + "px)";
+      });
+    </script>
 
     <script src="scripts/tema.js" defer></script>
     <script src="scripts/menu.js" defer></script>
