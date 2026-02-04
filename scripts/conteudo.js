@@ -79,8 +79,7 @@ async function initAgenda() {
 
     const linkWrap = clone.querySelector(".card-link-wrapper");
     // ATUALIZADO: Agora aponta para leitura.php
-    if (linkWrap && ev.id)
-      linkWrap.href = `leitura.php?id=${ev.id}&tipo=agenda`;
+    if (linkWrap && ev.id) linkWrap.href = `leitura?id=${ev.id}&tipo=agenda`;
 
     container.appendChild(clone);
   });
@@ -116,7 +115,7 @@ function renderizarCards(lista, idContainer, idTemplate, maxItems = null) {
         if (idContainer.includes("agenda")) tipo = "agenda";
 
         // ATUALIZADO: Agora aponta para leitura.php
-        linkWrap.href = `leitura.php?id=${item.id}&tipo=${tipo}`;
+        linkWrap.href = `leitura?id=${item.id}&tipo=${tipo}`;
       } else {
         linkWrap.href = item.link || "#";
       }
@@ -150,7 +149,7 @@ async function carregarFeedNoticias() {
 
     const link = clone.querySelector(".noticia-link");
     // ATUALIZADO: Agora aponta para leitura.php
-    if (link) link.href = `leitura.php?id=${item.id}&tipo=noticia`;
+    if (link) link.href = `leitura?id=${item.id}&tipo=noticia`;
 
     setText(clone, "h2", item.titulo);
     setText(clone, ".data-badge", item.data);

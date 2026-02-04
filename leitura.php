@@ -317,16 +317,16 @@ if ($id) {
 
       // Define qual JSON carregar (agora com BARRA / no início para não errar a pasta)
       let arquivoJson = "/data/noticias.json";
-      let voltarLink = "/noticias.html";
+      let voltarLink = "/noticias";
       let voltarTexto = "← Voltar para Notícias";
 
       if (tipo === "pastoral") {
         arquivoJson = "/data/pastoral.json";
-        voltarLink = "/pastoral.html";
+        voltarLink = "/pastoral";
         voltarTexto = "← Voltar para Pastoral";
       } else if (tipo === "agenda") {
         arquivoJson = "/data/agenda.json";
-        voltarLink = "/agenda.html";
+        voltarLink = "/agenda";
         voltarTexto = "← Voltar para Agenda";
       }
 
