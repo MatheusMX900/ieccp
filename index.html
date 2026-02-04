@@ -10,6 +10,8 @@
       content="IECCP - Uma família de fé em Cachoeira Paulista. Participe dos nossos cultos."
     />
 
+    <link rel="icon" type="image/svg+xml" href="img/favicon2.png" />
+
     <link
       href="https://fonts.googleapis.com/css?family=Oswald:400,500,700"
       rel="stylesheet"
@@ -22,8 +24,6 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
       rel="stylesheet"
     />
-
-    <link rel="icon" type="image/svg+xml" href="img/favicon2.png" />
 
     <link rel="stylesheet" href="styles/global.css" />
     <link rel="stylesheet" href="styles/header.css" />
@@ -42,9 +42,7 @@
           appId: "574229ff-3df7-474b-8e1c-4d6d3bca5ade",
           safari_web_id:
             "web.onesignal.auto.31f2bfbe-48d0-4a72-b7e0-d44022a2d3bb",
-          notifyButton: {
-            enable: false,
-          },
+          notifyButton: { enable: false },
         });
       });
     </script>
@@ -163,10 +161,10 @@
           <section id="agenda">
             <div class="section-header">
               <h2 class="section-title">Próximos Eventos</h2>
-              <a href="agenda" class="section-link"
-                ><span>Ver Agenda Completa</span>
-                <i class="fa-solid fa-arrow-right-long"></i
-              ></a>
+              <a href="agenda" class="section-link">
+                <span>Ver Agenda Completa</span>
+                <i class="fa-solid fa-arrow-right-long"></i>
+              </a>
             </div>
             <div class="carousel-container" id="container-agenda"></div>
           </section>
@@ -174,10 +172,10 @@
           <section id="pastoral">
             <div class="section-header">
               <h2 class="section-title">Palavra Pastoral</h2>
-              <a href="pastoral" class="section-link"
-                ><span>Ler Mais Artigos</span>
-                <i class="fa-solid fa-arrow-right-long"></i
-              ></a>
+              <a href="pastoral" class="section-link">
+                <span>Ler Mais Artigos</span>
+                <i class="fa-solid fa-arrow-right-long"></i>
+              </a>
             </div>
             <div class="carousel-container" id="container-pastoral"></div>
           </section>
@@ -185,10 +183,10 @@
           <section id="noticias">
             <div class="section-header">
               <h2 class="section-title">Últimas Notícias</h2>
-              <a href="noticias" class="section-link"
-                ><span>Ver Todas</span>
-                <i class="fa-solid fa-arrow-right-long"></i
-              ></a>
+              <a href="noticias" class="section-link">
+                <span>Ver Todas</span>
+                <i class="fa-solid fa-arrow-right-long"></i>
+              </a>
             </div>
             <div class="carousel-container" id="container-noticias"></div>
           </section>
@@ -196,10 +194,10 @@
           <section id="missionarios">
             <div class="section-header">
               <h2 class="section-title">Nossos Missionários</h2>
-              <a href="missoes" class="section-link"
-                ><span>Conhecer Projetos</span>
-                <i class="fa-solid fa-arrow-right-long"></i
-              ></a>
+              <a href="missoes" class="section-link">
+                <span>Conhecer Projetos</span>
+                <i class="fa-solid fa-arrow-right-long"></i>
+              </a>
             </div>
             <div class="carousel-container" id="container-missionarios"></div>
           </section>
@@ -241,7 +239,10 @@
         <div class="card-link-wrapper" style="cursor: default">
           <div class="card-image-box">
             <img src="" alt="Evento" loading="lazy" />
+
             <span class="date-badge">DATA</span>
+
+            <span class="time-badge" style="display: none"></span>
           </div>
           <div class="card-content">
             <h3 class="desc">Título</h3>
@@ -283,9 +284,9 @@
       </div>
     </template>
 
-    <a href="#" id="back-to-top" title="Voltar ao topo"
-      ><i class="fa-solid fa-arrow-up"></i
-    ></a>
+    <a href="#" id="back-to-top" title="Voltar ao topo">
+      <i class="fa-solid fa-arrow-up"></i>
+    </a>
 
     <footer>
       <div class="footer-content">
@@ -344,31 +345,25 @@
         </div>
       </div>
     </div>
+
     <div id="cookie-banner" class="cookie-banner">
       <p>🍪 Usamos cookies para melhorar sua experiência.</p>
       <button id="btn-cookie-ok">Entendi</button>
     </div>
 
     <script>
-      // Seleciona o elemento uma vez só para economizar processamento
+      // Efeito Parallax no Hero
       const hero = document.querySelector(".hero-section");
-      let ticking = false; // Variável de controle (sinal vermelho/verde)
+      let ticking = false;
 
       window.addEventListener("scroll", function () {
-        // Se já existe um pedido de atualização na fila, não faça nada
         if (!ticking) {
           window.requestAnimationFrame(function () {
             let scrollPosition = window.pageYOffset;
-
-            // Aplica o movimento
             hero.style.backgroundPosition =
               "center calc(50% + " + scrollPosition * 0.4 + "px)";
-
-            // Libera o sinal para a próxima atualização
             ticking = false;
           });
-
-          // Bloqueia novos pedidos até que o atual seja desenhado
           ticking = true;
         }
       });

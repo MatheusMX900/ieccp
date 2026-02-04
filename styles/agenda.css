@@ -15,6 +15,26 @@
   font-family: "Oswald", sans-serif;
 }
 
+.time-badge {
+  position: absolute;
+  top: 45px; /* Fica logo abaixo da data */
+  right: 10px;
+  background-color: var(--header-bg); /* Azul escuro para contraste */
+  color: white;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 0.75rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+  font-family: "Oswald", sans-serif;
+
+  /* Para alinhar o ícone com o texto */
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
 /* Garante que o container da imagem permita posicionar o selo por cima */
 .card-image-box {
   position: relative;

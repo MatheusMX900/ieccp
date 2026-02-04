@@ -21,6 +21,7 @@ $imgFolder = "../img/agenda/";
 $msg = "";
 $editData = null;
 
+// CARREGAR DADOS PARA EDIÇÃO
 if (isset($_GET['editar'])) {
     $data = json_decode(file_exists($jsonFile) ? file_get_contents($jsonFile) : '[]', true);
     foreach ($data as $item) {
@@ -31,37 +32,57 @@ if (isset($_GET['editar'])) {
     }
 }
 
+// SALVAR / ATUALIZAR
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_exists($jsonFile) ? file_get_contents($jsonFile) : '[]', true) ?? [];
-    $id = $_POST['id_editar'] ?? time();
+    $id = !empty($_POST['id_editar']) ? $_POST['id_editar'] : time();
 
-    $datePost = $_POST['data_evento'];
-    $dateFinal = $_POST['data_antiga'] ?? date('d/m/Y');
-    if (!empty($datePost)) {
-        $dtObj = DateTime::createFromFormat('Y-m-d', $datePost);
-        if ($dtObj) $dateFinal = $dtObj->format('d/m/Y');
+    // --- TRATAMENTO DE DATAS E HORAS ---
+    function formatarDataParaSalvar($dataYMD)
+    {
+        if (!$dataYMD) return "";
+        $d = DateTime::createFromFormat('Y-m-d', $dataYMD);
+        return $d ? $d->format('d/m/Y') : "";
     }
 
-    $imgPath = $_POST['imagem_atual'] ?? '';
+    $data_inicio = formatarDataParaSalvar($_POST['data_inicio']);
+    $data_fim    = formatarDataParaSalvar($_POST['data_fim']);
+    $hora_inicio = $_POST['hora_inicio'] ?? '';
+    $hora_fim    = $_POST['hora_fim'] ?? '';
+
+    // Campo legado (Compatibilidade)
+    $legacyDate = $data_inicio ?: ($_POST['data_antiga'] ?? date('d/m/Y'));
+
+    // --- UPLOAD DE IMAGEM (AGORA OPCIONAL) ---
+    $imgPath = $_POST['imagem_atual'] ?? ''; // Começa vazio ou com a imagem antiga
+
     if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] === UPLOAD_ERR_OK) {
         $ext = pathinfo($_FILES['imagem']['name'], PATHINFO_EXTENSION);
         $newJsonPath = "img/agenda/" . time() . "." . $ext;
 
         if (compress($_FILES['imagem']['tmp_name'], "../" . $newJsonPath)) {
             $imgPath = $newJsonPath;
+            // Remove a antiga para não acumular lixo
             if (!empty($_POST['imagem_atual']) && file_exists("../" . $_POST['imagem_atual'])) {
                 @unlink("../" . $_POST['imagem_atual']);
             }
         }
     }
 
+    // --- MONTAGEM DO ARRAY ---
     $newItem = [
         "id" => $id,
-        "img" => $imgPath,
+        "img" => $imgPath, // Se não enviou nada, salva vazio ""
         "titulo" => filter_input(INPUT_POST, 'titulo', FILTER_SANITIZE_SPECIAL_CHARS),
         "local" => filter_input(INPUT_POST, 'local', FILTER_SANITIZE_SPECIAL_CHARS),
         "texto" => strip_tags($_POST['texto']),
-        "data" => $dateFinal
+
+        "data_inicio" => $data_inicio,
+        "hora_inicio" => $hora_inicio,
+        "data_fim" => $data_fim,
+        "hora_fim" => $hora_fim,
+
+        "data" => $legacyDate
     ];
 
     $updated = false;
@@ -85,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $editData = null;
 
         if ($isNewPost) {
-            $msgEvento = $newItem['data'] . " - " . $newItem['titulo'];
+            $msgEvento = $newItem['data_inicio'] . " - " . $newItem['titulo'];
             enviarNotificacaoOneSignal("Novo Evento na Agenda 🗓️", $msgEvento);
         }
     } else {
@@ -93,6 +114,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+// DELETAR
 if (isset($_GET['deletar'])) {
     $data = json_decode(file_exists($jsonFile) ? file_get_contents($jsonFile) : '[]', true);
     $newData = [];
@@ -108,10 +130,23 @@ if (isset($_GET['deletar'])) {
 }
 
 $list = json_decode(file_exists($jsonFile) ? file_get_contents($jsonFile) : '[]', true);
-$dateInputVal = "";
-if ($editData && !empty($editData['data'])) {
-    $d = DateTime::createFromFormat('d/m/Y', $editData['data']);
-    if ($d) $dateInputVal = $d->format('Y-m-d');
+
+// --- PREENCHIMENTO DOS INPUTS ---
+$val_data_inicio = "";
+$val_data_fim = "";
+
+if ($editData) {
+    $raw_inicio = $editData['data_inicio'] ?? $editData['data'] ?? '';
+    if ($raw_inicio) {
+        $d = DateTime::createFromFormat('d/m/Y', $raw_inicio);
+        if ($d) $val_data_inicio = $d->format('Y-m-d');
+    }
+
+    $raw_fim = $editData['data_fim'] ?? '';
+    if ($raw_fim) {
+        $d = DateTime::createFromFormat('d/m/Y', $raw_fim);
+        if ($d) $val_data_fim = $d->format('Y-m-d');
+    }
 }
 ?>
 
@@ -142,13 +177,15 @@ if ($editData && !empty($editData['data'])) {
 
         input,
         textarea,
-        button {
+        button,
+        select {
             width: 100%;
             margin-bottom: 1rem;
             padding: 12px;
             border-radius: 6px;
             border: 1px solid #ddd;
             box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
         }
 
         textarea {
@@ -156,13 +193,37 @@ if ($editData && !empty($editData['data'])) {
             resize: vertical;
         }
 
-        .row-inputs {
-            display: flex;
-            gap: 15px;
+        .grid-dates {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 15px;
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #eee;
         }
 
-        .row-inputs div {
+        .date-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .date-group div {
             flex: 1;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        small {
+            font-weight: normal;
+            color: #888;
         }
 
         button {
@@ -172,6 +233,7 @@ if ($editData && !empty($editData['data'])) {
             cursor: pointer;
             border: none;
             transition: 0.2s;
+            margin-top: 10px;
         }
 
         button:hover {
@@ -226,10 +288,16 @@ if ($editData && !empty($editData['data'])) {
             border-radius: 4px;
         }
 
-        @media (max-width: 600px) {
-            .row-inputs {
-                flex-direction: column;
-                gap: 0;
+        .error {
+            color: #c0392b;
+            background: #fadbd8;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        @media (max-width: 700px) {
+            .grid-dates {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -247,32 +315,69 @@ if ($editData && !empty($editData['data'])) {
             <input type="hidden" name="imagem_atual" value="<?= $editData['img'] ?? '' ?>">
             <input type="hidden" name="data_antiga" value="<?= $editData['data'] ?? '' ?>">
 
-            <label>Título:</label> <input type="text" name="titulo" value="<?= $editData['titulo'] ?? '' ?>" required>
+            <label>Título do Evento:</label>
+            <input type="text" name="titulo" value="<?= $editData['titulo'] ?? '' ?>" required placeholder="Ex: Culto de Jovens">
 
-            <div class="row-inputs">
-                <div><label>Data:</label> <input type="date" name="data_evento" value="<?= $dateInputVal ?>" required></div>
-                <div><label>Local:</label> <input type="text" name="local" value="<?= $editData['local'] ?? '' ?>" required></div>
+            <div class="grid-dates">
+                <div>
+                    <label style="color:#27ae60">🟢 Início (Obrigatório)</label>
+                    <div class="date-group">
+                        <div>
+                            <small>Data</small>
+                            <input type="date" name="data_inicio" value="<?= $val_data_inicio ?>" required>
+                        </div>
+                        <div>
+                            <small>Hora (Opcional)</small>
+                            <input type="time" name="hora_inicio" value="<?= $editData['hora_inicio'] ?? '' ?>">
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <label style="color:#c0392b">🔴 Fim (Opcional)</label>
+                    <div class="date-group">
+                        <div>
+                            <small>Data</small>
+                            <input type="date" name="data_fim" value="<?= $val_data_fim ?>">
+                        </div>
+                        <div>
+                            <small>Hora</small>
+                            <input type="time" name="hora_fim" value="<?= $editData['hora_fim'] ?? '' ?>">
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <label>Descrição:</label> <textarea name="texto" required><?= $editData['texto'] ?? '' ?></textarea>
+            <label>📍 Local:</label>
+            <input type="text" name="local" value="<?= $editData['local'] ?? '' ?>" required placeholder="Ex: Templo Principal">
 
-            <label>Imagem:</label>
-            <?php if ($editData): ?> <small style="color:#666">(Vazio para manter atual)</small> <?php endif; ?>
-            <input type="file" name="imagem" accept="image/*" <?= $editData ? '' : 'required' ?>>
+            <label>📝 Descrição:</label>
+            <textarea name="texto" required placeholder="Detalhes do evento..."><?= $editData['texto'] ?? '' ?></textarea>
 
-            <button type="submit" id="btn-submit"><?= $editData ? 'SALVAR' : 'PUBLICAR' ?></button>
+            <label>📸 Imagem (Opcional):</label>
+            <small style="color:#666">Se deixar vazio, o site usará a logo da igreja.</small>
+            <input type="file" name="imagem" accept="image/*">
+
+            <button type="submit" id="btn-submit"><?= $editData ? 'SALVAR ALTERAÇÕES' : 'PUBLICAR EVENTO' ?></button>
             <?php if ($editData): ?> <a href="painel_agenda.php"><button type="button" class="btn-cancel">CANCELAR</button></a> <?php endif; ?>
         </form>
 
         <div style="margin-top:40px;">
-            <h3>Eventos</h3>
+            <h3>Eventos Cadastrados</h3>
             <?php if ($list): foreach ($list as $i): ?>
                     <div class="item">
                         <div class="item-info">
-                            <?php if ($i['img']): ?> <img src="../<?= $i['img'] ?>" width="60" height="60" style="object-fit:cover; border-radius:4px;"> <?php endif; ?>
+                            <?php if (!empty($i['img'])): ?>
+                                <img src="../<?= $i['img'] ?>" width="60" height="60" style="object-fit:cover; border-radius:4px;">
+                            <?php else: ?>
+                                <div style="width:60px; height:60px; background:#ddd; border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:20px;">🖼️</div>
+                            <?php endif; ?>
                             <div>
                                 <strong><?= $i['titulo'] ?></strong><br>
-                                <small>📅 <?= $i['data'] ?> | 📍 <?= $i['local'] ?? '' ?></small>
+                                <small>
+                                    🗓️ Início: <?= $i['data_inicio'] ?? $i['data'] ?>
+                                    <?= !empty($i['hora_inicio']) ? ' às ' . $i['hora_inicio'] : '' ?>
+                                </small>
                             </div>
                         </div>
                         <div class="actions">
