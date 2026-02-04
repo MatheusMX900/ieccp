@@ -47,6 +47,7 @@ body {
 main {
   flex: 1;
   width: 100%;
+  margin-bottom: 100px;
 }
 
 /* TIPOGRAFIA E LINKS */
