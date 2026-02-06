@@ -1,4 +1,10 @@
 <?php
+include 'funcoes.php';
+verificiarEventosExpirados('../data/agenda.json');
+$agenda = json_decode(file_get_contents('../data/agenda.json'), true);
+?>
+
+<?php
 session_start();
 require_once __DIR__ . '/../includes/db.php';
 
@@ -18,17 +24,27 @@ if (!$stmt->fetch()) {
 $jsonFile = "../data/agenda.json";
 
 // --- FUNÇÃO MÁGICA: OTIMIZAR IMAGEM (WEBP + RESIZE) ---
-function uploadOtimizado($file, $destino) {
+function uploadOtimizado($file, $destino)
+{
     // 1. Pega informações da imagem
     list($largura, $altura, $tipo) = getimagesize($file['tmp_name']);
-    
+
     // 2. Cria uma nova imagem na memória baseada no tipo original
     switch ($tipo) {
-        case IMAGETYPE_JPEG: $imagem = imagecreatefromjpeg($file['tmp_name']); break;
-        case IMAGETYPE_PNG:  $imagem = imagecreatefrompng($file['tmp_name']); break;
-        case IMAGETYPE_GIF:  $imagem = imagecreatefromgif($file['tmp_name']); break;
-        case IMAGETYPE_WEBP: $imagem = imagecreatefromwebp($file['tmp_name']); break;
-        default: return false;
+        case IMAGETYPE_JPEG:
+            $imagem = imagecreatefromjpeg($file['tmp_name']);
+            break;
+        case IMAGETYPE_PNG:
+            $imagem = imagecreatefrompng($file['tmp_name']);
+            break;
+        case IMAGETYPE_GIF:
+            $imagem = imagecreatefromgif($file['tmp_name']);
+            break;
+        case IMAGETYPE_WEBP:
+            $imagem = imagecreatefromwebp($file['tmp_name']);
+            break;
+        default:
+            return false;
     }
 
     // 3. Redimensionar se for muito grande (Max 1200px de largura)
@@ -36,11 +52,11 @@ function uploadOtimizado($file, $destino) {
     if ($largura > $maxLargura) {
         $novaAltura = ($altura / $largura) * $maxLargura;
         $novaImagem = imagecreatetruecolor($maxLargura, $novaAltura);
-        
+
         // Mantém transparência se for PNG/WEBP
         imagealphablending($novaImagem, false);
         imagesavealpha($novaImagem, true);
-        
+
         imagecopyresampled($novaImagem, $imagem, 0, 0, 0, 0, $maxLargura, $novaAltura, $largura, $altura);
         $imagem = $novaImagem;
     }
@@ -48,10 +64,10 @@ function uploadOtimizado($file, $destino) {
     // 4. Salvar como WEBP (Qualidade 80 - Leve e Bonito)
     // O destino deve terminar com .webp
     $sucesso = imagewebp($imagem, $destino, 80);
-    
+
     // Limpa a memória
     imagedestroy($imagem);
-    
+
     return $sucesso;
 }
 
@@ -72,12 +88,13 @@ if (isset($_GET['editar'])) {
 // SALVAR
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_exists($jsonFile) ? file_get_contents($jsonFile) : '[]', true) ?? [];
-    
+
     // ID Correto
     $id = !empty($_POST['id_editar']) ? $_POST['id_editar'] : time();
 
     // Tratamento de datas
-    function formatarDataParaSalvar($dataYMD) {
+    function formatarDataParaSalvar($dataYMD)
+    {
         if (!$dataYMD) return "";
         $d = DateTime::createFromFormat('Y-m-d', $dataYMD);
         return $d ? $d->format('d/m/Y') : "";
@@ -91,7 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // --- UPLOAD OTIMIZADO ---
     $imgPath = $_POST['imagem_atual'] ?? '';
-    
+
     if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] === UPLOAD_ERR_OK) {
         // Forçamos a extensão .webp
         $nomeArquivo = time() . ".webp";
@@ -119,7 +136,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         "hora_inicio" => $hora_inicio,
         "data_fim" => $data_fim,
         "hora_fim" => $hora_fim,
-        "data" => $legacyDate 
+        "data" => $legacyDate
     ];
 
     $updated = false;
@@ -163,13 +180,14 @@ $val_data_fim = "";
 if ($editData) {
     if (!empty($editData['data_inicio'])) $val_data_inicio = DateTime::createFromFormat('d/m/Y', $editData['data_inicio'])->format('Y-m-d');
     elseif (!empty($editData['data'])) $val_data_inicio = DateTime::createFromFormat('d/m/Y', $editData['data'])->format('Y-m-d');
-    
+
     if (!empty($editData['data_fim'])) $val_data_fim = DateTime::createFromFormat('d/m/Y', $editData['data_fim'])->format('Y-m-d');
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -177,23 +195,116 @@ if ($editData) {
     <link href="https://fonts.googleapis.com/css?family=Poppins:400,600&display=swap" rel="stylesheet">
     <style>
         /* ESTILO MANTIDO */
-        body { padding: 20px; background: #ecf0f1; font-family: 'Poppins', sans-serif; color: #333; }
-        .container { max-width: 900px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); }
-        input, textarea, button { width: 100%; margin-bottom: 1rem; padding: 12px; border-radius: 6px; border: 1px solid #ddd; box-sizing: border-box; }
-        textarea { height: 100px; resize: vertical; }
-        .grid-dates { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 15px; background: #f9f9f9; padding: 15px; border-radius: 8px; border: 1px solid #eee; }
-        .date-group { display: flex; gap: 10px; }
-        .date-group div { flex: 1; }
-        button { background: #27ae60; color: white; font-weight: 600; cursor: pointer; border: none; }
-        .item { display: flex; justify-content: space-between; padding: 15px; border-bottom: 1px solid #eee; align-items: center; }
-        .item-info { display: flex; gap: 15px; align-items: center; }
-        .actions { display: flex; gap: 10px; }
-        .btn-edit { background: #f39c12; color:white; padding:8px 15px; text-decoration:none; border-radius:4px; }
-        .btn-del { background: #e74c3c; color:white; padding:8px 15px; text-decoration:none; border-radius:4px; }
-        .success { color: #27ae60; background: #e8f5e9; padding: 10px; border-radius: 4px; }
-        @media (max-width: 700px) { .grid-dates { grid-template-columns: 1fr; } }
+        body {
+            padding: 20px;
+            background: #ecf0f1;
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        input,
+        textarea,
+        button {
+            width: 100%;
+            margin-bottom: 1rem;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        .grid-dates {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 15px;
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #eee;
+        }
+
+        .date-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .date-group div {
+            flex: 1;
+        }
+
+        button {
+            background: #27ae60;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+        }
+
+        .item {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            align-items: center;
+        }
+
+        .item-info {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-edit {
+            background: #f39c12;
+            color: white;
+            padding: 8px 15px;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+
+        .btn-del {
+            background: #e74c3c;
+            color: white;
+            padding: 8px 15px;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+
+        .success {
+            color: #27ae60;
+            background: #e8f5e9;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        @media (max-width: 700px) {
+            .grid-dates {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
+
 <body>
     <div class="container">
         <?php include 'menu_admin.php'; ?>
@@ -238,21 +349,23 @@ if ($editData) {
         <div style="margin-top:40px;">
             <h3>Eventos</h3>
             <?php if ($list): foreach ($list as $i): ?>
-                <div class="item">
-                    <div class="item-info">
-                        <?php if (!empty($i['img'])): ?> <img src="../<?= $i['img'] ?>" width="60" height="60" style="object-fit:cover; border-radius:4px;"> <?php endif; ?>
-                        <div>
-                            <strong><?= $i['titulo'] ?></strong><br>
-                            <small><?= $i['data_inicio'] ?? $i['data'] ?> <?= !empty($i['hora_inicio']) ? '• '.$i['hora_inicio'] : '' ?></small>
+                    <div class="item">
+                        <div class="item-info">
+                            <?php if (!empty($i['img'])): ?> <img src="../<?= $i['img'] ?>" width="60" height="60" style="object-fit:cover; border-radius:4px;"> <?php endif; ?>
+                            <div>
+                                <strong><?= $i['titulo'] ?></strong><br>
+                                <small><?= $i['data_inicio'] ?? $i['data'] ?> <?= !empty($i['hora_inicio']) ? '• ' . $i['hora_inicio'] : '' ?></small>
+                            </div>
+                        </div>
+                        <div class="actions">
+                            <a href="?editar=<?= $i['id'] ?>" class="btn-edit">Editar</a>
+                            <a href="?deletar=<?= $i['id'] ?>" class="btn-del" onclick="return confirm('Apagar?');">Excluir</a>
                         </div>
                     </div>
-                    <div class="actions">
-                        <a href="?editar=<?= $i['id'] ?>" class="btn-edit">Editar</a>
-                        <a href="?deletar=<?= $i['id'] ?>" class="btn-del" onclick="return confirm('Apagar?');">Excluir</a>
-                    </div>
-                </div>
-            <?php endforeach; endif; ?>
+            <?php endforeach;
+            endif; ?>
         </div>
     </div>
 </body>
+
 </html>
