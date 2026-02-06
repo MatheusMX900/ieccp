@@ -13,15 +13,14 @@
     <link rel="icon" type="image/svg+xml" href="img/favicon2.png" />
 
     <link
-      href="https://fonts.googleapis.com/css?family=Oswald:400,500,700"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700"
-      rel="stylesheet"
-    />
-    <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&family=Poppins:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
 
@@ -30,6 +29,9 @@
     <link rel="stylesheet" href="styles/gallery.css" />
     <link rel="stylesheet" href="styles/agenda.css" />
     <link rel="stylesheet" href="styles/home.css" />
+
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#002B5B" />
 
     <script
       src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js"
@@ -45,6 +47,17 @@
           notifyButton: { enable: false },
         });
       });
+    </script>
+
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker
+            .register("/sw.js")
+            .then((reg) => console.log("App pronto para instalar!", reg))
+            .catch((err) => console.log("Erro ao registrar app:", err));
+        });
+      }
     </script>
   </head>
 
