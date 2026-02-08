@@ -92,11 +92,11 @@ if (file_exists($caminhoCache)) {
         </button>
 
         <ul id="menu" role="menu">
-          <li><a href="contribua">Dizimos e Ofertas</a></li>
-          <li><a href="agenda">Agenda</a></li>
-          <li><a href="pastoral">Pastoral</a></li>
-          <li><a href="noticias">Notícias</a></li>
-          <li><a href="missoes">Missões</a></li>
+          <li><a href="contribua.html">Dizimos e Ofertas</a></li>
+          <li><a href="agenda.html">Agenda</a></li>
+          <li><a href="pastoral.html">Pastoral</a></li>
+          <li><a href="noticias.html">Notícias</a></li>
+          <li><a href="missoes.html">Missões</a></li>
           <li><a href="sobre">Sobre</a></li>
           <li>
             <button id="btn-tema" title="Mudar Tema">
@@ -222,7 +222,7 @@ if (file_exists($caminhoCache)) {
           <section id="agenda">
             <div class="section-header">
               <h2 class="section-title">Próximos Eventos</h2>
-              <a href="agenda" class="section-link">
+              <a href="agenda.html" class="section-link">
                 <span>Ver Agenda Completa</span>
                 <i class="fa-solid fa-arrow-right-long"></i>
               </a>
@@ -233,7 +233,7 @@ if (file_exists($caminhoCache)) {
           <section id="pastoral">
             <div class="section-header">
               <h2 class="section-title">Palavra Pastoral</h2>
-              <a href="pastoral" class="section-link">
+              <a href="pastoral.html" class="section-link">
                 <span>Ler Mais Artigos</span>
                 <i class="fa-solid fa-arrow-right-long"></i>
               </a>
@@ -244,7 +244,7 @@ if (file_exists($caminhoCache)) {
           <section id="noticias">
             <div class="section-header">
               <h2 class="section-title">Últimas Notícias</h2>
-              <a href="noticias" class="section-link">
+              <a href="noticias.html" class="section-link">
                 <span>Ver Todas</span>
                 <i class="fa-solid fa-arrow-right-long"></i>
               </a>
@@ -255,7 +255,7 @@ if (file_exists($caminhoCache)) {
           <section id="missionarios">
             <div class="section-header">
               <h2 class="section-title">Nossos Missionários</h2>
-              <a href="missoes" class="section-link">
+              <a href="missoes.html" class="section-link">
                 <span>Conhecer Projetos</span>
                 <i class="fa-solid fa-arrow-right-long"></i>
               </a>
