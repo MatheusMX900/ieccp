@@ -7,7 +7,7 @@
 
     <title>IECCP - Pastoral</title>
 
-    <link rel="icon" type="image/svg+xml" href="img/ico.svg" />
+    <link rel="icon" type="image/svg+xml" href="img/favicon2.png" />
     <link rel="stylesheet" href="styles/global.css" />
     <link rel="stylesheet" href="styles/header.css" />
     <link rel="stylesheet" href="styles/gallery.css" />
@@ -29,7 +29,7 @@
 
   <body>
     <header>
-      <a href="index.html" class="branding">
+      <a href="/" class="branding">
         <img
           src="img/logo.png"
           alt="Igreja Evangélica Congregacional de Cachoeira Paulista | IECCP"
@@ -45,11 +45,12 @@
         </button>
 
         <ul id="menu" role="menu">
-          <li><a href="agenda.html">Agenda</a></li>
-          <li><a href="pastoral.html">Pastoral</a></li>
-          <li><a href="noticias.html">Notícias</a></li>
-          <li><a href="missoes.html">Missões</a></li>
-          <li><a href="sobre.html">Sobre a IECCP</a></li>
+          <li><a href="contribua">Dizimos e Ofertas</a></li>
+          <li><a href="agenda">Agenda</a></li>
+          <li><a href="pastoral">Pastoral</a></li>
+          <li><a href="noticias">Notícias</a></li>
+          <li><a href="missoes">Missões</a></li>
+          <li><a href="sobre">Sobre</a></li>
           <li>
             <button id="btn-tema" title="Mudar Tema">
               <i class="fa-solid fa-sun"></i>
@@ -61,7 +62,7 @@
 
     <section
       class="page-content"
-      style="text-align: center; padding: 40px 20px"
+      style="text-align: center; padding: 40px 20px; padding-top: 100px"
     >
       <h1 class="content_title">Artigos Pastorais</h1>
       <div id="container-todos-pastoral" class="news-grid"></div>
@@ -131,5 +132,20 @@
     <script src="scripts/tema.js"></script>
     <script src="scripts/menu.js"></script>
     <script src="scripts/conteudo.js" defer></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-G2YV5W8LW5"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-G2YV5W8LW5");
+    </script>
   </body>
 </html>

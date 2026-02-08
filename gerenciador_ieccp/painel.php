@@ -37,7 +37,7 @@ if (isset($_GET['editar'])) {
 // SALVAR / ATUALIZAR
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_exists($jsonFile) ? file_get_contents($jsonFile) : '[]', true) ?? [];
-    $id = $_POST['id_editar'] ?? time();
+    $id = !empty($_POST['id_editar']) ? $_POST['id_editar'] : time();
 
     $imgPath = $_POST['imagem_atual'] ?? '';
     if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] === UPLOAD_ERR_OK) {
@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         "img" => $imgPath,
         "titulo" => filter_input(INPUT_POST, 'titulo', FILTER_SANITIZE_SPECIAL_CHARS),
         "texto" => strip_tags($_POST['texto']),
-        "data" => $_POST['data_original'] ?? date('d/m/Y')
+        "data" => !empty($_POST['data_original']) ? $_POST['data_original'] : date('d/m/Y')
     ];
 
     $updated = false;

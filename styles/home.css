@@ -20,7 +20,38 @@ body {
 
 /* HERO GRID (DESKTOP) */
 .hero-section {
-  padding-bottom: 60px;
+  background-image: url("../img/louvor.jpeg");
+  background-attachment: scroll;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  width: 100%;
+  padding: 100px 0 60px 0;
+
+  position: relative;
+  z-index: 0;
+}
+
+.hero-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* background: rgba(41, 62, 76, 0.6); */
+  background: var(--bg-body-transparent);
+  z-index: 0;
+}
+
+.hero-section .wrapper {
+  position: relative;
+  z-index: 1;
+}
+
+.background-fixo-louvor {
+  width: 100%;
 }
 
 .hero-grid {
@@ -28,6 +59,164 @@ body {
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: 360px 220px;
   gap: 24px;
+}
+
+/* --- ESTILOS DO CARD AO VIVO --- */
+
+.card-live {
+    background: #fff;
+    border: 2px solid #ff0000; /* Borda vermelha para destaque */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 20px; /* Garante espaçamento interno igual aos outros */
+}
+
+/* Cabeçalho "AO VIVO" */
+.live-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.live-badge {
+    background-color: #ff0000;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Animação da bolinha piscando */
+.pulse-dot {
+    display: block;
+    width: 8px;
+    height: 8px;
+    background-color: white;
+    border-radius: 50%;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.5); opacity: 0.5; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.icon-live {
+    color: #ff0000;
+    font-size: 1.5rem;
+}
+
+/* Título do vídeo */
+.live-title {
+    font-size: 1rem;
+    color: #333;
+    margin: 0;
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Limita texto a 2 linhas */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Vídeo Responsivo (Mantém formato 16:9) */
+.video-responsive {
+    position: relative;
+    padding-bottom: 56.25%; /* Proporção 16:9 */
+    height: 0;
+    overflow: hidden;
+    border-radius: 8px;
+    background: #000;
+}
+
+.video-responsive iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+/* Botão Vermelho */
+.btn-assistir {
+    background-color: #cc0000;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    display: block;
+    transition: background 0.3s;
+}
+
+.btn-assistir:hover {
+    background-color: #990000;
+}
+
+/* PARALLAX */
+.background-fixo-louvor {
+  width: 100%;
+}
+
+.pelicula-escura {
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+
+.background-fixo-louvor main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+#agenda,
+#pastoral,
+#noticias,
+#missionarios {
+  background: transparent !important;
+}
+
+.wrapper-parallax {
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  perspective: 10px; /* Força do 3D */
+}
+
+.secao-parallax {
+  position: relative;
+  transform-style: preserve-3d;
+  z-index: 1;
+}
+
+.parallax-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+
+  transform: translateZ(-10px) scale(2);
+}
+
+.conteudo-sobreposto {
+  position: relative;
+  z-index: 2;
+  /* background-color: rgba(26, 26, 26, 0.92); */
+  padding-bottom: 40px;
 }
 
 /* CARDS MESTRES */
@@ -55,7 +244,7 @@ body {
   grid-row: span 2;
   background:
     linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.8) 100%),
-    url("../img/louvor.jpeg") center/cover;
+    url("../img/templo_hero_2.jpeg") center/cover;
   border: none;
   padding: 40px;
   justify-content: flex-end;

@@ -1,12 +1,12 @@
 [
   {
-    "titulo": "Aurino",
+    "titulo": "Aurino e Dani",
     "img": "../img/missionarios/aurino_familia.png",
     "link": "/missionarios/aurino.html",
     "descricao": "Missionários em Moçambique, ministério Palavra da Vida"
   },
   {
-    "titulo": "Alex",
+    "titulo": "Alex e Bete",
     "img": "../img/missionarios/alex.png",
     "link": "#",
     "descricao": "Ribeirinhos na Amazônia, missão SEARA"
@@ -18,13 +18,13 @@
     "descricao": "Aldeia Palimi-U-RR, missão MEVA"
   },
   {
-    "titulo": "Claudecy",
+    "titulo": "Claudecy e Neria",
     "img": "../img/missionarios/claudecy.jpg",
     "link": "#",
     "descricao": "Ribeirinhos na Amazônia, missão SEARA"
   },
   {
-    "titulo": "Ricardo",
+    "titulo": "Ricardo e Flávia",
     "img": "../img/missionarios/ricardo.png",
     "link": "#",
     "descricao": "Comunidades indígenas NE, UNIEDAS"

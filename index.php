@@ -1,35 +1,53 @@
+<?php
+// --- LÓGICA PHP (Fica invisível no topo) ---
+// Tenta ler o arquivo JSON gerado pelo script na pasta scripts/
+$caminhoCache = 'scripts/live_status.json'; 
+$dadosLive = ['is_live' => false];
+
+if (file_exists($caminhoCache)) {
+    $conteudo = @file_get_contents($caminhoCache);
+    if ($conteudo) {
+        $dadosLive = json_decode($conteudo, true);
+    }
+}
+?>
 <!doctype html>
 <html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>IECCP | Igreja Evangélica Congregacional</title>
-
+    
+    <meta name="keywords" content="igreja, evangelho, IECCP, cachoeira paulista, cristo, fe, deus, espirito santo, amor, comunhao, identidade">
     <meta
       name="description"
       content="IECCP - Uma família de fé em Cachoeira Paulista. Participe dos nossos cultos."
-    />
+    >
+    <meta name="author" content="Matheus Andrade, Luiz Charleaux">
+    <meta http-equiv="refresh" content="60">
 
-    <link
-      href="https://fonts.googleapis.com/css?family=Oswald:400,500,700"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700"
-      rel="stylesheet"
-    />
+    <link rel="icon" type="image/svg+xml" href="img/favicon2.png" />
+
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
       rel="stylesheet"
     />
 
-    <link rel="icon" type="image/svg+xml" href="img/ico.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
 
     <link rel="stylesheet" href="styles/global.css" />
     <link rel="stylesheet" href="styles/header.css" />
     <link rel="stylesheet" href="styles/gallery.css" />
     <link rel="stylesheet" href="styles/agenda.css" />
     <link rel="stylesheet" href="styles/home.css" />
+
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#002B5B" />
 
     <script
       src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js"
@@ -42,17 +60,26 @@
           appId: "574229ff-3df7-474b-8e1c-4d6d3bca5ade",
           safari_web_id:
             "web.onesignal.auto.31f2bfbe-48d0-4a72-b7e0-d44022a2d3bb",
-          notifyButton: {
-            enable: false /* Desativado pois você usa popup personalizado */,
-          },
+          notifyButton: { enable: false },
         });
       });
+    </script>
+
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker
+            .register("/sw.js")
+            .then((reg) => console.log("App pronto para instalar!", reg))
+            .catch((err) => console.log("Erro ao registrar app:", err));
+        });
+      }
     </script>
   </head>
 
   <body>
     <header>
-      <a href="index.html" class="branding">
+      <a href="#" class="branding">
         <img src="img/logo.png" alt="IECCP" />
         IECCP
       </a>
@@ -65,11 +92,12 @@
         </button>
 
         <ul id="menu" role="menu">
-          <li><a href="agenda.html">Agenda</a></li>
-          <li><a href="pastoral.html">Pastoral</a></li>
-          <li><a href="noticias.html">Notícias</a></li>
-          <li><a href="missoes.html">Missões</a></li>
-          <li><a href="sobre.html">Sobre</a></li>
+          <li><a href="contribua">Dizimos e Ofertas</a></li>
+          <li><a href="agenda">Agenda</a></li>
+          <li><a href="pastoral">Pastoral</a></li>
+          <li><a href="noticias">Notícias</a></li>
+          <li><a href="missoes">Missões</a></li>
+          <li><a href="sobre">Sobre</a></li>
           <li>
             <button id="btn-tema" title="Mudar Tema">
               <i class="fa-solid fa-sun"></i>
@@ -79,9 +107,10 @@
       </nav>
     </header>
 
-    <div class="wrapper">
-      <section class="hero-section">
+    <section class="hero-section">
+      <div class="wrapper">
         <div class="hero-grid">
+          
           <div class="master-card card-welcome">
             <span class="welcome-badge">Seja Bem-vindo</span>
             <h1 class="welcome-title">
@@ -93,23 +122,59 @@
             </p>
           </div>
 
-          <div class="master-card card-times">
-            <div class="times-header">
-              <h2>Nossos Horários</h2>
-              <i class="fa-regular fa-clock" style="font-size: 1.5rem"></i>
-            </div>
-            <div class="time-row">
-              <i class="fa-solid fa-bible"></i> <span>Dom 09h — EBD</span>
-            </div>
-            <div class="time-row">
-              <i class="fa-solid fa-church"></i> <span>Dom 18h30 — Culto</span>
-            </div>
-            <div class="time-row">
-              <i class="fa-solid fa-hands-praying"></i>
-              <span>Qua 7h30 — Reunião de Oração</span>
-            </div>
-          </div>
+          <?php if (!empty($dadosLive['is_live']) && $dadosLive['is_live'] === true): ?>
+            
+            <div class="master-card card-live">
+                <div class="live-header">
+                    <div class="live-badge">
+                        <span class="pulse-dot"></span> AO VIVO
+                    </div>
+                    <i class="fa-brands fa-youtube icon-live"></i>
+                </div>
+                
+                <h3 class="live-title">
+                    <?php echo htmlspecialchars($dadosLive['titulo']); ?>
+                </h3>
 
+                <div class="video-responsive">
+                    <iframe 
+                        src="https://www.youtube.com/embed/<?php echo $dadosLive['video_id']; ?>?autoplay=1&mute=1" 
+                        title="Culto Ao Vivo" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                
+                <a href="https://youtube.com/watch?v=<?php echo $dadosLive['video_id']; ?>" target="_blank" class="btn-assistir">
+                   Assistir no YouTube
+                </a>
+            </div>
+
+          <?php else: ?>
+
+            <div class="master-card card-times">
+              <div class="times-header">
+                <h2>Nossos Horários</h2>
+                <i class="fa-regular fa-clock" style="font-size: 1.5rem"></i>
+              </div>
+              <div class="time-row">
+                <i class="fa-solid fa-bible"></i> <span>Dom 09h — EBD</span>
+              </div>
+              <div class="time-row">
+                <i class="fa-solid fa-bible"></i>
+                <span>Dom 10h20 — Culto da Manhã</span>
+              </div>
+              <div class="time-row">
+                <i class="fa-solid fa-church"></i>
+                <span>Dom 18h30 — Culto da Noite</span>
+              </div>
+              <div class="time-row">
+                <i class="fa-solid fa-hands-praying"></i>
+                <span>Qua 7h30 — Reunião de Oração</span>
+              </div>
+            </div>
+
+          <?php endif; ?>
           <div class="master-card card-verse">
             <i
               class="fa-solid fa-quote-left quote-icon"
@@ -140,7 +205,7 @@
                 "
               ></i>
               <h3
-                style="font-family: &quot;Oswald&quot;, sans-serif; margin: 0"
+                style="font-family: 'Oswald', sans-serif; margin: 0"
               >
                 ONDE ESTAMOS
               </h3>
@@ -148,54 +213,59 @@
             </div>
           </a>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <main>
-        <section id="agenda">
-          <div class="section-header">
-            <h2 class="section-title">Próximos Eventos</h2>
-            <a href="agenda.html" class="section-link"
-              ><span>Ver Agenda Completa</span>
-              <i class="fa-solid fa-arrow-right-long"></i
-            ></a>
-          </div>
-          <div class="carousel-container" id="container-agenda"></div>
-        </section>
+    <div class="background-fixo-louvor">
+      <div class="pelicula-escura">
+        <main>
+          <section id="agenda">
+            <div class="section-header">
+              <h2 class="section-title">Próximos Eventos</h2>
+              <a href="agenda" class="section-link">
+                <span>Ver Agenda Completa</span>
+                <i class="fa-solid fa-arrow-right-long"></i>
+              </a>
+            </div>
+            <div class="carousel-container" id="container-agenda"></div>
+          </section>
 
-        <section id="pastoral">
-          <div class="section-header">
-            <h2 class="section-title">Palavra Pastoral</h2>
-            <a href="pastoral.html" class="section-link"
-              ><span>Ler Mais Artigos</span>
-              <i class="fa-solid fa-arrow-right-long"></i
-            ></a>
-          </div>
-          <div class="carousel-container" id="container-pastoral"></div>
-        </section>
+          <section id="pastoral">
+            <div class="section-header">
+              <h2 class="section-title">Palavra Pastoral</h2>
+              <a href="pastoral" class="section-link">
+                <span>Ler Mais Artigos</span>
+                <i class="fa-solid fa-arrow-right-long"></i>
+              </a>
+            </div>
+            <div class="carousel-container" id="container-pastoral"></div>
+          </section>
 
-        <section id="noticias">
-          <div class="section-header">
-            <h2 class="section-title">Últimas Notícias</h2>
-            <a href="noticias.html" class="section-link"
-              ><span>Ver Todas</span>
-              <i class="fa-solid fa-arrow-right-long"></i
-            ></a>
-          </div>
-          <div class="carousel-container" id="container-noticias"></div>
-        </section>
+          <section id="noticias">
+            <div class="section-header">
+              <h2 class="section-title">Últimas Notícias</h2>
+              <a href="noticias" class="section-link">
+                <span>Ver Todas</span>
+                <i class="fa-solid fa-arrow-right-long"></i>
+              </a>
+            </div>
+            <div class="carousel-container" id="container-noticias"></div>
+          </section>
 
-        <section id="missionarios">
-          <div class="section-header">
-            <h2 class="section-title">Nossos Missionários</h2>
-            <a href="missoes.html" class="section-link"
-              ><span>Conhecer Projetos</span>
-              <i class="fa-solid fa-arrow-right-long"></i
-            ></a>
-          </div>
-          <div class="carousel-container" id="container-missionarios"></div>
-        </section>
-      </main>
+          <section id="missionarios">
+            <div class="section-header">
+              <h2 class="section-title">Nossos Missionários</h2>
+              <a href="missoes" class="section-link">
+                <span>Conhecer Projetos</span>
+                <i class="fa-solid fa-arrow-right-long"></i>
+              </a>
+            </div>
+            <div class="carousel-container" id="container-missionarios"></div>
+          </section>
+        </main>
+      </div>
     </div>
+
     <template id="template-padrao">
       <div class="gallery-item">
         <a href="" class="card-link-wrapper">
@@ -230,7 +300,10 @@
         <div class="card-link-wrapper" style="cursor: default">
           <div class="card-image-box">
             <img src="" alt="Evento" loading="lazy" />
+
             <span class="date-badge">DATA</span>
+
+            <span class="time-badge" style="display: none"></span>
           </div>
           <div class="card-content">
             <h3 class="desc">Título</h3>
@@ -260,7 +333,9 @@
     <template id="template-pastoral">
       <div class="gallery-item">
         <a href="" class="card-link-wrapper">
-          <div class="card-image-box"><img src="" alt="" loading="lazy" /></div>
+          <div class="card-image-box">
+            <img src="" alt="" loading="lazy" />
+          </div>
           <div class="card-content">
             <h3 class="desc">Título</h3>
             <p class="short-desc"></p>
@@ -270,26 +345,26 @@
       </div>
     </template>
 
-    <a href="#" id="back-to-top" title="Voltar ao topo"
-      ><i class="fa-solid fa-arrow-up"></i
-    ></a>
+    <a href="#" id="back-to-top" title="Voltar ao topo">
+      <i class="fa-solid fa-arrow-up"></i>
+    </a>
 
     <footer>
       <div class="footer-content">
         <div class="footer-section brand">
           <h3>IECCP</h3>
           <p>
-            Uma Igreja para adorar a Deus, proclamar o evangelho e edificar a
-            igreja.
+            Uma Igreja para adorar a Deus, edificar os salvos e proclamar o
+            Evangelho.
           </p>
         </div>
 
         <div class="footer-section links">
           <h3>Navegação</h3>
           <ul>
-            <li><a href="sobre.html">Nossa História</a></li>
-            <li><a href="missoes.html">Missionários</a></li>
-            <li><a href="/sobre.html">Doutrinas</a></li>
+            <li><a href="sobre">Nossa História</a></li>
+            <li><a href="missoes">Missionários</a></li>
+            <li><a href="sobre">Doutrinas</a></li>
             <li>
               <a href="https://wa.me/+551231012589" target="_blank"
                 >Fale Conosco</a
@@ -299,12 +374,12 @@
         </div>
 
         <div class="footer-section contact">
-          <h3>Encontre-nos</h3>
+          <h3>Entre em contato</h3>
           <p>
             <i class="fa-solid fa-location-dot"></i>
             <a href="https://maps.app.goo.gl/pz23waNTkSb8d4Ru7">
-              R. Conselheiro Rodrigues Alves, 358, Cachoeira Paulista - SP,
-              12630-000</a
+              Av. Conselheiro Rodrigues Alves, 358, Cachoeira Paulista - SP,
+              12630-041</a
             >
           </p>
           <p>
@@ -331,10 +406,29 @@
         </div>
       </div>
     </div>
+
     <div id="cookie-banner" class="cookie-banner">
       <p>🍪 Usamos cookies para melhorar sua experiência.</p>
       <button id="btn-cookie-ok">Entendi</button>
     </div>
+
+    <script>
+      // Efeito Parallax no Hero
+      const hero = document.querySelector(".hero-section");
+      let ticking = false;
+
+      window.addEventListener("scroll", function () {
+        if (!ticking) {
+          window.requestAnimationFrame(function () {
+            let scrollPosition = window.pageYOffset;
+            hero.style.backgroundPosition =
+              "center calc(50% + " + scrollPosition * 0.4 + "px)";
+            ticking = false;
+          });
+          ticking = true;
+        }
+      });
+    </script>
 
     <script src="scripts/tema.js" defer></script>
     <script src="scripts/menu.js" defer></script>
