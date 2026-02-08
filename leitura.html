@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Carregando notícia... - IECCP</title>
+
+    <link rel="icon" type="image/svg+xml" href="img/ico.svg" />
+    <link rel="stylesheet" href="styles/global.css" />
+    <link rel="stylesheet" href="styles/header.css" />
+    <link rel="stylesheet" href="styles/pages.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Oswald"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <header>
+      <a href="index" class="branding">
+        <img
+          src="img/logo.png"
+          alt="Igreja Evangélica Congregacional de Cachoeira Paulista | IECCP"
+        />
+        IECCP
+      </a>
+      <nav>
+        <a
+          href="/"
+          style="font-size: 1rem; display: flex; align-items: center; gap: 8px"
+        >
+          <i class="fa-solid fa-arrow-left"></i> Voltar
+        </a>
+      </nav>
+    </header>
+
+    <main>
+      <article class="leitura-wrapper">
+        <header class="leitura-header">
+          <h1 id="titulo-noticia" class="leitura-title">Carregando...</h1>
+          <div class="leitura-data">
+            <i class="fa-regular fa-calendar"></i>
+            <span id="data-noticia">...</span>
+          </div>
+        </header>
+
+        <div class="leitura-img-container" id="box-img" style="display: none">
+          <img id="img-noticia" src="" alt="Capa da Notícia" />
+        </div>
+
+        <div id="texto-noticia" class="leitura-content"></div>
+      </article>
+    </main>
+
+    <footer>
+      <p>Criado por Matheus Andrade e Luiz Charleaux © 2026 – IECCP</p>
+    </footer>
+
+    <script>
+      async function carregarNoticia() {
+        const params = new URLSearchParams(window.location.search);
+        const idProcurado = params.get("id");
+
+        if (!idProcurado) {
+          document.getElementById("titulo-noticia").innerText =
+            "Notícia não encontrada.";
+          return;
+        }
+
+        try {
+          // Adicionei um timestamp (?v=...) para evitar que o navegador use cache velho do JSON
+          const resposta = await fetch(
+            "data/noticias.json?v=" + new Date().getTime(),
+          );
+          const noticias = await resposta.json();
+          const noticia = noticias.find((item) => item.id == idProcurado);
+
+          if (noticia) {
+            // Preenche Título
+            document.getElementById("titulo-noticia").innerText =
+              noticia.titulo;
+            document.title = noticia.titulo + " - IECCP";
+
+            // Preenche Texto
+            document.getElementById("texto-noticia").innerText = noticia.texto;
+
+            // Preenche Data (se tiver)
+            if (noticia.data) {
+              document.getElementById("data-noticia").innerText = noticia.data;
+            } else {
+              document.querySelector(".leitura-data").style.display = "none";
+            }
+
+            // Preenche Imagem
+            const img = document.getElementById("img-noticia");
+            const box = document.getElementById("box-img");
+            img.src = noticia.img;
+            box.style.display = "block"; // Mostra a caixa da imagem
+          } else {
+            document.getElementById("titulo-noticia").innerText =
+              "Notícia removida ou não encontrada.";
+          }
+        } catch (erro) {
+          console.error(erro);
+          document.getElementById("titulo-noticia").innerText =
+            "Erro ao carregar.";
+        }
+      }
+
+      carregarNoticia();
+    </script>
+    <script src="scripts/tema.js"></script>
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-G2YV5W8LW5"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-G2YV5W8LW5");
+    </script>
+  </body>
+</html>
