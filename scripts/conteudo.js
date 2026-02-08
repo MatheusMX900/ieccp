@@ -4,16 +4,14 @@ document.addEventListener("DOMContentLoaded", () => {
   initAgenda();
   initPastoral();
 
-  // Se estiver na página de feed de notícias
   if (document.getElementById("feed-container")) {
     carregarFeedNoticias();
   }
 });
 
-// --- FUNÇÃO DE BUSCA (COM ANTI-CACHE) ---
+// --- FUNÇÃO DE BUSCA ---
 async function fetchData(url) {
   try {
-    // Adiciona timestamp para forçar o navegador a pegar a versão nova do arquivo
     const urlComCache = `${url}?v=${Date.now()}`;
     const res = await fetch(urlComCache);
     if (!res.ok) throw new Error(`Erro ao carregar ${url}`);
@@ -24,33 +22,7 @@ async function fetchData(url) {
   }
 }
 
-// --- PASTORAL (AQUI ESTÁ A CORREÇÃO) ---
-async function initPastoral() {
-  const dados = await fetchData("data/pastoral.json");
-
-  if (dados && dados.length > 0) {
-    // 1. Carrega na Home (limite de 4)
-    renderizarCards(dados, "container-pastoral", "template-pastoral", 4);
-
-    // 2. Carrega na página pastoral.html (TODOS) - Este é o que faltava carregar
-    renderizarCards(dados, "container-todos-pastoral", "template-pastoral");
-  }
-}
-
-// --- OUTRAS INICIALIZAÇÕES ---
-async function initNoticias() {
-  const dados = await fetchData("data/noticias.json");
-  if (!dados) return;
-  renderizarCards(dados, "container-noticias", "template-padrao", 4);
-  renderizarCards(dados, "container-todas-noticias", "template-padrao");
-}
-
-async function initMissionarios() {
-  const dados = await fetchData("data/missionarios.json");
-  if (dados)
-    renderizarCards(dados, "container-missionarios", "template-missionarios");
-}
-
+// --- AGENDA (ATUALIZADA COM HORA E DATA FIM) ---
 async function initAgenda() {
   const dados = await fetchData("data/agenda.json");
   const container = document.getElementById("container-agenda");
@@ -65,32 +37,86 @@ async function initAgenda() {
     return;
   }
 
+  // Pega os próximos 6 eventos
   dados.slice(0, 6).forEach((ev) => {
     const clone = template.content.cloneNode(true);
 
-    // Imagem
     const img = clone.querySelector("img");
     if (img) {
       img.src = formatarImagem(ev.img);
       img.alt = ev.titulo;
     }
 
-    // Data e Texto
-    setText(clone, ".date-badge", ev.data);
+    // --- NOVA LÓGICA DE DATA E HORA ---
+    const textoData = formatarDataEvento(ev);
+    setText(clone, ".date-badge", textoData);
+
+    // Título e Local
     setText(clone, ".desc", ev.titulo);
     setText(clone, ".texto-local", ev.local);
 
-    // Remove descrição da agenda para ficar padrão
+    // Remove descrição curta da home (mantém limpo)
     const descEl = clone.querySelector(".short-desc");
     if (descEl) descEl.style.display = "none";
 
     // Link
     const linkWrap = clone.querySelector(".card-link-wrapper");
     if (linkWrap && ev.id)
-      linkWrap.href = `leitura.html?id=${ev.id}&tipo=agenda`;
+      linkWrap.href = `leitura.php?id=${ev.id}&tipo=agenda`;
 
     container.appendChild(clone);
   });
+}
+
+// --- FUNÇÃO INTELIGENTE PARA FORMATAR DATA/HORA ---
+function formatarDataEvento(ev) {
+  // Pega os dados novos OU o antigo (fallback)
+  const inicio = ev.data_inicio || ev.data;
+  const fim = ev.data_fim;
+  const hora = ev.hora_inicio;
+
+  if (!inicio) return "";
+
+  // Remove o ano (ex: 2026) para economizar espaço no card, se quiser
+  // Aqui vamos pegar só os 5 primeiros chars (dd/mm)
+  const dataCurta = inicio.substring(0, 5);
+
+  // CENÁRIO 1: Evento de vários dias (Retiro/Acampamento)
+  if (fim && fim !== inicio) {
+    const fimCurto = fim.substring(0, 5);
+    return `${dataCurta} a ${fimCurto}`;
+  }
+
+  // CENÁRIO 2: Evento com Hora (Culto/Reunião)
+  if (hora) {
+    return `${dataCurta} • ${hora}`;
+  }
+
+  // CENÁRIO 3: Só data simples
+  return dataCurta;
+}
+
+// --- PASTORAL ---
+async function initPastoral() {
+  const dados = await fetchData("data/pastoral.json");
+  if (dados && dados.length > 0) {
+    renderizarCards(dados, "container-pastoral", "template-pastoral", 4);
+    renderizarCards(dados, "container-todos-pastoral", "template-pastoral");
+  }
+}
+
+// --- NOTÍCIAS ---
+async function initNoticias() {
+  const dados = await fetchData("data/noticias.json");
+  if (!dados) return;
+  renderizarCards(dados, "container-noticias", "template-padrao", 4);
+  renderizarCards(dados, "container-todas-noticias", "template-padrao");
+}
+
+async function initMissionarios() {
+  const dados = await fetchData("data/missionarios.json");
+  if (dados)
+    renderizarCards(dados, "container-missionarios", "template-missionarios");
 }
 
 // --- RENDERIZADOR UNIVERSAL ---
@@ -122,7 +148,7 @@ function renderizarCards(lista, idContainer, idTemplate, maxItems = null) {
         if (idContainer.includes("pastoral")) tipo = "pastoral";
         if (idContainer.includes("agenda")) tipo = "agenda";
 
-        linkWrap.href = `leitura.html?id=${item.id}&tipo=${tipo}`;
+        linkWrap.href = `leitura.php?id=${item.id}&tipo=${tipo}`;
       } else {
         linkWrap.href = item.link || "#";
       }
@@ -131,7 +157,6 @@ function renderizarCards(lista, idContainer, idTemplate, maxItems = null) {
 
     setText(clone, ".desc", item.titulo);
 
-    // Remove descrição curta da listagem
     const descEl = clone.querySelector(".short-desc");
     if (descEl) descEl.remove();
 
@@ -141,7 +166,6 @@ function renderizarCards(lista, idContainer, idTemplate, maxItems = null) {
 
 // --- FEED DE NOTÍCIAS COMPLETO ---
 async function carregarFeedNoticias() {
-  // (O mesmo código que te passei antes para noticias.html, mantido aqui)
   const container = document.getElementById("feed-container");
   const template = document.getElementById("template-noticia");
   if (!container || !template) return;
@@ -155,9 +179,10 @@ async function carregarFeedNoticias() {
 
   dados.forEach((item) => {
     const clone = template.content.cloneNode(true);
-    // ... (preenchimento padrão) ...
+
     const link = clone.querySelector(".noticia-link");
-    if (link) link.href = `leitura.html?id=${item.id}&tipo=noticia`;
+    if (link) link.href = `leitura.php?id=${item.id}&tipo=noticia`;
+
     setText(clone, "h2", item.titulo);
     setText(clone, ".data-badge", item.data);
 
@@ -166,7 +191,7 @@ async function carregarFeedNoticias() {
 
     const divTexto = clone.querySelector(".texto-dinamico");
     const texto = item.texto || item.descricao || "";
-    if (divTexto) divTexto.innerText = texto.substring(0, 200) + "..."; // Resumo simples
+    if (divTexto) divTexto.innerText = texto.substring(0, 200) + "...";
 
     container.appendChild(clone);
   });
