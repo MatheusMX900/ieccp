@@ -1,14 +1,30 @@
+<?php
+// --- LÓGICA PHP (Fica invisível no topo) ---
+// Tenta ler o arquivo JSON gerado pelo script na pasta scripts/
+$caminhoCache = 'scripts/live_status.json'; 
+$dadosLive = ['is_live' => false];
+
+if (file_exists($caminhoCache)) {
+    $conteudo = @file_get_contents($caminhoCache);
+    if ($conteudo) {
+        $dadosLive = json_decode($conteudo, true);
+    }
+}
+?>
 <!doctype html>
 <html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>IECCP | Igreja Evangélica Congregacional</title>
-
+    
+    <meta name="keywords" content="igreja, evangelho, IECCP, cachoeira paulista, cristo, fe, deus, espirito santo, amor, comunhao, identidade">
     <meta
       name="description"
       content="IECCP - Uma família de fé em Cachoeira Paulista. Participe dos nossos cultos."
-    />
+    >
+    <meta name="author" content="Matheus Andrade, Luiz Charleaux">
+    <meta http-equiv="refresh" content="60">
 
     <link rel="icon" type="image/svg+xml" href="img/favicon2.png" />
 
@@ -94,6 +110,7 @@
     <section class="hero-section">
       <div class="wrapper">
         <div class="hero-grid">
+          
           <div class="master-card card-welcome">
             <span class="welcome-badge">Seja Bem-vindo</span>
             <h1 class="welcome-title">
@@ -105,28 +122,59 @@
             </p>
           </div>
 
-          <div class="master-card card-times">
-            <div class="times-header">
-              <h2>Nossos Horários</h2>
-              <i class="fa-regular fa-clock" style="font-size: 1.5rem"></i>
-            </div>
-            <div class="time-row">
-              <i class="fa-solid fa-bible"></i> <span>Dom 09h — EBD</span>
-            </div>
-            <div class="time-row">
-              <i class="fa-solid fa-bible"></i>
-              <span>Dom 10h20 — Culto da Manhã</span>
-            </div>
-            <div class="time-row">
-              <i class="fa-solid fa-church"></i>
-              <span>Dom 18h30 — Culto da Noite</span>
-            </div>
-            <div class="time-row">
-              <i class="fa-solid fa-hands-praying"></i>
-              <span>Qua 7h30 — Reunião de Oração</span>
-            </div>
-          </div>
+          <?php if (!empty($dadosLive['is_live']) && $dadosLive['is_live'] === true): ?>
+            
+            <div class="master-card card-live">
+                <div class="live-header">
+                    <div class="live-badge">
+                        <span class="pulse-dot"></span> AO VIVO
+                    </div>
+                    <i class="fa-brands fa-youtube icon-live"></i>
+                </div>
+                
+                <h3 class="live-title">
+                    <?php echo htmlspecialchars($dadosLive['titulo']); ?>
+                </h3>
 
+                <div class="video-responsive">
+                    <iframe 
+                        src="https://www.youtube.com/embed/<?php echo $dadosLive['video_id']; ?>?autoplay=1&mute=1" 
+                        title="Culto Ao Vivo" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                
+                <a href="https://youtube.com/watch?v=<?php echo $dadosLive['video_id']; ?>" target="_blank" class="btn-assistir">
+                   Assistir no YouTube
+                </a>
+            </div>
+
+          <?php else: ?>
+
+            <div class="master-card card-times">
+              <div class="times-header">
+                <h2>Nossos Horários</h2>
+                <i class="fa-regular fa-clock" style="font-size: 1.5rem"></i>
+              </div>
+              <div class="time-row">
+                <i class="fa-solid fa-bible"></i> <span>Dom 09h — EBD</span>
+              </div>
+              <div class="time-row">
+                <i class="fa-solid fa-bible"></i>
+                <span>Dom 10h20 — Culto da Manhã</span>
+              </div>
+              <div class="time-row">
+                <i class="fa-solid fa-church"></i>
+                <span>Dom 18h30 — Culto da Noite</span>
+              </div>
+              <div class="time-row">
+                <i class="fa-solid fa-hands-praying"></i>
+                <span>Qua 7h30 — Reunião de Oração</span>
+              </div>
+            </div>
+
+          <?php endif; ?>
           <div class="master-card card-verse">
             <i
               class="fa-solid fa-quote-left quote-icon"
@@ -157,7 +205,7 @@
                 "
               ></i>
               <h3
-                style="font-family: &quot;Oswald&quot;, sans-serif; margin: 0"
+                style="font-family: 'Oswald', sans-serif; margin: 0"
               >
                 ONDE ESTAMOS
               </h3>
