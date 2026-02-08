@@ -2,7 +2,7 @@
   {
     "titulo": "Aurino e Dani",
     "img": "../img/missionarios/aurino_familia.png",
-    "link": "/missionarios/aurino.html",
+    "link": "/missionarios/aurino",
     "descricao": "Missionários em Moçambique, ministério Palavra da Vida"
   },
   {
@@ -14,7 +14,7 @@
   {
     "titulo": "John e Rebecah",
     "img": "../img/missionarios/rebecah_john_familia.png",
-    "link": "/missionarios/rebecah.html",
+    "link": "/missionarios/rebecah",
     "descricao": "Aldeia Palimi-U-RR, missão MEVA"
   },
   {
@@ -26,7 +26,7 @@
   {
     "titulo": "Ricardo e Flávia",
     "img": "../img/missionarios/ricardo.png",
-    "link": "/missionarios/ricardo.html",
+    "link": "/missionarios/ricardo",
     "descricao": "Comunidades indígenas NE, UNIEDAS"
   },
   {
