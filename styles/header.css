@@ -1,40 +1,44 @@
-/* =========================================
-   HEADER E NAVEGAÇÃO
-   ========================================= */
+/* HEADER E NAVEGAÇÃO */
 header {
-  height: 70px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center !important;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  width: 100%;
+  height: 80px;
   padding: 0 5%;
   background-color: var(--header-bg);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  width: 100%;
-
-  /* Força texto branco no header independente do tema */
-  color: white !important;
+  color: white;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-/* Links dentro do Header */
 header a {
-  color: white !important;
-  font-size: 25px;
-  font-family: "Poppins", sans-serif;
-  font-weight: bolder;
-  text-decoration: none;
+  color: white;
+  font-family: "Oswald", sans-serif;
+  font-weight: 500;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
   transition: color 0.3s;
+}
+
+header nav ul li a:hover {
+  color: var(--secondary);
 }
 
 .branding {
   display: flex;
   align-items: center;
   gap: 15px;
+  font-size: 1.4rem;
+  z-index: 1001;
 }
 
 .branding img {
-  width: 60px;
+  width: 45px;
   height: auto;
 }
 
@@ -42,47 +46,36 @@ nav ul {
   display: flex;
   align-items: center;
   gap: 25px;
-  margin: 0;
-  padding: 0;
   list-style: none;
 }
 
-nav a {
-  font-weight: 300;
-  font-size: 16px;
-}
-
-/* Botão de Tema */
+/* BOTÃO DE TEMA */
 #btn-tema {
-  background: transparent;
-  border: none;
+  width: 35px;
+  height: 35px;
+  background: rgba(255, 255, 255, 0.15);
   color: white;
-  padding: 5px;
-  border-radius: 5px;
+  border: none;
+  border-radius: 50%;
   cursor: pointer;
-  font-size: 1.5rem;
-  margin-left: 20px;
-  transition: transform 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
 }
 
-#btn-tema:hover {
-  transform: rotate(20deg);
-  color: var(--secondary);
-}
-
+/* MENU MOBILE (BOTÃO HAMBÚRGUER) */
 #btn-mobile {
   display: none;
-  background: none;
-  border: none;
-  cursor: pointer;
-
-  width: 32px;
-  height: 24px;
-  padding: 0;
-  z-index: 1100;
-
   flex-direction: column;
   justify-content: space-between;
+  width: 30px;
+  height: 24px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  z-index: 1001;
 }
 
 #btn-mobile div {
@@ -90,24 +83,23 @@ nav a {
   height: 3px;
   background-color: white;
   border-radius: 2px;
-  transition: all 0.3s ease-in-out;
-  transform-origin: center;
+  transition: 0.3s;
 }
 
 #btn-mobile.active .line1 {
   transform: translateY(10.5px) rotate(45deg);
 }
-
 #btn-mobile.active .line2 {
   opacity: 0;
 }
-
 #btn-mobile.active .line3 {
   transform: translateY(-10.5px) rotate(-45deg);
 }
 
-@media (max-width: 810px) {
+/* RESPONSIVIDADE */
+@media (max-width: 900px) {
   header {
+    height: 70px;
     padding: 0 20px;
   }
 
@@ -115,51 +107,53 @@ nav a {
     display: none;
   }
 
-  #menu {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    position: fixed;
-    width: 100%;
-    top: 70px;
-    right: -100%;
-    bottom: 0;
-    background-color: var(--header-bg);
-    transition: 0.4s;
-    z-index: 1000;
-    margin: 0;
-    padding: 0;
-  }
-
-  #menu.active {
-    right: 0;
-  }
   #btn-mobile {
     display: flex;
   }
 
   #menu {
-    display: block;
     position: fixed;
+    top: 0;
+    right: 0;
     width: 100%;
-    top: 70px;
-    right: -100%;
-    bottom: 0;
-    background-color: var(--header-bg);
-    transition: 0.4s;
-    z-index: 1000;
+    height: 100vh;
+
+    background: var(--header-bg);
+    box-shadow: 20px 20px 40px -6px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(9.5px);
+    -webkit-backdrop-filter: blur(9.5px);
 
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 20px;
-    margin: 0;
-    padding: 0;
+    padding-top: 100px;
+    transform: translateX(100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000;
+    overflow-y: auto;
   }
+
   #menu.active {
-    right: 0;
+    transform: translateX(0);
+  }
+
+  #menu li {
+    width: 100%;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  #menu li a {
+    display: block;
+    padding: 20px;
+    font-size: 1.3rem;
+    text-align: center;
+  }
+
+  #btn-tema {
+    margin: 20px auto;
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+    background-color: rgba(255, 255, 255, 0.1);
   }
 }
