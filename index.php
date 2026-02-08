@@ -280,7 +280,7 @@ if (file_exists($caminhoCache)) {
       </div>
     </template>
 
-    <template id="template-missionarios">
+    <template id="template-missionarios"> 
       <div class="gallery-item">
         <a href="" class="card-link-wrapper">
           <div class="card-image-box">
