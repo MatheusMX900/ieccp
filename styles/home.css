@@ -1,4 +1,4 @@
-/* HOME STYLE - VERSÃO OTIMIZADA */
+/* HOME STYLE - VERSÃO OTIMIZADA COM MODO CINEMA */
 
 :root {
   --radius-master: 16px;
@@ -61,19 +61,18 @@ body {
   gap: 24px;
 }
 
-/* --- ESTILOS DO CARD AO VIVO --- */
+/* --- ESTILOS DO CARD AO VIVO (Versão Pequena/Legado) --- */
 
 .card-live {
     background: #fff;
-    border: 2px solid #ff0000; /* Borda vermelha para destaque */
+    border: 2px solid #ff0000;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     gap: 10px;
-    padding: 20px; /* Garante espaçamento interno igual aos outros */
+    padding: 20px;
 }
 
-/* Cabeçalho "AO VIVO" */
 .live-header {
     display: flex;
     justify-content: space-between;
@@ -92,7 +91,6 @@ body {
     gap: 8px;
 }
 
-/* Animação da bolinha piscando */
 .pulse-dot {
     display: block;
     width: 8px;
@@ -113,22 +111,20 @@ body {
     font-size: 1.5rem;
 }
 
-/* Título do vídeo */
 .live-title {
     font-size: 1rem;
-    color: #333;
+    color: var(--text-color);
     margin: 0;
     line-height: 1.3;
     display: -webkit-box;
-    -webkit-line-clamp: 2; /* Limita texto a 2 linhas */
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
 
-/* Vídeo Responsivo (Mantém formato 16:9) */
 .video-responsive {
     position: relative;
-    padding-bottom: 56.25%; /* Proporção 16:9 */
+    padding-bottom: 56.25%;
     height: 0;
     overflow: hidden;
     border-radius: 8px;
@@ -144,7 +140,6 @@ body {
     border: 0;
 }
 
-/* Botão Vermelho */
 .btn-assistir {
     background-color: #cc0000;
     color: white;
@@ -162,10 +157,6 @@ body {
 }
 
 /* PARALLAX */
-.background-fixo-louvor {
-  width: 100%;
-}
-
 .pelicula-escura {
   padding-top: 60px;
   padding-bottom: 60px;
@@ -188,7 +179,7 @@ body {
   height: 100vh;
   overflow-x: hidden;
   overflow-y: auto;
-  perspective: 10px; /* Força do 3D */
+  perspective: 10px;
 }
 
 .secao-parallax {
@@ -204,18 +195,15 @@ body {
   right: 0;
   bottom: 0;
   z-index: -1;
-
   background-size: cover;
   background-position: center top;
   background-repeat: no-repeat;
-
   transform: translateZ(-10px) scale(2);
 }
 
 .conteudo-sobreposto {
   position: relative;
   z-index: 2;
-  /* background-color: rgba(26, 26, 26, 0.92); */
   padding-bottom: 40px;
 }
 
@@ -485,4 +473,136 @@ body {
   .gallery-item {
     width: 85vw;
   }
+}
+
+/* =========================================
+   MODO CINEMA (LAYOUT EXPANDIDO PARA LIVE)
+   ========================================= */
+
+/* Transforma o Grid em uma coluna única e centralizada */
+.hero-grid.mode-live {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1000px; /* Evita que fique esticado demais em monitores ultrawide */
+    margin: 0 auto;
+}
+
+/* O Card Gigante */
+.card-live-big {
+    background: #000;
+    border: 2px solid #ff0000;
+    padding: 0;
+    overflow: hidden;
+    color: white;
+    box-shadow: 0 0 40px rgba(255, 0, 0, 0.2); /* Brilho vermelho suave */
+}
+
+/* Cabeçalho da Live */
+.live-header-big {
+    padding: 20px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(90deg, #111 0%, #1a1a1a 100%);
+    border-bottom: 1px solid #333;
+}
+
+.live-status {
+    color: #ff0000;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.1rem;
+    font-family: 'Oswald', sans-serif;
+    letter-spacing: 1px;
+}
+
+.live-title-big {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 1.2rem;
+    margin: 0;
+    color: #eee;
+}
+
+/* Container de Vídeo Gigante (Mantém 16:9) */
+.video-container-big {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 */
+    height: 0;
+    background: black;
+}
+
+.video-container-big iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+/* Rodapé do Card */
+.live-footer-big {
+    padding: 20px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #111;
+    flex-wrap: wrap;
+    gap: 15px;
+    border-top: 1px solid #222;
+}
+
+.live-footer-big p {
+    margin: 0;
+    color: #aaa;
+    font-size: 0.95rem;
+}
+
+.btn-youtube-big {
+    background: #ff0000;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: 0.3s;
+    font-family: 'Oswald', sans-serif;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+
+.btn-youtube-big:hover {
+    background: #cc0000;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+}
+
+/* Ajuste Mobile para o Modo Cinema */
+@media (max-width: 768px) {
+    .live-header-big {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+    
+    .live-title-big {
+        font-size: 1rem;
+        line-height: 1.4;
+    }
+
+    .live-footer-big {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .btn-youtube-big {
+        width: 100%;
+        justify-content: center;
+    }
 }

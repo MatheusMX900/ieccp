@@ -16,7 +16,7 @@ if (file_exists($caminhoCache)) {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>IECCP | Igreja Evangélica Congregacional</title>
+    <title>Portal IECCP</title>
     
     <meta name="keywords" content="igreja, evangelho, IECCP, cachoeira paulista, cristo, fe, deus, espirito santo, amor, comunhao, identidade">
     <meta
@@ -24,7 +24,6 @@ if (file_exists($caminhoCache)) {
       content="IECCP - Uma família de fé em Cachoeira Paulista. Participe dos nossos cultos."
     >
     <meta name="author" content="Matheus Andrade, Luiz Charleaux">
-    <meta http-equiv="refresh" content="60">
 
     <link rel="icon" type="image/svg+xml" href="img/favicon2.png" />
 
@@ -109,48 +108,55 @@ if (file_exists($caminhoCache)) {
 
     <section class="hero-section">
       <div class="wrapper">
-        <div class="hero-grid">
+        
+        <?php 
+          // Variável auxiliar para limpar o código
+          $temLive = !empty($dadosLive['is_live']) && $dadosLive['is_live'] === true;
+        ?>
+
+        <div class="hero-grid <?php echo $temLive ? 'mode-live' : ''; ?>">
           
-          <div class="master-card card-welcome">
-            <span class="welcome-badge">Seja Bem-vindo</span>
-            <h1 class="welcome-title">
-              Glorificar, Edificar <br />& Proclamar
-            </h1>
-            <p class="welcome-text">
-              Uma comunidade viva em Cachoeira Paulista, pronta para te receber
-              de braços abertos.
-            </p>
-          </div>
-
-          <?php if (!empty($dadosLive['is_live']) && $dadosLive['is_live'] === true): ?>
+          <?php if ($temLive): ?>
             
-            <div class="master-card card-live">
-                <div class="live-header">
-                    <div class="live-badge">
-                        <span class="pulse-dot"></span> AO VIVO
+            <div class="master-card card-live-big">
+                <div class="live-header-big">
+                    <div class="live-status">
+                        <span class="pulse-dot"></span> AO VIVO AGORA
                     </div>
-                    <i class="fa-brands fa-youtube icon-live"></i>
+                    <h2 class="live-title-big">
+                        <?php echo htmlspecialchars($dadosLive['titulo']); ?>
+                    </h2>
                 </div>
-                
-                <h3 class="live-title">
-                    <?php echo htmlspecialchars($dadosLive['titulo']); ?>
-                </h3>
 
-                <div class="video-responsive">
+                <div class="video-container-big">
                     <iframe 
-                        src="https://www.youtube.com/embed/<?php echo $dadosLive['video_id']; ?>?autoplay=1&mute=1" 
+                        src="https://www.youtube.com/embed/<?php echo $dadosLive['video_id']; ?>?autoplay=1&mute=0" 
                         title="Culto Ao Vivo" 
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                         allowfullscreen>
                     </iframe>
                 </div>
                 
-                <a href="https://youtube.com/watch?v=<?php echo $dadosLive['video_id']; ?>" target="_blank" class="btn-assistir">
-                   Assistir no YouTube
-                </a>
+                <div class="live-footer-big">
+                    <p>Você está assistindo ao culto online da IECCP.</p>
+                    <a href="https://youtube.com/watch?v=<?php echo $dadosLive['video_id']; ?>" target="_blank" class="btn-youtube-big">
+                       <i class="fa-brands fa-youtube"></i> Abrir Chat no YouTube
+                    </a>
+                </div>
             </div>
 
           <?php else: ?>
+
+            <div class="master-card card-welcome">
+                <span class="welcome-badge">Seja Bem-vindo</span>
+                <h1 class="welcome-title">
+                  Glorificar, Edificar <br />& Proclamar
+                </h1>
+                <p class="welcome-text">
+                  Uma comunidade viva em Cachoeira Paulista, pronta para te receber
+                  de braços abertos.
+                </p>
+            </div>
 
             <div class="master-card card-times">
               <div class="times-header">
@@ -174,47 +180,26 @@ if (file_exists($caminhoCache)) {
               </div>
             </div>
 
-          <?php endif; ?>
-          <div class="master-card card-verse">
-            <i
-              class="fa-solid fa-quote-left quote-icon"
-              style="font-size: 3rem; color: rgba(255, 204, 0, 0.4)"
-            ></i>
-            <p class="verse-text">
-              "Alegrei-me quando me disseram: vamos à casa do Senhor"
-            </p>
-            <span
-              class="verse-ref"
-              style="color: var(--secondary); font-weight: 800"
-              >SALMOS 122:1</span
-            >
-          </div>
-
-          <a
-            href="https://maps.app.goo.gl/pz23waNTkSb8d4Ru7"
-            target="_blank"
-            class="master-card card-map"
-          >
-            <div class="map-overlay">
-              <i
-                class="fa-solid fa-location-dot"
-                style="
-                  font-size: 2rem;
-                  margin-bottom: 10px;
-                  color: var(--secondary);
-                "
-              ></i>
-              <h3
-                style="font-family: 'Oswald', sans-serif; margin: 0"
-              >
-                ONDE ESTAMOS
-              </h3>
-              <span class="btn-map">Ver Rotas</span>
+            <div class="master-card card-verse">
+                <i class="fa-solid fa-quote-left quote-icon" style="font-size: 3rem; color: rgba(255, 204, 0, 0.4)"></i>
+                <p class="verse-text">"Alegrei-me quando me disseram: vamos à casa do Senhor"</p>
+                <span class="verse-ref" style="color: var(--secondary); font-weight: 800">SALMOS 122:1</span>
             </div>
-          </a>
+
+            <a href="https://maps.app.goo.gl/pz23waNTkSb8d4Ru7" target="_blank" class="master-card card-map">
+                <div class="map-overlay">
+                  <i class="fa-solid fa-location-dot" style="font-size: 2rem; margin-bottom: 10px; color: var(--secondary);"></i>
+                  <h3 style="font-family: 'Oswald', sans-serif; margin: 0">ONDE ESTAMOS</h3>
+                  <span class="btn-map">Ver Rotas</span>
+                </div>
+            </a>
+
+          <?php endif; ?>
+          
         </div>
       </div>
     </section>
+
 
     <div class="background-fixo-louvor">
       <div class="pelicula-escura">
@@ -411,6 +396,53 @@ if (file_exists($caminhoCache)) {
       <p>🍪 Usamos cookies para melhorar sua experiência.</p>
       <button id="btn-cookie-ok">Entendi</button>
     </div>
+
+    <div id="modal-install" class="modal-overlay" style="display: none;">
+      <div class="modal-box">
+        <h3>Instale o App da IECCP 📲</h3>
+        <p>Acesse a agenda, cultos e notícias direto da sua tela inicial, sem ocupar espaço.</p>
+        <div class="modal-botoes">
+          <button id="btn-install-nao" class="btn-secundario">Agora não</button>
+          <button id="btn-install-sim" class="btn-primario">Instalar</button>
+        </div>
+      </div>
+    </div>
+
+<script>
+      let deferredPrompt;
+      const installModal = document.getElementById('modal-install');
+      const btnInstallSim = document.getElementById('btn-install-sim');
+      const btnInstallNao = document.getElementById('btn-install-nao');
+
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        
+        // Só mostra se o usuário ainda não interagiu
+        if (!localStorage.getItem('pwa_interagiu')) {
+            installModal.style.display = 'flex';
+        }
+      });
+
+      // Lógica do botão "SIM" (Instalar)
+      btnInstallSim.addEventListener('click', async () => {
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          const { outcome } = await deferredPrompt.userChoice;
+          console.log(`Usuário escolheu: ${outcome}`);
+          deferredPrompt = null;
+        }
+        // Fecha e salva a decisão
+        installModal.style.display = 'none';
+        localStorage.setItem('pwa_interagiu', 'true');
+      });
+
+      // Lógica do botão "NÃO" (Agora Não)
+      btnInstallNao.addEventListener('click', () => {
+        installModal.style.display = 'none';
+        localStorage.setItem('pwa_interagiu', 'true');
+      });
+    </script>
 
     <script>
       // Efeito Parallax no Hero
