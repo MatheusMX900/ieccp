@@ -24,7 +24,7 @@
       line-height: 1.6;
     }
 
-    /* Container Principal */
+    /* --- Container Principal --- */
     .page-content {
       max-width: 1200px;
       margin: 0 auto;
@@ -47,7 +47,7 @@
       font-size: 1.8rem;
     }
 
-    /* --- Seção de Apresentação (Bio + Família) --- */
+    /* --- Seção de Apresentação --- */
     .intro-section {
       display: grid;
       grid-template-columns: 1.2fr 0.8fr;
@@ -66,7 +66,7 @@
       flex-direction: column;
       gap: 20px;
       align-items: center;
-      padding: 50px 50px;
+      padding: 20px;
     }
 
     .photo-frame {
@@ -74,6 +74,7 @@
       overflow: hidden;
       box-shadow: var(--card-shadow);
       transition: transform 0.3s ease;
+      width: 100%;
     }
 
     .photo-frame:hover {
@@ -87,7 +88,6 @@
       object-fit: cover;
     }
 
-    /* Estilo para o mapa ou logo da missão */
     .map-container {
       max-width: 250px;
       margin: 0 auto;
@@ -95,17 +95,17 @@
       border-radius: 8px;
     }
 
-    /* --- Seção Galeria (Grid) --- */
+    /* --- Seção Galeria --- */
     .gallery-section {
       background-color: var(--bg-light);
-      padding: 200px;
+      padding: 60px 40px; /* Reduzido de 200px para ser usável */
       border-radius: 20px;
       margin-bottom: 60px;
     }
 
     .gallery-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 20px;
     }
 
@@ -146,12 +146,12 @@
       opacity: 1;
     }
 
-    /* --- Seção Final (Texto + Imagem Destaque) --- */
+    /* --- Seção Final --- */
     .accountability-section {
       display: flex;
       gap: 50px;
       background: #fff;
-      padding: 20px 40px;
+      padding: 20px 0px;
       align-items: flex-start;
     }
 
@@ -163,7 +163,7 @@
     .media-column-highlight {
       flex: 0.8;
       position: sticky;
-      top: 2000px;
+      top: 20px; /* Corrigido de 2000px */
     }
 
     .highlight-frame {
@@ -181,24 +181,44 @@
         display: block;
     }
 
-    /* --- Responsividade --- */
+    /* --- RESPONSIVIDADE --- */
     @media (max-width: 900px) {
-      .intro-section, 
-      .accountability-section {
-        grid-template-columns: 1fr;
-        display: flex;
-        flex-direction: column;
+      .page-content {
+        padding: 60px 20px;
+      }
+
+      .intro-section {
+        grid-template-columns: 1fr; /* Muda para 1 coluna */
+        gap: 30px;
       }
 
       .intro-images {
-        order: -1;
-        width: 100%;
+        order: -1; /* Imagem aparece antes do texto no celular */
+        padding: 0;
       }
-      
+
+      .accountability-section {
+        flex-direction: column; /* Stack vertical */
+        gap: 30px;
+      }
+
       .media-column-highlight {
         width: 100%;
-        margin-top: 20px;
-        position: static;
+        position: static; /* Remove o sticky no mobile */
+      }
+
+      .gallery-section {
+        padding: 40px 20px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.8rem;
+      }
+      
+      .gallery-grid {
+        grid-template-columns: 1fr; /* Coluna única em telas muito pequenas */
       }
     }
   </style>
