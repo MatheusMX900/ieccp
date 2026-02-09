@@ -24,7 +24,7 @@
       line-height: 1.6;
     }
 
-    /* Container Principal */
+    /* --- Container Principal --- */
     .page-content {
       max-width: 1200px;
       margin: 0 auto;
@@ -47,7 +47,7 @@
       font-size: 1.8rem;
     }
 
-    /* --- Seção de Apresentação (Bio + Família) --- */
+    /* --- Seção de Apresentação --- */
     .intro-section {
       display: grid;
       grid-template-columns: 1.2fr 0.8fr;
@@ -74,6 +74,7 @@
       overflow: hidden;
       box-shadow: var(--card-shadow);
       transition: transform 0.3s ease;
+      width: 100%;
     }
 
     .photo-frame:hover {
@@ -87,7 +88,6 @@
       object-fit: cover;
     }
 
-    /* Estilo para o mapa ou logo da missão */
     .map-container {
       max-width: 250px;
       margin: 0 auto;
@@ -95,58 +95,7 @@
       border-radius: 8px;
     }
 
-    /* --- Seção Galeria (Grid) --- */
-    .gallery-section {
-      background-color: var(--bg-light);
-      padding: 40px;
-      border-radius: 20px;
-      margin-bottom: 60px;
-    }
-
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-    }
-
-    .gallery-item {
-      position: relative;
-      border-radius: 10px;
-      overflow: hidden;
-      height: 250px;
-      box-shadow: var(--card-shadow);
-    }
-
-    .gallery-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.5s ease;
-    }
-
-    .gallery-item:hover img {
-      transform: scale(1.05);
-    }
-
-    .gallery-caption {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: rgba(0, 0, 0, 0.7);
-      color: #fff;
-      padding: 10px;
-      font-size: 0.9rem;
-      text-align: center;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .gallery-item:hover .gallery-caption {
-      opacity: 1;
-    }
-
-    /* --- Seção Final (Texto + Imagem/Video Destaque) --- */
+    /* --- Seção Prestação de Contas --- */
     .accountability-section {
       display: flex;
       gap: 50px;
@@ -163,7 +112,7 @@
     .media-column-highlight {
       flex: 0.8;
       position: sticky;
-      top: 20px; /* Ajustei de 2000px para 20px para funcionar o sticky corretamente */
+      top: 20px;
     }
 
     .highlight-frame {
@@ -172,35 +121,50 @@
       border-radius: 12px;
       box-shadow: var(--card-shadow);
       overflow: hidden;
-      background: #000; /* Fundo preto para o vídeo */
+      background: #000;
     }
     
     .highlight-frame img,
     .highlight-frame video {
         width: 100%;
-        height: 100%; /* Ajuste para preencher */
+        height: 100%;
         object-fit: cover;
         display: block;
     }
 
-    /* --- Responsividade --- */
+    /* --- RESPONSIVIDADE --- */
     @media (max-width: 900px) {
-      .intro-section, 
-      .accountability-section {
-        grid-template-columns: 1fr;
-        display: flex;
-        flex-direction: column;
+      .page-content {
+        padding: 60px 20px; /* Reduz o padding lateral e superior no mobile */
+      }
+
+      .intro-section {
+        grid-template-columns: 1fr; /* Muda de colunas para uma lista única */
+        gap: 20px;
       }
 
       .intro-images {
-        order: -1;
-        width: 100%;
+        padding: 20px 0; /* Remove o padding exagerado de 50px */
+        order: -1; /* Coloca a foto do Ricardo antes do texto biográfico */
       }
-      
+
+      .accountability-section {
+        flex-direction: column; /* Empilha texto e vídeo */
+        padding: 20px 0;
+        gap: 30px;
+      }
+
       .media-column-highlight {
         width: 100%;
-        margin-top: 20px;
-        position: static;
+        position: static; /* Desativa o sticky para não flutuar no mobile */
+      }
+
+      .highlight-frame {
+        min-height: auto; /* Deixa o vídeo ditar a altura naturalmente */
+      }
+
+      h1 {
+        font-size: 2rem;
       }
     }
   </style>
