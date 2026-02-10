@@ -19,17 +19,24 @@ function compress($source, $destination)
     }
 }
 
-function enviarNotificacaoOneSignal($titulo, $mensagem)
+// Substitua sua função enviarNotificacaoOneSignal por esta versão melhorada:
+
+function enviarNotificacaoOneSignal($titulo, $mensagem, $url = null)
 {
-    $appId = "574229ff-3df7-474b-8e1c-4d6d3bca5ade";
-    $restApiKey = " :) ";
+    $appId = "574229ff-3df7-474b-8e1c-4d6d3bca5ade"; // Seu App ID está certo
+    $restApiKey = "os_v2_app_k5bct7z565duxdq4jvwtxss232mo3oxmhazeb7mjnxyicwu6nz7dyav6t4ld2ntdse6tyho2srptruqenlh6kyasskdxk272bs34hpa"; // <--- AQUI ESTAVA O :)
 
     $fields = [
         'app_id' => $appId,
-        'included_segments' => ['All'], // Manda para todos
+        'included_segments' => ['All'],
         'headings' => ["en" => $titulo],
         'contents' => ["en" => $mensagem]
     ];
+
+    // Se passarmos um link, adiciona ele na notificação
+    if ($url) {
+        $fields['url'] = $url;
+    }
 
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, "https://onesignal.com/api/v1/notifications");
@@ -44,6 +51,8 @@ function enviarNotificacaoOneSignal($titulo, $mensagem)
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
 
     $response = curl_exec($ch);
+    curl_close($ch);
+
     return $response;
 }
 
